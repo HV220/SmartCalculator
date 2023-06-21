@@ -7,7 +7,15 @@
 #include <QVector>
 
 class CalculatorModel {
-private:
+
+public:
+  struct Operators {
+  public:
+     static const QMap<QString, int> operators;
+     static int checkPriority(const QString &lexem) noexcept;
+     static int isOperatorOrFunc(const QString &opr) noexcept;
+    };
+
   class Calculation {
   private:
     QString expression;
@@ -21,35 +29,22 @@ private:
     QString getExpression() noexcept;
     QVector<QString> getLexems() noexcept;
     double getData() noexcept;
-    void setLexems(QVector<QString> lexems) noexcept;
-    void setLastLexem(QString lexem) noexcept;
-    void setData(double data) noexcept;
-    void setExpression(QString expression) noexcept;
+    void setExpression(QString expression);
+    void setLexem(QString lexem);
+    void validateExpression();
+    void calculate();
+    void clearCalculation();
   };
 
 public:
   QVector<Calculation> getCalculations() noexcept;
-  Calculation *getLastCalculation();
-  QMap<QString, int> getOperators() noexcept;
+  Calculation getLastCalculation();
   void setCalculations(QVector<Calculation> calculations) noexcept;
   void setLastCalculation(Calculation calculation) noexcept;
-
-  void addExpression(const QString &str);
-  void calculateExpression();
-  void validateLastExpression();
   void reset();
 
 private:
-  int checkPriority(const QString &lexem) noexcept;
-  int isOperatorOrFunc(const QString &opr) noexcept;
-
   QVector<Calculation> calculations{};
-
-  const QMap<QString, int> operators{
-      {"(", 1},    {")", 1},   {"+", 2},    {"-", 2},    {"*", 3},
-      {"/", 3},    {"mod", 3}, {"log", 3},  {"ln", 3},   {"sin", 3},
-      {"cos", 3},  {"tan", 3}, {"asin", 3}, {"acos", 3}, {"atan", 3},
-      {"sqrt", 3}, {"pi", 4},  {"x", 4},    {"^", 4}};
 };
 
 #endif // CALCULATORMODEL_H
