@@ -52,13 +52,13 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../Calculator/Model/calculatorModel.cpp \
+SOURCES       = ../Calculator/common/model/calculator/sourses/calculator-model.cpp \
 		../Calculator/main.cpp \
-		../Calculator/Controller/calculatorController.cpp moc_calculatorController.cpp
-OBJECTS       = calculatorModel.o \
+		../Calculator/calculator/controller/sourses/calculator-controller.cpp moc_calculator-controller.cpp
+OBJECTS       = calculator-model.o \
 		main.o \
-		calculatorController.o \
-		moc_calculatorController.o
+		calculator-controller.o \
+		moc_calculator-controller.o
 DIST          = /opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/spec_pre.prf \
 		/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/common/unix.conf \
 		/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/common/linux.conf \
@@ -245,7 +245,6 @@ DIST          = /opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/spec_pre.prf \
 		/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/qt_config.prf \
 		/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/spec_post.prf \
-		../Calculator/.qmake.stash \
 		/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/toolchain.prf \
 		/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/default_pre.prf \
@@ -266,10 +265,10 @@ DIST          = /opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/spec_pre.prf \
 		/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/exceptions.prf \
 		/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/yacc.prf \
 		/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/lex.prf \
-		../Calculator/Calculator.pro ../Calculator/Controller/calculatorController.h \
-		../Calculator/Model/calculatorModel.h ../Calculator/Model/calculatorModel.cpp \
+		../Calculator/Calculator.pro ../Calculator/calculator/controller/headers/calculator-controller.h \
+		../Calculator/common/model/calculator/headers/calculator-model.h ../Calculator/common/model/calculator/sourses/calculator-model.cpp \
 		../Calculator/main.cpp \
-		../Calculator/Controller/calculatorController.cpp
+		../Calculator/calculator/controller/sourses/calculator-controller.cpp
 QMAKE_TARGET  = Calculator
 DESTDIR       = 
 TARGET        = Calculator
@@ -278,7 +277,7 @@ TARGET        = Calculator
 first: all
 ####### Build rules
 
-Calculator: ui_calculator.h $(OBJECTS)  
+Calculator: ui_main.h $(OBJECTS)  
 	$(LINK) $(LFLAGS) -o $(TARGET) $(OBJECTS) $(OBJCOMP) $(LIBS)
 
 Makefile: ../Calculator/Calculator.pro /opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/linux-g++/qmake.conf /opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/spec_pre.prf \
@@ -467,7 +466,6 @@ Makefile: ../Calculator/Calculator.pro /opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/linux
 		/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/qt_config.prf \
 		/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/spec_post.prf \
-		.qmake.stash \
 		/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/toolchain.prf \
 		/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/default_pre.prf \
@@ -676,7 +674,6 @@ Makefile: ../Calculator/Calculator.pro /opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/linux
 /opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/qt_config.prf:
 /opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/linux-g++/qmake.conf:
 /opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/spec_post.prf:
-.qmake.stash:
 /opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/exclusive_builds.prf:
 /opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/toolchain.prf:
 /opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/default_pre.prf:
@@ -713,9 +710,9 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../Calculator/Controller/calculatorController.h ../Calculator/Model/calculatorModel.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../Calculator/Model/calculatorModel.cpp ../Calculator/main.cpp ../Calculator/Controller/calculatorController.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../Calculator/View/calculator.ui $(DISTDIR)/
+	$(COPY_FILE) --parents ../Calculator/calculator/controller/headers/calculator-controller.h ../Calculator/common/model/calculator/headers/calculator-model.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../Calculator/common/model/calculator/sourses/calculator-model.cpp ../Calculator/main.cpp ../Calculator/calculator/controller/sourses/calculator-controller.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../Calculator/calculator/view/calculator/main.ui $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -747,10 +744,10 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/data/dummy.cpp
 	g++ -pipe -g -std=gnu++11 -Wall -Wextra -dM -E -o moc_predefs.h /opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_calculatorController.cpp
+compiler_moc_header_make_all: moc_calculator-controller.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_calculatorController.cpp
-moc_calculatorController.cpp: ../Calculator/Controller/calculatorController.h \
+	-$(DEL_FILE) moc_calculator-controller.cpp
+moc_calculator-controller.cpp: ../Calculator/calculator/controller/headers/calculator-controller.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QMainWindow \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qmainwindow.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -860,18 +857,18 @@ moc_calculatorController.cpp: ../Calculator/Controller/calculatorController.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qicon.h \
 		moc_predefs.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/bin/moc
-	/opt/Qt5.14.2/5.14.2/gcc_64/bin/moc $(DEFINES) --include /home/korpositas/CPP3_SmartCalc_v2.0-1/src/build-Calculator-Desktop_Qt_5_14_2_GCC_64bit-Debug/moc_predefs.h -I/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/linux-g++ -I/home/korpositas/CPP3_SmartCalc_v2.0-1/src/Calculator -I/opt/Qt5.14.2/5.14.2/gcc_64/include -I/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets -I/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui -I/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore -I. -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../Calculator/Controller/calculatorController.h -o moc_calculatorController.cpp
+	/opt/Qt5.14.2/5.14.2/gcc_64/bin/moc $(DEFINES) --include /home/korpositas/CPP3_SmartCalc_v2.0-1/src/build-Calculator-Desktop_Qt_5_14_2_GCC_64bit-Debug/moc_predefs.h -I/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/linux-g++ -I/home/korpositas/CPP3_SmartCalc_v2.0-1/src/Calculator -I/opt/Qt5.14.2/5.14.2/gcc_64/include -I/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets -I/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui -I/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore -I. -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ../Calculator/calculator/controller/headers/calculator-controller.h -o moc_calculator-controller.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
-compiler_uic_make_all: ui_calculator.h
+compiler_uic_make_all: ui_main.h
 compiler_uic_clean:
-	-$(DEL_FILE) ui_calculator.h
-ui_calculator.h: ../Calculator/View/calculator.ui \
+	-$(DEL_FILE) ui_main.h
+ui_main.h: ../Calculator/calculator/view/calculator/main.ui \
 		/opt/Qt5.14.2/5.14.2/gcc_64/bin/uic
-	/opt/Qt5.14.2/5.14.2/gcc_64/bin/uic ../Calculator/View/calculator.ui -o ui_calculator.h
+	/opt/Qt5.14.2/5.14.2/gcc_64/bin/uic ../Calculator/calculator/view/calculator/main.ui -o ui_main.h
 
 compiler_yacc_decl_make_all:
 compiler_yacc_decl_clean:
@@ -883,10 +880,79 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 
 ####### Compile
 
-calculatorModel.o: ../Calculator/Model/calculatorModel.cpp ../Calculator/Model/calculatorModel.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o calculatorModel.o ../Calculator/Model/calculatorModel.cpp
+calculator-model.o: ../Calculator/common/model/calculator/sourses/calculator-model.cpp ../Calculator/common/model/calculator/headers/calculator-model.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QMap \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qmap.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qiterator.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qglobal.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qconfig.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qtcore-config.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qsystemdetection.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qprocessordetection.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qcompilerdetection.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qtypeinfo.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qsysinfo.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qlogging.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qflags.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qatomic.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qbasicatomic.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qgenericatomic.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qatomic_msvc.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qglobalstatic.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qmutex.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qnumeric.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qversiontagging.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qlist.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qalgorithms.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qrefcount.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qarraydata.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qhashfunctions.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstring.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qchar.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qbytearray.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qnamespace.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstringliteral.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstringalgorithms.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstringview.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstringbuilder.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qpair.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qvector.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qcontainertools_impl.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qpoint.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qbytearraylist.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstringlist.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qregexp.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstringmatcher.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qdebug.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qhash.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qtextstream.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qiodevice.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qobject.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qobjectdefs.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qcoreevent.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qscopedpointer.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qmetatype.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qvarlengtharray.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qcontainerfwd.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qobject_impl.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qlocale.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qvariant.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qshareddata.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qset.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qcontiguouscache.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qsharedpointer.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QSet \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QStack \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstack.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QVector
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o calculator-model.o ../Calculator/common/model/calculator/sourses/calculator-model.cpp
 
-main.o: ../Calculator/main.cpp ../Calculator/Controller/calculatorController.h \
+main.o: ../Calculator/main.cpp ../Calculator/calculator/controller/headers/calculator-controller.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QMainWindow \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qmainwindow.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -1003,7 +1069,7 @@ main.o: ../Calculator/main.cpp ../Calculator/Controller/calculatorController.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qinputmethod.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../Calculator/main.cpp
 
-calculatorController.o: ../Calculator/Controller/calculatorController.cpp ../Calculator/Controller/calculatorController.h \
+calculator-controller.o: ../Calculator/calculator/controller/sourses/calculator-controller.cpp ../Calculator/calculator/controller/headers/calculator-controller.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QMainWindow \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qmainwindow.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -1111,27 +1177,11 @@ calculatorController.o: ../Calculator/Controller/calculatorController.cpp ../Cal
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qtouchdevice.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qtabwidget.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qicon.h \
-		ui_calculator.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QVariant \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QApplication \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qapplication.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qcoreapplication.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qeventloop.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qdesktopwidget.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qguiapplication.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qinputmethod.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QMenuBar \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qmenubar.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qmenu.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qaction.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qactiongroup.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QStatusBar \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qstatusbar.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QWidget
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o calculatorController.o ../Calculator/Controller/calculatorController.cpp
+		ui_main.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o calculator-controller.o ../Calculator/calculator/controller/sourses/calculator-controller.cpp
 
-moc_calculatorController.o: moc_calculatorController.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_calculatorController.o moc_calculatorController.cpp
+moc_calculator-controller.o: moc_calculator-controller.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_calculator-controller.o moc_calculator-controller.cpp
 
 ####### Install
 

@@ -16,16 +16,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    Model/calculatorModel.cpp \
+    common/model/calculator/sourses/calculator-model.cpp \
     main.cpp \
-    Controller/calculatorController.cpp
+    calculator/controller/sourses/calculator-controller.cpp
 
 HEADERS += \
-    Controller/calculatorController.h \
-    Model/calculatorModel.h
+    calculator/controller/headers/calculator-controller.h \
+    common/model/calculator/headers/calculator-model.h
 
 FORMS += \
-    View/calculator.ui
+    calculator/view/calculator/main.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
