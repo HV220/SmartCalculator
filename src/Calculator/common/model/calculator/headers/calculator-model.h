@@ -34,6 +34,7 @@ public:
     void validateExpression();
     void calculate();
     void clearCalculation();
+    int opnValidate(QStack<QString> *signs, QStack<double> *numbers);
   };
 
 public:

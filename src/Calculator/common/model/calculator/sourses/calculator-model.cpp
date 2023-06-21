@@ -19,7 +19,7 @@ int CalculatorModel::Operators::isOperatorOrFunc(const QString &opr) noexcept {
         return 0;
 
       const QSet<QString> opr_compaire{"+", "-", "*", "/", "mod", "^"};
-
+      // TODO Добавить развернутую проверку, если оператор, то 1, если функция, то 2
       return opr_compaire.find(opr) != opr_compaire.end() ? 1 : 2;
 };
 
@@ -41,10 +41,12 @@ void CalculatorModel::Calculation::setExpression(QString expression) {
     if (expression.isEmpty() || expression.isNull())
       throw std::logic_error("incorrect expression");
 
-    expression = expression.simplified();
-    expression.replace(" ", "");
+    int count = std::count(expression.begin(), expression.end(), ')') + std::count(expression.begin(), expression.end(), '(');
 
-    this->expression = expression;
+    if (!(count % 2))
+      throw std::logic_error("incorrect expression");
+
+    this->expression = expression.toLower().simplified().replace(" ", "");
 };
 
 void CalculatorModel::Calculation::setLexem(QString lexem) {
@@ -114,12 +116,46 @@ void CalculatorModel::Calculation::validateExpression() {
 };
 
 void CalculatorModel::Calculation::calculate() {
+    if(!this->expression.isNull() || !this->expression.isEmpty())
+        throw std::logic_error("Set the expression before a calculation.");
+
+    if(!this->lexems.size())
+        throw std::logic_error("Validate the expression before a calculation.");
+
+    QStack<QString> signs;
+    QStack<double> numbers;
+
+    for(auto it = this->lexems.begin(); it != this->lexems.end(); it++) {
+        switch (CalculatorModel::Operators::isOperatorOrFunc(*it)) {
+            case 1:
+                if(signs.isEmpty())
+                    signs.push_back(*it);
+                else if(CalculatorModel::Operators::checkPriority(signs.back()) < CalculatorModel::Operators::checkPriority(*it))
+                    signs.push_back(*it);
+                else
+                {
+                    if(!(this->opnValidate(&signs, &numbers)))
+                        throw std::logic_error("error");
+                }
+            ;
+            case 2:
+                ;
+        }
+        if(CalculatorModel::Operators::isOperatorOrFunc(*it)) {
+
+        }
+    }
 
 };
 
 void CalculatorModel::Calculation::clearCalculation() {
-
+    // TODO Describe the clear of calcule.
 };
+
+int CalculatorModel::Calculation::opnValidate(QStack<QString> *signs, QStack<double> *numbers) {
+    // TODO Describe the main validator opn where there are a lot of checkers of different math's equality.
+    return 1;
+}
 
 // End Class Calculator
 
