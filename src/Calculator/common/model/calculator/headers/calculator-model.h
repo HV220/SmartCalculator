@@ -11,10 +11,10 @@ class CalculatorModel {
 public:
   struct Operators {
   public:
-     static const QMap<QString, int> operators;
-     static int checkPriority(const QString &lexem) noexcept;
-     static int isOperatorOrFunc(const QString &opr) noexcept;
-    };
+    static const QMap<QString, int> operators;
+    static int checkPriority(const QString &lexem) noexcept;
+    static int isOperatorOrFunc(const QString &opr) noexcept;
+  };
 
   class Calculation {
   private:

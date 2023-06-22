@@ -4,18 +4,19 @@
 #include <QMainWindow>
 
 QT_BEGIN_NAMESPACE
-namespace Ui { class CalculatorController; }
+namespace Ui {
+class CalculatorController;
+}
 QT_END_NAMESPACE
 
-class CalculatorController : public QMainWindow
-{
-    Q_OBJECT
+class CalculatorController : public QMainWindow {
+  Q_OBJECT
 
 public:
-    CalculatorController(QWidget *parent = nullptr);
-    ~CalculatorController();
+  CalculatorController(QWidget *parent = nullptr);
+  ~CalculatorController();
 
 private:
-    Ui::CalculatorController *ui;
+  Ui::CalculatorController *ui;
 };
 #endif // CALCULATORCONTROLLER_H
