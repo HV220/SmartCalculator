@@ -1,22 +1,13 @@
 #ifndef CALCULATORCONTROLLER_H
 #define CALCULATORCONTROLLER_H
 
-#include <QMainWindow>
+#include "../Calculator/common/model/calculator/headers/calculator-model.h"
 
-QT_BEGIN_NAMESPACE
-namespace Ui {
-class CalculatorController;
-}
-QT_END_NAMESPACE
-
-class CalculatorController : public QMainWindow {
-  Q_OBJECT
-
+namespace s21 {
+class CalculatorController {
 public:
-  CalculatorController(QWidget *parent = nullptr);
-  ~CalculatorController();
-
-private:
-  Ui::CalculatorController *ui;
+CalculatorModel model;
 };
+}
+
 #endif // CALCULATORCONTROLLER_H

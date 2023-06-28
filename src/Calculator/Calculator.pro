@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui printsupport
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -17,11 +17,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     calculator/controller/sourses/calculator-controller.cc \
+    calculator/view/calculator/sourses/calculator-view.cc \
+    common/helpers/sourses/qcustomplot.cpp \
     common/model/calculator/sourses/calculator-model.cc \
     main.cc
 
 HEADERS += \
     calculator/controller/headers/calculator-controller.h \
+    calculator/view/calculator/headers/calculator-view.h \
+    common/helpers/headers/qcustomplot.h \
     common/model/calculator/headers/calculator-model.h
 
 FORMS += \
