@@ -1,164 +1,203 @@
 #include "../headers/calculator-model.h"
 
-// Begin Struct Operators
-
-const QMap<QString, int> CalculatorModel::Operators::operators{
-    {"(", 1},    {")", 1},   {"+", 2},    {"-", 2},    {"", 3},
-    {"/", 3},    {"mod", 3}, {"log", 3},  {"ln", 3},   {"sin", 3},
-    {"cos", 3},  {"tan", 3}, {"asin", 3}, {"acos", 3}, {"atan", 3},
-    {"sqrt", 3}, {"pi", 4},  {"x", 4},    {"^", 4}};
-
-int CalculatorModel::Operators::checkPriority(const QString &lexem) noexcept {
-  auto it = CalculatorModel::Operators::operators.find(lexem);
-  return it == CalculatorModel::Operators::operators.end() ? 0 : it.value();
-};
-
-int CalculatorModel::Operators::isOperatorOrFunc(const QString &opr) noexcept {
-  if (!CalculatorModel::Operators::checkPriority(opr))
-    return 0;
-
-  const QSet<QString> opr_compaire{"+", "-", "*", "/", "mod", "^"};
-  // TODO Если оператор, то 1, если функция, то 2
-  return opr_compaire.find(opr) != opr_compaire.end() ? 1 : 2;
-};
-
-// End Struct Operators
+namespace s21 {
 
 // Begin Class Calculator
+const std::string CalculatorModel::Calculation::checkFunction(size_t& i) {
+  std::string function{};
+  while (std::isalpha(expression_[i])) {
+    function += expression_[i];
+    ++i;
+  }
+  if (this->operators_.find(function) == this->operators_.end()) {
+    throw std::invalid_argument("error: the function does not exist");
+  }
+  if (function != "mod" && expression_[i] != '(') {
+    throw std::invalid_argument("error: missing function argument");
+  }
+  return function;
+}
 
-QString CalculatorModel::Calculation::getExpression() noexcept {
-  return this->expression;
-};
+const std::string CalculatorModel::Calculation::checkOperator(size_t& i) {
+  std::string oper{};
+  if (expression_[i] == '-' && unaryOperator(i)) {
+    oper += "unary_minus";
+  } else if (expression_[i] == '+' && unaryOperator(i)) {
+    oper += "unary_plus";
+  } else {
+    oper += expression_[i];
+  }
+  ++i;
+  if (this->operators_.find(oper) == this->operators_.end()) {
+    throw std::invalid_argument("error: the operator does not exist");
+  }
+  return oper;
+}
 
-QVector<QString> CalculatorModel::Calculation::getLexems() noexcept {
-  return this->lexems;
+bool CalculatorModel::Calculation::unaryOperator(size_t i) noexcept {
+  return (i == 0 || expression_[i-1] == '(');
+}
+
+double CalculatorModel::Calculation::calculate(QString expression)
+{
+   this->setExpression(expression);
+   this->devideOnLexems();
+   this->polishConverter();
+   this->polishCalculate();
+   return this->data;
+}
+
+std::string CalculatorModel::Calculation::getExpression() noexcept {
+  return this->expression_;
 };
 
 double CalculatorModel::Calculation::getData() noexcept { return this->data; };
 
 void CalculatorModel::Calculation::setExpression(QString expression) {
+
   if (expression.isEmpty() || expression.isNull())
     throw std::logic_error("incorrect expression");
 
   int count = std::count(expression.begin(), expression.end(), ')') +
               std::count(expression.begin(), expression.end(), '(');
 
-  if (!(count % 2))
+  if ((count % 2))
     throw std::logic_error("incorrect expression");
 
-  this->expression = expression.toLower().simplified().replace(" ", "");
+  this->expression_ = expression.toLower().simplified().replace(" ", "").toStdString();
 };
 
-void CalculatorModel::Calculation::setLexem(QString lexem) {
-  this->lexems.push_back(lexem);
+void CalculatorModel::Calculation::devideOnLexems() {
+    for (size_t i{}; i < expression_.size();) {
+       if (std::isdigit(expression_[i])) {
+         this->lexems_.push_back(numberValidation(i));
+       } else if (std::isalpha(expression_[i])) {
+         this->lexems_.push_back(checkFunction(i));
+       } else {
+         this->lexems_.push_back(checkOperator(i));
+       }
+     }
 };
 
-void CalculatorModel::Calculation::validateExpression() {
-
-  QString str_tmp;
-  QString str_check = this->getExpression();
-  bool unar_check = false;
-
-  for (int i = 0; str_check[i] != '\0'; ++i) {
-
-    if (str_check[i] == '(' || str_check[i] == ')') {
-      if (str_check[i] == '(' && str_check[i + 1] == '-')
-        unar_check = true;
-
-      str_tmp += str_check[i];
-      this->setLexem(str_tmp);
-    }
-
-    else if (str_check[i].isLetter()) {
-      str_tmp += str_check[i];
-
-      for (; str_check[i + 1] != str_check.end() && str_check[i + 1].isLetter();
-           i++) {
-        str_tmp += str_check[i + 1];
-      }
-
-      if (!CalculatorModel::Operators::isOperatorOrFunc(str_tmp)) {
-        throw std::logic_error("error");
-      }
-
-      this->setLexem(str_tmp);
-    }
-
-    else if (str_check[i].isNumber()) {
-      if (unar_check) {
-        str_tmp += '-';
-        unar_check = false;
-      };
-
-      str_tmp += str_check[i];
-
-      for (; str_check[i + 1] != str_check.end() &&
-             (str_check[i + 1].isNumber() || str_check[i + 1] == '.');
-           ++i) {
-        str_tmp += str_check[i + 1];
-      }
-
-      this->setLexem(str_tmp);
-    }
-
-    else if (!unar_check && !str_check[i].isNumber() &&
-             !str_check[i].isLetter()) {
-      str_tmp += str_check[i];
-
-      if (!CalculatorModel::Operators::isOperatorOrFunc(str_tmp)) {
-        throw std::logic_error("error");
-      }
-
-      this->setLexem(str_tmp);
-    }
-    str_tmp = "";
-  }
-};
-
-void CalculatorModel::Calculation::calculate() {
-  if (this->expression.isNull() || this->expression.isEmpty())
-    throw std::logic_error("Set the expression before a calculation.");
-
-  if (!this->lexems.size())
-    throw std::logic_error("Validate the expression before a calculation.");
-
-  QStack<QString> signs;
-  QStack<double> numbers;
-
-  for (auto it = this->lexems.begin(); it != this->lexems.end(); it++) {
-    std::string tmp = (*it).toStdString();
-
-    if (CalculatorModel::Operators::isOperatorOrFunc(*it)) {
-      if (signs.isEmpty())
-        signs.push_back(*it);
-      else if (CalculatorModel::Operators::checkPriority(signs.back()) <
-               CalculatorModel::Operators::checkPriority(*it))
-        signs.push_back(*it);
-      else {
-        if (!(this->opnValidate(&signs, &numbers)))
-          throw std::logic_error("error");
-      }
-    } else if (tmp.find_first_not_of("-0123456789") == tmp.npos) {
-      try {
-        numbers.push_back((*it).toDouble());
-      } catch (...) {
-        throw std::logic_error("Error in number conversion.");
-      }
-    } else {
-      throw std::logic_error("Incorrect expression.");
+const std::string CalculatorModel::Calculation::numberValidation(size_t& i) {
+  std::string number{};
+  int check_of_dot{};
+  while (std::isdigit(expression_[i]) || expression_[i] == '.') {
+    number += expression_[i];
+    ++i;
+    if (expression_[i] == '.') {
+      ++check_of_dot;
     }
   }
-};
+  if (check_of_dot > 1) {
+    throw std::invalid_argument("error: too many dots in the number");
+  }
+  return number;
+}
 
-void CalculatorModel::Calculation::clearCalculation(){
-    // TODO Describe the clear of calcule.
-};
+void CalculatorModel::Calculation::polishCalculate() {
+    double number_one{};
+      double number_two{};
+      std::vector<double> tmp_result{};
+      size_t i{};
+      while (i < polish_notation_.size()) {
+        if (std::isdigit(polish_notation_[i][0])) {
+          tmp_result.push_back(std::stod(polish_notation_[i]));
+        } else {
+          size_t size_tmp_result = tmp_result.size();
+          if (size_tmp_result >= 1) {
+            number_two = tmp_result[size_tmp_result - 1];
+            if (polish_notation_[i] == "unary_minus") {
+              tmp_result[size_tmp_result - 1] = -number_two;
+            } else if (polish_notation_[i] == "cos") {
+              tmp_result[size_tmp_result - 1] = cos(number_two);
+            } else if (polish_notation_[i] == "sin") {
+              tmp_result[size_tmp_result - 1] = sin(number_two);
+            } else if (polish_notation_[i] == "tan") {
+              tmp_result[size_tmp_result - 1] = tan(number_two);
+            } else if (polish_notation_[i] == "acos") {
+              tmp_result[size_tmp_result - 1] = acos(number_two);
+            } else if (polish_notation_[i] == "asin") {
+              tmp_result[size_tmp_result - 1] = asin(number_two);
+            } else if (polish_notation_[i] == "atan") {
+              tmp_result[size_tmp_result - 1] = atan(number_two);
+            } else if (polish_notation_[i] == "sqrt") {
+              tmp_result[size_tmp_result - 1] = sqrt(number_two);
+            } else if (polish_notation_[i] == "ln") {
+              tmp_result[size_tmp_result - 1] = log(number_two);
+            } else if (polish_notation_[i] == "log") {
+              tmp_result[size_tmp_result - 1] = log10(number_two);
+            }
+          }
+          std::string pattern("+-*/^mod");
+          if (pattern.find(polish_notation_[i]) != std::string::npos) {
+            if (size_tmp_result >= 2) {
+              number_one = tmp_result[size_tmp_result - 2];
+              if (polish_notation_[i] == "+") {
+                tmp_result[size_tmp_result - 2] = number_one + number_two;
+              } else if (polish_notation_[i] == "-") {
+                tmp_result[size_tmp_result - 2] = number_one - number_two;
+              } else if (polish_notation_[i] == "*") {
+                tmp_result[size_tmp_result - 2] = number_one * number_two;
+              } else if (polish_notation_[i] == "/") {
+                tmp_result[size_tmp_result - 2] = number_one / number_two;
+              } else if (polish_notation_[i] == "^") {
+                tmp_result[size_tmp_result - 2] = std::pow(number_one, number_two);
+              } else if (polish_notation_[i] == "mod") {
+                tmp_result[size_tmp_result - 2] = std::fmod(number_one, number_two);
+              }
+              tmp_result.pop_back();
+            } else {
+              throw std::invalid_argument("error: incorrect expression");
+            }
+          }
+        }
+        ++i;
+      }
+      if (tmp_result.size() != 1) {
+        throw std::invalid_argument("error: incorrect expression");
+      }
+      this->data = tmp_result[0];
+    }
 
-int CalculatorModel::Calculation::opnValidate(QStack<QString> *signs,
-                                              QStack<double> *numbers) {
-  // TODO Describe the main validator opn where there are a lot of checkers of
-  // different math's equality.
-  return 1;
+void CalculatorModel::Calculation::polishConverter() {
+    std::vector<std::string> operator_stack{};
+      for (const auto &str : this->lexems_) {
+        if (std::isdigit(str[0])) {
+          polish_notation_.push_back(str);
+        } else if (str == "(") {
+          operator_stack.push_back(str);
+        } else if (str == ")") {
+          while (operator_stack.back() != "(") {
+            polish_notation_.push_back(operator_stack.back());
+            operator_stack.pop_back();
+          }
+          operator_stack.pop_back();
+        } else {
+          if (!operator_stack.empty()) {
+            int priority_in_expression = this->operators_.find(str)->second;
+            int priority_in_stack = this->operators_.find(operator_stack.back())->second;
+            while (priority_in_stack >= priority_in_expression) {
+              polish_notation_.push_back(operator_stack.back());
+              operator_stack.pop_back();
+              if (operator_stack.empty()) { break; }
+              priority_in_stack = this->operators_.find(operator_stack.back())->second;
+            }
+          }
+          operator_stack.push_back(str);
+        }
+      }
+      while (!operator_stack.empty()) {
+        polish_notation_.push_back(operator_stack.back());
+        operator_stack.pop_back();
+      }
+}
+
+void CalculatorModel::Calculation::clear() noexcept {
+    this->lexems_.clear();
+    this->polish_notation_.clear();
+    this->expression_ = "";
+    this->data = 0;
 }
 
 // End Class Calculator
@@ -186,3 +225,4 @@ void CalculatorModel::setLastCalculation(Calculation calculation) noexcept {
 void CalculatorModel::reset() { this->calculations.clear(); };
 
 // End Class CalculatorModel
+};

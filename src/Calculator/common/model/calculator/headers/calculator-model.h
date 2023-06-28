@@ -5,36 +5,42 @@
 #include <QSet>
 #include <QStack>
 #include <QVector>
+#include <cmath>
+
+namespace s21 {
 
 class CalculatorModel {
 
 public:
-  struct Operators {
-  public:
-    static const QMap<QString, int> operators;
-    static int checkPriority(const QString &lexem) noexcept;
-    static int isOperatorOrFunc(const QString &opr) noexcept;
-  };
-
   class Calculation {
-  private:
-    QString expression;
-    QVector<QString> lexems;
+   private:
+    std::string expression_;
+    std::vector<std::string> lexems_{};
+    std::vector<std::string> polish_notation_{};
     double data;
-
+    std::map<std::string, int> operators_ =
+    {
+                {"+", 1}, {"-", 1}, {"*", 2}, {"/", 2}, {"^", 3},
+                {"mod", 2}, {"cos", 4}, {"sin", 4}, {"tan", 4},
+                {"acos", 4}, {"asin", 4}, {"atan", 4},
+                {"sqrt", 4}, {"ln", 4}, {"log", 4},
+                {"unary_minus", 5}, {"unary_plus", 5},
+                {"(", 0}, {")", 0}
+    };
   public:
-    Calculation() : data(0.0) {}
-    Calculation(QString exp) : expression(exp), data(0.0) {}
-
-    QString getExpression() noexcept;
-    QVector<QString> getLexems() noexcept;
+    double calculate(QString expression);
     double getData() noexcept;
+    void clear() noexcept;
+  private:
+    std::string getExpression() noexcept;
+    const std::string checkFunction(size_t& i);
+    const std::string checkOperator(size_t& i);
+    bool unaryOperator(size_t i) noexcept;
     void setExpression(QString expression);
-    void setLexem(QString lexem);
-    void validateExpression();
-    void calculate();
-    void clearCalculation();
-    int opnValidate(QStack<QString> *signs, QStack<double> *numbers);
+    void devideOnLexems();
+    void polishCalculate();
+    void polishConverter();
+    const std::string numberValidation(size_t& i);
   };
 
 public:
@@ -48,4 +54,5 @@ private:
   QVector<Calculation> calculations{};
 };
 
+};
 #endif // CALCULATORMODEL_H

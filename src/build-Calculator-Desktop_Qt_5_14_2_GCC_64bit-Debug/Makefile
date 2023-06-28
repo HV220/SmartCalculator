@@ -52,12 +52,12 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../Calculator/common/model/calculator/sourses/calculator-model.cpp \
-		../Calculator/main.cpp \
-		../Calculator/calculator/controller/sourses/calculator-controller.cpp moc_calculator-controller.cpp
-OBJECTS       = calculator-model.o \
+SOURCES       = ../Calculator/calculator/controller/sourses/calculator-controller.cc \
+		../Calculator/common/model/calculator/sourses/calculator-model.cc \
+		../Calculator/main.cc moc_calculator-controller.cpp
+OBJECTS       = calculator-controller.o \
+		calculator-model.o \
 		main.o \
-		calculator-controller.o \
 		moc_calculator-controller.o
 DIST          = /opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/spec_pre.prf \
 		/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/common/unix.conf \
@@ -245,6 +245,7 @@ DIST          = /opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/spec_pre.prf \
 		/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/qt_config.prf \
 		/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/spec_post.prf \
+		../Calculator/.qmake.stash \
 		/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/toolchain.prf \
 		/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/default_pre.prf \
@@ -266,9 +267,9 @@ DIST          = /opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/spec_pre.prf \
 		/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/yacc.prf \
 		/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/lex.prf \
 		../Calculator/Calculator.pro ../Calculator/calculator/controller/headers/calculator-controller.h \
-		../Calculator/common/model/calculator/headers/calculator-model.h ../Calculator/common/model/calculator/sourses/calculator-model.cpp \
-		../Calculator/main.cpp \
-		../Calculator/calculator/controller/sourses/calculator-controller.cpp
+		../Calculator/common/model/calculator/headers/calculator-model.h ../Calculator/calculator/controller/sourses/calculator-controller.cc \
+		../Calculator/common/model/calculator/sourses/calculator-model.cc \
+		../Calculator/main.cc
 QMAKE_TARGET  = Calculator
 DESTDIR       = 
 TARGET        = Calculator
@@ -466,6 +467,7 @@ Makefile: ../Calculator/Calculator.pro /opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/linux
 		/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/qt_config.prf \
 		/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/linux-g++/qmake.conf \
 		/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/spec_post.prf \
+		.qmake.stash \
 		/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/exclusive_builds.prf \
 		/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/toolchain.prf \
 		/opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/default_pre.prf \
@@ -674,6 +676,7 @@ Makefile: ../Calculator/Calculator.pro /opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/linux
 /opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/qt_config.prf:
 /opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/linux-g++/qmake.conf:
 /opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/spec_post.prf:
+.qmake.stash:
 /opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/exclusive_builds.prf:
 /opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/toolchain.prf:
 /opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/default_pre.prf:
@@ -711,7 +714,7 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /opt/Qt5.14.2/5.14.2/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../Calculator/calculator/controller/headers/calculator-controller.h ../Calculator/common/model/calculator/headers/calculator-model.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../Calculator/common/model/calculator/sourses/calculator-model.cpp ../Calculator/main.cpp ../Calculator/calculator/controller/sourses/calculator-controller.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../Calculator/calculator/controller/sourses/calculator-controller.cc ../Calculator/common/model/calculator/sourses/calculator-model.cc ../Calculator/main.cc $(DISTDIR)/
 	$(COPY_FILE) --parents ../Calculator/calculator/view/calculator/main.ui $(DISTDIR)/
 
 
@@ -880,7 +883,134 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean compiler_ui
 
 ####### Compile
 
-calculator-model.o: ../Calculator/common/model/calculator/sourses/calculator-model.cpp ../Calculator/common/model/calculator/headers/calculator-model.h \
+calculator-controller.o: ../Calculator/calculator/controller/sourses/calculator-controller.cc ../Calculator/calculator/controller/headers/calculator-controller.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QMainWindow \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qmainwindow.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qtguiglobal.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qglobal.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qconfig-bootstrapped.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qconfig.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qtcore-config.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qsystemdetection.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qprocessordetection.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qcompilerdetection.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qtypeinfo.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qsysinfo.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qlogging.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qflags.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qatomic.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qbasicatomic.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qatomic_bootstrap.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qgenericatomic.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qatomic_cxx11.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qatomic_msvc.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qglobalstatic.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qmutex.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qnumeric.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qversiontagging.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qtgui-config.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qtwidgets-config.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qwidget.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qwindowdefs.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qobjectdefs.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qnamespace.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qobjectdefs_impl.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qwindowdefs_win.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qobject.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstring.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qchar.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qbytearray.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qrefcount.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qarraydata.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstringliteral.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstringalgorithms.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstringview.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstringbuilder.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qlist.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qalgorithms.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qiterator.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qhashfunctions.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qpair.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qvector.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qcontainertools_impl.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qpoint.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qbytearraylist.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstringlist.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qregexp.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstringmatcher.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qcoreevent.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qscopedpointer.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qmetatype.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qvarlengtharray.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qcontainerfwd.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qobject_impl.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qmargins.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qpaintdevice.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qrect.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qsize.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qpalette.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qcolor.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qrgb.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qrgba64.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qbrush.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qmatrix.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qpolygon.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qregion.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qdatastream.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qiodevice.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qline.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qtransform.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qpainterpath.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qimage.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qpixelformat.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qpixmap.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qsharedpointer.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qshareddata.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qhash.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qfont.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qfontmetrics.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qfontinfo.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qsizepolicy.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qcursor.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qkeysequence.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qevent.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qvariant.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qmap.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qdebug.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qtextstream.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qlocale.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qset.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qcontiguouscache.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qurl.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qurlquery.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qfile.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qfiledevice.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qvector2d.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qtouchdevice.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qtabwidget.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qicon.h \
+		ui_main.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QVariant \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QApplication \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qapplication.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qcoreapplication.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qeventloop.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qdesktopwidget.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qguiapplication.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qinputmethod.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QMenuBar \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qmenubar.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qmenu.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qaction.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qactiongroup.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QStatusBar \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qstatusbar.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QWidget
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o calculator-controller.o ../Calculator/calculator/controller/sourses/calculator-controller.cc
+
+calculator-model.o: ../Calculator/common/model/calculator/sourses/calculator-model.cc ../Calculator/common/model/calculator/headers/calculator-model.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QMap \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qmap.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qiterator.h \
@@ -950,9 +1080,9 @@ calculator-model.o: ../Calculator/common/model/calculator/sourses/calculator-mod
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QStack \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstack.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QVector
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o calculator-model.o ../Calculator/common/model/calculator/sourses/calculator-model.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o calculator-model.o ../Calculator/common/model/calculator/sourses/calculator-model.cc
 
-main.o: ../Calculator/main.cpp ../Calculator/calculator/controller/headers/calculator-controller.h \
+main.o: ../Calculator/main.cc ../Calculator/calculator/controller/headers/calculator-controller.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QMainWindow \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qmainwindow.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
@@ -1060,6 +1190,12 @@ main.o: ../Calculator/main.cpp ../Calculator/calculator/controller/headers/calcu
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qtouchdevice.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qtabwidget.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qicon.h \
+		../Calculator/common/model/calculator/headers/calculator-model.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QMap \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QSet \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QStack \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstack.h \
+		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/QVector \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QApplication \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qapplication.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qcoreapplication.h \
@@ -1067,118 +1203,7 @@ main.o: ../Calculator/main.cpp ../Calculator/calculator/controller/headers/calcu
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qdesktopwidget.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qguiapplication.h \
 		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qinputmethod.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../Calculator/main.cpp
-
-calculator-controller.o: ../Calculator/calculator/controller/sourses/calculator-controller.cpp ../Calculator/calculator/controller/headers/calculator-controller.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/QMainWindow \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qmainwindow.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qtwidgetsglobal.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qtguiglobal.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qglobal.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qconfig-bootstrapped.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qconfig.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qtcore-config.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qsystemdetection.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qprocessordetection.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qcompilerdetection.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qtypeinfo.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qsysinfo.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qlogging.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qflags.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qatomic.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qbasicatomic.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qatomic_bootstrap.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qgenericatomic.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qatomic_cxx11.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qatomic_msvc.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qglobalstatic.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qmutex.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qnumeric.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qversiontagging.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qtgui-config.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qtwidgets-config.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qwidget.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qwindowdefs.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qobjectdefs.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qnamespace.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qobjectdefs_impl.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qwindowdefs_win.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qobject.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstring.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qchar.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qbytearray.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qrefcount.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qarraydata.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstringliteral.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstringalgorithms.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstringview.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstringbuilder.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qlist.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qalgorithms.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qiterator.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qhashfunctions.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qpair.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qvector.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qcontainertools_impl.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qpoint.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qbytearraylist.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstringlist.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qregexp.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qstringmatcher.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qcoreevent.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qscopedpointer.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qmetatype.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qvarlengtharray.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qcontainerfwd.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qobject_impl.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qmargins.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qpaintdevice.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qrect.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qsize.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qpalette.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qcolor.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qrgb.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qrgba64.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qbrush.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qmatrix.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qpolygon.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qregion.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qdatastream.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qiodevice.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qline.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qtransform.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qpainterpath.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qimage.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qpixelformat.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qpixmap.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qsharedpointer.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qshareddata.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qhash.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qsharedpointer_impl.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qfont.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qfontmetrics.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qfontinfo.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qsizepolicy.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qcursor.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qkeysequence.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qevent.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qvariant.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qmap.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qdebug.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qtextstream.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qlocale.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qset.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qcontiguouscache.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qurl.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qurlquery.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qfile.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtCore/qfiledevice.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qvector2d.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qtouchdevice.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtWidgets/qtabwidget.h \
-		/opt/Qt5.14.2/5.14.2/gcc_64/include/QtGui/qicon.h \
-		ui_main.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o calculator-controller.o ../Calculator/calculator/controller/sourses/calculator-controller.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../Calculator/main.cc
 
 moc_calculator-controller.o: moc_calculator-controller.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_calculator-controller.o moc_calculator-controller.cpp
