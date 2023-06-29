@@ -43,6 +43,43 @@ public:
     const std::string numberValidation(size_t& i);
   };
 
+  class CreditCalculation {
+  private:
+      class CommonType {
+      private:
+          double monthly_payment_;
+          double credit_overpayment_;
+          double total_payment_;
+      public:
+      void setMonthlyPayment(double monthly_payment);
+      void setCreditOverpayment(double credit_overpayment);
+      void setTotalPayment(double total_payment);
+
+      double getMonthlyPayment() noexcept;
+      double getCreditOverpayment() noexcept;
+      double getTotalPayment() noexcept;
+
+      void calculate(double total_loan_amount, double period, double interest_rate);
+      };
+
+      class Annuity : public CommonType {
+          void calculate(double total_loan_amount, double period, double interest_rate);
+      };
+
+      class Differential : public CommonType {
+          void calculate(double total_loan_amount, double period, double interest_rate);
+      };
+
+      std::vector<Annuity> Annuity_calculation{};
+      std::vector<Differential> Differential_calculation{};
+
+  public:
+      void setAnnuityCalc(Annuity calculation);
+      void setDiffCalc(Differential calculation);
+      std::vector<Annuity> getAnnuityCalc() noexcept;
+      std::vector<Differential> getDiffCalc() noexcept;
+  };
+
 public:
   QVector<Calculation> getCalculations() noexcept;
   Calculation getLastCalculation();
@@ -52,6 +89,7 @@ public:
 
 private:
   QVector<Calculation> calculations{};
+  QVector<Calculation> credit_calculations{};
 };
 
 };

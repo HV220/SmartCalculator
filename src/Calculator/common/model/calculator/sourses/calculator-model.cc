@@ -3,6 +3,7 @@
 namespace s21 {
 
 // Begin Class Calculator
+
 const std::string CalculatorModel::Calculation::checkFunction(size_t& i) {
   std::string function{};
   while (std::isalpha(expression_[i])) {
@@ -225,4 +226,57 @@ void CalculatorModel::setLastCalculation(Calculation calculation) noexcept {
 void CalculatorModel::reset() { this->calculations.clear(); };
 
 // End Class CalculatorModel
+
+// Begin Class CommonType
+
+void setMonthlyPayment(double monthly_payment);
+void setCreditOverpayment(double credit_overpayment);
+void setTotalPayment(double total_payment);
+
+double getMonthlyPayment() noexcept;
+double getCreditOverpayment() noexcept;
+double getTotalPayment() noexcept;
+
+void calculate(double total_loan_amount, double period, double interest_rate);
+
+void CalculatorModel::CreditCalculation::CommonType::setMonthlyPayment(double monthly_payment) {
+    this->monthly_payment_ = monthly_payment;
+}
+
+void CalculatorModel::CreditCalculation::CommonType::setCreditOverpayment(double credit_overpayment) {
+    this->credit_overpayment_ = credit_overpayment;
+}
+
+void CalculatorModel::CreditCalculation::CommonType::setTotalPayment(double total_payment) {
+    this->total_payment_ = total_payment;
+}
+
+double CalculatorModel::CreditCalculation::CommonType::getMonthlyPayment() noexcept {
+
+    return this->monthly_payment_;
+}
+
+double CalculatorModel::CreditCalculation::CommonType::getCreditOverpayment() noexcept {
+    return this->credit_overpayment_;
+}
+
+double CalculatorModel::CreditCalculation::CommonType::getTotalPayment() noexcept {
+    return this->total_payment_;
+}
+
+void CalculatorModel::CreditCalculation::Annuity::calculate(double total_loan_amount, double period, double interest_rate) {
+ // TODO validator input
+ double res_mounth = (total_loan_amount * (interest_rate * pow((1 + interest_rate), period)))/(pow(1 + interest_rate, period) - 1);
+ double res_common_pay = res_mounth * period;
+ double res_overpay = res_common_pay - total_loan_amount;
+
+ this->setMonthlyPayment(res_mounth);
+ this->setTotalPayment(res_common_pay);
+ this->setCreditOverpayment(res_overpay);
+}
+
+void CalculatorModel::CreditCalculation::Differential::calculate(double total_loan_amount, double period, double interest_rate) {
+ // TODO this
+}
+
 };
