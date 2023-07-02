@@ -5,14 +5,15 @@
 
 namespace s21 {
 class CalculatorController {
-private:
-CalculatorModel model;
-public:
-void calculatorAction();
-void creditCalculatorAction();
-void depositCalculatorAction();
-void graficCalculatorAction();
-};
-}
+ private:
+  CalculatorModel model;
 
-#endif // CALCULATORCONTROLLER_H
+ public:
+  void calculatorAction();
+  void creditCalculatorAction();
+  void depositCalculatorAction();
+  void graficCalculatorAction();
+};
+}  // namespace s21
+
+#endif  // CALCULATORCONTROLLER_H
