@@ -225,22 +225,28 @@ void CalculatorModel::setLastCalculation(Calculation calculation) noexcept {
   this->calculations.push_back(calculation);
 };
 
-QVector<CalculatorModel::CreditCalculation> CalculatorModel::getCreditCalculation() noexcept {
-    return this->credit_calculations;
+QVector<CalculatorModel::CreditCalculation>
+CalculatorModel::getCreditCalculation() noexcept {
+  return this->credit_calculations;
 };
 
 CalculatorModel::CreditCalculation CalculatorModel::getLastCreditCalculation() {
-    return this->credit_calculations.back();
+  return this->credit_calculations.back();
 };
 
-void CalculatorModel::setCreditCalculations(QVector<CalculatorModel::CreditCalculation> credit_calculations) noexcept {
-    this->credit_calculations = credit_calculations;
+void CalculatorModel::setCreditCalculations(
+    QVector<CalculatorModel::CreditCalculation> credit_calculations) noexcept {
+  this->credit_calculations = credit_calculations;
 };
-void CalculatorModel::setLastCreditCalculation(CalculatorModel::CreditCalculation credit_calculations) noexcept {
-    this->credit_calculations.push_back(credit_calculations);
+void CalculatorModel::setLastCreditCalculation(
+    CalculatorModel::CreditCalculation credit_calculations) noexcept {
+  this->credit_calculations.push_back(credit_calculations);
 };
 
-void CalculatorModel::reset() { this->calculations.clear(); this->credit_calculations.clear(); };
+void CalculatorModel::reset() {
+  this->calculations.clear();
+  this->credit_calculations.clear();
+};
 
 // End Class CalculatorModel
 
@@ -405,5 +411,47 @@ void CalculatorModel::CreditCalculation::Differential::setMonthPayments(
 };
 
 // End Class Differential
+
+// Begin Class DepositCalculation
+
+void CalculatorModel::DepositCalculation::calculate(
+    const struct InputData Data){
+    // TODO описать формулы
+};
+
+void CalculatorModel::DepositCalculation::validateExpressions(
+    const struct InputData Data) {
+  QString deposit_amount = Data.getDepositAmount();
+  this->validateNullorEmpty(deposit_amount);
+  QString placement_term = Data.getPlacementTerm();
+  this->validateNullorEmpty(placement_term);
+  QString interest_rate = Data.getInterestRate();
+  this->validateNullorEmpty(interest_rate);
+  QString tax_rate = Data.getTaxRate();
+  this->validateNullorEmpty(tax_rate);
+  QString payment_frequency = Data.getPaymentFrequency();
+  this->validateNullorEmpty(payment_frequency);
+  QString interest_capitalization = Data.getInterestCapitalization();
+  this->validateNullorEmpty(interest_capitalization);
+  std::vector<QString> replenishment_list = Data.getReplenishmentList();
+  std::vector<QString> partial_withdrawals_list =
+      Data.getPartialWithdrawalsList();
+
+  // TODO поправить, обдумать логику
+};
+
+void CalculatorModel::DepositCalculation::validateNullorEmpty(QString str) {
+  if (str.isEmpty() || str.isNull()) {
+    throw std::invalid_argument("error: incorrect expression");
+    // TODO поправить, обдумать логику
+  }
+};
+
+void CalculatorModel::DepositCalculation::calculateDeposit(
+    const struct InputData Data){
+    // TODO описать формулы
+};
+
+// End Class DepositCalculation
 
 };  //  namespace s21
