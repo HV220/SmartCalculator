@@ -225,7 +225,22 @@ void CalculatorModel::setLastCalculation(Calculation calculation) noexcept {
   this->calculations.push_back(calculation);
 };
 
-void CalculatorModel::reset() { this->calculations.clear(); };
+QVector<CalculatorModel::CreditCalculation> CalculatorModel::getCreditCalculation() noexcept {
+    return this->credit_calculations;
+};
+
+CalculatorModel::CreditCalculation CalculatorModel::getLastCreditCalculation() {
+    return this->credit_calculations.back();
+};
+
+void CalculatorModel::setCreditCalculations(QVector<CalculatorModel::CreditCalculation> credit_calculations) noexcept {
+    this->credit_calculations = credit_calculations;
+};
+void CalculatorModel::setLastCreditCalculation(CalculatorModel::CreditCalculation credit_calculations) noexcept {
+    this->credit_calculations.push_back(credit_calculations);
+};
+
+void CalculatorModel::reset() { this->calculations.clear(); this->credit_calculations.clear(); };
 
 // End Class CalculatorModel
 
@@ -367,7 +382,7 @@ void CalculatorModel::CreditCalculation::Differential::calculateCredit(
     double q = S / N;
     double tmp = D + (S - D * (i - 1)) * R;
     tmp = round(tmp * 100) / 100;
-    this->month_payments.push_back(tmp);
+    this->month_payments_.push_back(tmp);
 
     res_overpay += tmp - q;
   }
@@ -381,12 +396,12 @@ void CalculatorModel::CreditCalculation::Differential::calculateCredit(
 
 std::vector<double>
 CalculatorModel::CreditCalculation::Differential::getMonthPayments() {
-  return this->month_payments;
+  return this->month_payments_;
 };
 
 void CalculatorModel::CreditCalculation::Differential::setMonthPayments(
     std::vector<double> month_payments) {
-  this->month_payments = month_payments;
+  this->month_payments_ = month_payments;
 };
 
 // End Class Differential

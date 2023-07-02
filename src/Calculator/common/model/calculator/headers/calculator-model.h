@@ -17,7 +17,7 @@ class CalculatorModel {
     std::vector<std::string> lexems_{};
     std::vector<std::string> polish_notation_{};
     double data;
-    std::map<std::string, int> operators_ = {
+    std::map<std::string, int> operators_ = { // TODO change on const
         {"+", 1},          {"-", 1},    {"*", 2},    {"/", 2},
         {"^", 3},          {"mod", 2},  {"cos", 4},  {"sin", 4},
         {"tan", 4},        {"acos", 4}, {"asin", 4}, {"atan", 4},
@@ -69,18 +69,20 @@ class CalculatorModel {
      public:
       void calculate(QString total_loan_amount, QString period,
                      QString interest_rate);
+    private:
       void calculateCredit(std::vector<double> variables);
     };
 
     class Differential : public CommonType {
      private:
-      std::vector<double> month_payments;
+      std::vector<double> month_payments_;
 
      public:
       std::vector<double> getMonthPayments();
       void setMonthPayments(std::vector<double> month_payments);
       void calculate(QString total_loan_amount, QString period,
                      QString interest_rate);
+      private:
       void calculateCredit(std::vector<double> variables);
     };
 
@@ -99,6 +101,11 @@ class CalculatorModel {
   Calculation getLastCalculation();
   void setCalculations(QVector<Calculation> calculations) noexcept;
   void setLastCalculation(Calculation calculation) noexcept;
+
+  QVector<CreditCalculation> getCreditCalculation() noexcept;
+  CreditCalculation getLastCreditCalculation();
+  void setCreditCalculations(QVector<CreditCalculation> credit_calculations) noexcept;
+  void setLastCreditCalculation(CreditCalculation credit_calculation) noexcept;
   void reset();
 
  private:
