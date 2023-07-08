@@ -178,9 +178,12 @@ class CalculatorModel {
     void calculate(const struct InputData Data);
 
    private:
-    void validateExpressions(const struct InputData Data);
-    void calculateDeposit(const struct InputData Data);
-    void validateNullorEmpty(QString str);
+    std::map<QString, double> validateExpressions(const struct InputData Data);
+    std::map<QString, std::vector<double>> validateList(const struct InputData Data);
+    void calculateDeposit(const std::map<QString, double> variables, const std::map<QString, std::vector<double>> lists);
+    QString validateNullorEmpty(QString str);
+    double changeToDouble(QString num);
+    std::vector<double> changeToDouble(const std::vector<QString> num);
   };
 
  public:

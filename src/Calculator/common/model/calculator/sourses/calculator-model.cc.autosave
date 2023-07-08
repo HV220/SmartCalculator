@@ -508,6 +508,14 @@ void CalculatorModel::DepositCalculation::calculateDeposit(
     std::vector<double> replenishment_list = lists.find("replenishment_list")->second;
     std::vector<double> partial_withdrawals_list = lists.find("partial_withdrawals_list")->second;
 
+//    S = ((P * I * (t : K)):100) + ((P 1 * I * (t 1 : K)):100).
+    double S;
+    for(int i = 0; i < 365/T; i++) 
+    {
+      S += (P*I*T/365)/100;
+    }
+   
+    
     double S_year = (P * I * T / 365.0) / 100;
     double N_year = S_year * (N / 100.0);
     double P_year = P + S_year;
