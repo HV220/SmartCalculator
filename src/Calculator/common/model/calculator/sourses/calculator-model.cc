@@ -421,7 +421,7 @@ void CalculatorModel::DepositCalculation::calculate(
     try {
       variables = this->validateExpressions(Data);
       lists = this->validateList(Data);
-      this->calculateDeposit(variables, lists);
+      this->calculateDeposit(variables, lists, Data);
     } catch (std::exception &e) {
       variables.clear();
       lists.clear();
@@ -494,27 +494,16 @@ QString CalculatorModel::DepositCalculation::validateNullorEmpty(QString str) {
 
 
 void CalculatorModel::DepositCalculation::calculateDeposit(
-    const std::map<QString, double> variables, const std::map<QString, std::vector<double>> lists){
+    const std::map<QString, double> variables, const std::map<QString, std::vector<double>> lists, const struct InputData &Data){
 
     if(variables.size() || lists.size())
         throw std::logic_error("maps are empty");
 
-    double P = variables.find("deposit_amount")->second;
-    double T = variables.find("placement_term")->second;
-    double I  = variables.find("interest_rate")->second;
-    double N = variables.find("tax_rate")->second;
-    double payment_frequency = variables.find("payment_frequency")->second;
-    double interest_capitalization = variables.find("interest_capitalization")->second;
-    std::vector<double> replenishment_list = lists.find("replenishment_list")->second;
-    std::vector<double> partial_withdrawals_list = lists.find("partial_withdrawals_list")->second;
+    if(Data.getStatusCapitalisation())
+    {
+        this->simplePercent(variables, lists, Data);
+    }
 
-    double S_year = (P * I * T / 365.0) / 100;
-    double N_year = S_year * (N / 100.0);
-    double P_year = P + S_year;
-
-    this->setEndSumDeposit(P_year);
-    this->setAmountTaxation(N_year);
-    this->setAccruedInterest(S_year);
 //    сумма вклада
 //    срок размещения
 //    процентная ставка
@@ -528,6 +517,25 @@ void CalculatorModel::DepositCalculation::calculateDeposit(
 //сумма налога
 //сумма на вкладе к концу срока
 };
+
+void CalculatorModel::DepositCalculation::simplePercent(const std::map<QString, double> variables, const std::map<QString, std::vector<double>> lists, const struct InputData &Data) {
+
+    double P = variables.find("deposit_amount")->second;
+    double t = variables.find("placement_term")->second;
+    double I  = variables.find("interest_rate")->second;
+    double N = variables.find("tax_rate")->second;
+    double payment_frequency = variables.find("payment_frequency")->second;
+    double interest_capitalization = variables.find("interest_capitalization")->second;
+    std::vector<double> replenishment_list = lists.find("replenishment_list")->second;
+    std::vector<double> partial_withdrawals_list = lists.find("partial_withdrawals_list")->second;
+
+    double S=(P*I*t/365)/100;
+    S = round(S * 100) / 100;
+
+    this->setEndSumDeposit(S);
+    this->setAmountTaxation(0);
+    this->setAccruedInterest(P+S);
+}
 
 double CalculatorModel::DepositCalculation::changeToDouble(QString num) {
 
