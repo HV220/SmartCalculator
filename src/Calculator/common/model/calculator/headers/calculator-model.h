@@ -188,28 +188,35 @@ class CalculatorModel {
 
    private:
     std::map<QString, double> validateExpressions(const struct InputData Data);
-    std::map<QString, std::vector<double>> validateList(const struct InputData Data);
-    void calculateDeposit(const std::map<QString, double> variables, const std::map<QString, std::vector<double>> lists, const struct InputData &Data);
+    std::map<QString, std::vector<double>> validateList(
+        const struct InputData Data);
+    void calculateDeposit(const std::map<QString, double> variables,
+                          const std::map<QString, std::vector<double>> lists,
+                          const struct InputData& Data);
     QString validateNullorEmpty(QString str);
     double changeToDouble(QString num);
     std::vector<double> changeToDouble(const std::vector<QString> num);
-    void simplePercent(const std::map<QString, double> variables, const std::map<QString, std::vector<double>> lists, const struct InputData &Data);
+    void simplePercent(const std::map<QString, double> variables,
+                       const std::map<QString, std::vector<double>> lists,
+                       const struct InputData& Data);
   };
-//  Расчет по простой формуле
+  //  Расчет по простой формуле
 
-//  Начисления процентов по вкладам без капитализации по простой формуле:
+  //  Начисления процентов по вкладам без капитализации по простой формуле:
 
-//  S=(P*I*t:K):100.
+  //  S=(P*I*t:K):100.
 
-//  Обозначения:
+  //  Обозначения:
 
-//      S – начисленный профит.
-//      P – сумма вклада.
-//      I – годовая ставка по депозиту.
-//      t – срок депозита (к-во дней).
-//      K – число дней в году (при расчете процентов всегда берется 365 дней, даже в високосный год).
+  //      S – начисленный профит.
+  //      P – сумма вклада.
+  //      I – годовая ставка по депозиту.
+  //      t – срок депозита (к-во дней).
+  //      K – число дней в году (при расчете процентов всегда берется 365 дней,
+  //      даже в високосный год).
 
-//  Если клиент вложил 50 000 руб. сроком на год под 4,7%, его доход составит 2350 рублей: (50 000*4,7*365):100=2350.
+  //  Если клиент вложил 50 000 руб. сроком на год под 4,7%, его доход составит
+  //  2350 рублей: (50 000*4,7*365):100=2350.
  public:
   QVector<Calculation> getCalculations() noexcept;
   Calculation getLastCalculation();

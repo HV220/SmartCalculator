@@ -7,13 +7,12 @@
 using namespace s21;
 
 int main(int argc, char *argv[]) {
-//  QApplication a(argc, argv);
-//  CalculatorView w;
+  QApplication a(argc, argv);
+  CalculationView w;
+  w.show();
+  return a.exec();
 
-//  w.show();
-//  return a.exec();
-
-struct CalculatorModel::DepositCalculation::InputData Data;
+//struct CalculatorModel::DepositCalculation::InputData Data;
 
 //QString deposit_amount;
 //QString placement_term;
@@ -23,14 +22,14 @@ struct CalculatorModel::DepositCalculation::InputData Data;
 //QString interest_capitalization;
 //int status_capitalisation;
 
-Data.setDepositAmount("50000");
-Data.setPlacementTerm("365");
-Data.setInterestRate("4.7");
-Data.setTaxRate("1");
-Data.setPaymentFrequency("1");
-Data.setStatusCapitalisation(0);
+//Data.setDepositAmount("50000");
+//Data.setPlacementTerm("365");
+//Data.setInterestRate("4.7");
+//Data.setTaxRate("1");
+//Data.setPaymentFrequency("1");
+//Data.setStatusCapitalisation(0);
 
-    QString res;
+//    QString res;
 }
 
 //    сумма вклада

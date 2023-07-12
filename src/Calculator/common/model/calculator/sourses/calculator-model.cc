@@ -4,7 +4,7 @@ namespace s21 {
 
 // Begin Class Calculator
 
-const std::string CalculatorModel::Calculation::checkFunction(size_t& i) {
+const std::string CalculatorModel::Calculation::checkFunction(size_t &i) {
   std::string function{};
   while (std::isalpha(expression_[i])) {
     function += expression_[i];
@@ -19,7 +19,7 @@ const std::string CalculatorModel::Calculation::checkFunction(size_t& i) {
   return function;
 }
 
-const std::string CalculatorModel::Calculation::checkOperator(size_t& i) {
+const std::string CalculatorModel::Calculation::checkOperator(size_t &i) {
   std::string oper{};
   if (expression_[i] == '-' && unaryOperator(i)) {
     oper += "unary_minus";
@@ -78,7 +78,7 @@ void CalculatorModel::Calculation::devideOnLexems() {
   }
 };
 
-const std::string CalculatorModel::Calculation::numberValidation(size_t& i) {
+const std::string CalculatorModel::Calculation::numberValidation(size_t &i) {
   std::string number{};
   int check_of_dot{};
   while (std::isdigit(expression_[i]) || expression_[i] == '.') {
@@ -161,7 +161,7 @@ void CalculatorModel::Calculation::polishCalculate() {
 
 void CalculatorModel::Calculation::polishConverter() {
   std::vector<std::string> operator_stack{};
-  for (const auto& str : this->lexems_) {
+  for (const auto &str : this->lexems_) {
     if (std::isdigit(str[0])) {
       polish_notation_.push_back(str);
     } else if (str == "(") {
@@ -341,7 +341,8 @@ void CalculatorModel::CreditCalculation::Annuity::calculate(
 
 void CalculatorModel::CreditCalculation::Annuity::calculateCredit(
     std::vector<double> variables) {
-  if (variables.empty() && variables.size() < 3) throw std::logic_error("empty error");
+  if (variables.empty() && variables.size() < 3)
+    throw std::logic_error("empty error");
 
   double S = variables[0];
   double N = variables[1];
@@ -376,7 +377,8 @@ void CalculatorModel::CreditCalculation::Differential::calculate(
 
 void CalculatorModel::CreditCalculation::Differential::calculateCredit(
     std::vector<double> variables) {
-  if (variables.empty() && variables.size() < 3) throw std::logic_error("empty error");
+  if (variables.empty() && variables.size() < 3)
+    throw std::logic_error("empty error");
 
   double S = variables[0];
   double N = variables[1];
@@ -415,73 +417,86 @@ void CalculatorModel::CreditCalculation::Differential::setMonthPayments(
 // Begin Class DepositCalculation
 
 void CalculatorModel::DepositCalculation::calculate(
-    const struct InputData Data){
-    std::map<QString, double> variables;
-    std::map<QString, std::vector<double>> lists;
-    try {
-      variables = this->validateExpressions(Data);
-      lists = this->validateList(Data);
-      this->calculateDeposit(variables, lists, Data);
-    } catch (std::exception &e) {
-      variables.clear();
-      lists.clear();
-      throw std::logic_error(e.what());
-    }
+    const struct InputData Data) {
+  std::map<QString, double> variables;
+  std::map<QString, std::vector<double>> lists;
+  try {
+    variables = this->validateExpressions(Data);
+    lists = this->validateList(Data);
+    this->calculateDeposit(variables, lists, Data);
+  } catch (std::exception &e) {
     variables.clear();
     lists.clear();
+    throw std::logic_error(e.what());
+  }
+  variables.clear();
+  lists.clear();
 };
 
-std::map<QString, double> CalculatorModel::DepositCalculation::validateExpressions(
+std::map<QString, double>
+CalculatorModel::DepositCalculation::validateExpressions(
     const struct InputData Data) {
   std::map<QString, double> res;
 
   try {
+    QString deposit_amount = this->validateNullorEmpty(Data.getDepositAmount());
+    res.insert(std::pair<QString, double>(
+        "deposit_amount", this->changeToDouble(deposit_amount)));
 
-  QString deposit_amount = this->validateNullorEmpty(Data.getDepositAmount());
-  res.insert(std::pair<QString, double>("deposit_amount", this->changeToDouble(deposit_amount)));
+    QString placement_term = this->validateNullorEmpty(Data.getPlacementTerm());
+    res.insert(std::pair<QString, double>(
+        "placement_term", this->changeToDouble(placement_term)));
 
-  QString placement_term = this->validateNullorEmpty(Data.getPlacementTerm());
-  res.insert(std::pair<QString, double>("placement_term", this->changeToDouble(placement_term)));
+    QString interest_rate = this->validateNullorEmpty(Data.getInterestRate());
+    res.insert(std::pair<QString, double>("interest_rate",
+                                          this->changeToDouble(interest_rate)));
 
-  QString interest_rate = this->validateNullorEmpty(Data.getInterestRate());
-  res.insert(std::pair<QString, double>("interest_rate", this->changeToDouble(interest_rate)));
+    QString tax_rate = this->validateNullorEmpty(Data.getTaxRate());
+    res.insert(
+        std::pair<QString, double>("tax_rate", this->changeToDouble(tax_rate)));
 
-  QString tax_rate = this->validateNullorEmpty(Data.getTaxRate());
-  res.insert(std::pair<QString, double>("tax_rate", this->changeToDouble(tax_rate)));
+    QString payment_frequency =
+        this->validateNullorEmpty(Data.getPaymentFrequency());
+    res.insert(std::pair<QString, double>(
+        "payment_frequency", this->changeToDouble(payment_frequency)));
 
-  QString payment_frequency = this->validateNullorEmpty(Data.getPaymentFrequency());
-  res.insert(std::pair<QString, double>("payment_frequency", this->changeToDouble(payment_frequency)));
-
-  QString interest_capitalization = this->validateNullorEmpty(Data.getInterestCapitalization());
-  res.insert(std::pair<QString, double>("interest_capitalization", this->changeToDouble(interest_capitalization)));
-}
-  catch (std::exception &e) {
-        res.clear();
-        throw e;
-    }
+    QString interest_capitalization =
+        this->validateNullorEmpty(Data.getInterestCapitalization());
+    res.insert(std::pair<QString, double>(
+        "interest_capitalization",
+        this->changeToDouble(interest_capitalization)));
+  } catch (std::exception &e) {
+    res.clear();
+    throw e;
+  }
 
   return res;
 };
 
-std::map<QString, std::vector<double>> CalculatorModel::DepositCalculation::validateList(const struct InputData Data) {
-    std::vector<QString> replenishment_list = Data.getReplenishmentList();
-    std::vector<QString> partial_withdrawals_list = Data.getPartialWithdrawalsList();
+std::map<QString, std::vector<double>>
+CalculatorModel::DepositCalculation::validateList(const struct InputData Data) {
+  std::vector<QString> replenishment_list = Data.getReplenishmentList();
+  std::vector<QString> partial_withdrawals_list =
+      Data.getPartialWithdrawalsList();
 
-      if(replenishment_list.empty() || partial_withdrawals_list.empty()) {
-          throw std::invalid_argument("error: incorrect expression");
-      }
+  if (replenishment_list.empty() || partial_withdrawals_list.empty()) {
+    throw std::invalid_argument("error: incorrect expression");
+  }
 
-      std::map<QString, std::vector<double>> res;
+  std::map<QString, std::vector<double>> res;
 
-      try {
-      res.insert(std::pair<QString, std::vector<double>>("replenishment_list", this->changeToDouble(replenishment_list)));
-      res.insert(std::pair<QString, std::vector<double>>("partial_withdrawals_list", this->changeToDouble(partial_withdrawals_list)));
-      } catch (std::exception &e) {
-        res.clear();
-        throw e;
-      }
+  try {
+    res.insert(std::pair<QString, std::vector<double>>(
+        "replenishment_list", this->changeToDouble(replenishment_list)));
+    res.insert(std::pair<QString, std::vector<double>>(
+        "partial_withdrawals_list",
+        this->changeToDouble(partial_withdrawals_list)));
+  } catch (std::exception &e) {
+    res.clear();
+    throw e;
+  }
 
-      return res;
+  return res;
 }
 
 QString CalculatorModel::DepositCalculation::validateNullorEmpty(QString str) {
@@ -492,84 +507,86 @@ QString CalculatorModel::DepositCalculation::validateNullorEmpty(QString str) {
   return str;
 };
 
-
 void CalculatorModel::DepositCalculation::calculateDeposit(
-    const std::map<QString, double> variables, const std::map<QString, std::vector<double>> lists, const struct InputData &Data){
+    const std::map<QString, double> variables,
+    const std::map<QString, std::vector<double>> lists,
+    const struct InputData &Data) {
+  if (variables.size() || lists.size())
+    throw std::logic_error("maps are empty");
 
-    if(variables.size() || lists.size())
-        throw std::logic_error("maps are empty");
+  if (Data.getStatusCapitalisation()) {
+    this->simplePercent(variables, lists, Data);
+  }
 
-    if(Data.getStatusCapitalisation())
-    {
-        this->simplePercent(variables, lists, Data);
-    }
+  //    сумма вклада
+  //    срок размещения
+  //    процентная ставка
+  //    налоговая ставка 13 процентов, если больше 12.5 процентов
+  //    периодичность выплат: 1 раз в год
+  //    капитализация процентов: 1 раз в год
+  //    список пополнений: 1 раз в год
+  //    список частичных снятий: 1 раз в год
 
-//    сумма вклада
-//    срок размещения
-//    процентная ставка
-//    налоговая ставка 13 процентов, если больше 12.5 процентов
-//    периодичность выплат: 1 раз в год
-//    капитализация процентов: 1 раз в год
-//    список пополнений: 1 раз в год
-//    список частичных снятий: 1 раз в год
-
-//начисленные проценты
-//сумма налога
-//сумма на вкладе к концу срока
+  //начисленные проценты
+  //сумма налога
+  //сумма на вкладе к концу срока
 };
 
-void CalculatorModel::DepositCalculation::simplePercent(const std::map<QString, double> variables, const std::map<QString, std::vector<double>> lists, const struct InputData &Data) {
+void CalculatorModel::DepositCalculation::simplePercent(
+    const std::map<QString, double> variables,
+    const std::map<QString, std::vector<double>> lists,
+    const struct InputData &Data) {
+  double P = variables.find("deposit_amount")->second;
+  double t = variables.find("placement_term")->second;
+  double I = variables.find("interest_rate")->second;
+  double N = variables.find("tax_rate")->second;
+  double payment_frequency = variables.find("payment_frequency")->second;
+  double interest_capitalization =
+      variables.find("interest_capitalization")->second;
+  std::vector<double> replenishment_list =
+      lists.find("replenishment_list")->second;
+  std::vector<double> partial_withdrawals_list =
+      lists.find("partial_withdrawals_list")->second;
 
-    double P = variables.find("deposit_amount")->second;
-    double t = variables.find("placement_term")->second;
-    double I  = variables.find("interest_rate")->second;
-    double N = variables.find("tax_rate")->second;
-    double payment_frequency = variables.find("payment_frequency")->second;
-    double interest_capitalization = variables.find("interest_capitalization")->second;
-    std::vector<double> replenishment_list = lists.find("replenishment_list")->second;
-    std::vector<double> partial_withdrawals_list = lists.find("partial_withdrawals_list")->second;
+  double S = (P * I * t / 365) / 100;
+  S = round(S * 100) / 100;
 
-    double S=(P*I*t/365)/100;
-    S = round(S * 100) / 100;
-
-    this->setEndSumDeposit(S);
-    this->setAmountTaxation(0);
-    this->setAccruedInterest(P+S);
+  this->setEndSumDeposit(S);
+  this->setAmountTaxation(0);
+  this->setAccruedInterest(P + S);
 }
 
 double CalculatorModel::DepositCalculation::changeToDouble(QString num) {
+  num.replace(QChar(','), QLatin1String("."), Qt::CaseInsensitive);
+  num.replace(QChar(','), QLatin1String("."), Qt::CaseInsensitive);
+  num.replace(QChar(','), QLatin1String("."), Qt::CaseInsensitive);
 
-    num.replace(QChar(','), QLatin1String("."), Qt::CaseInsensitive);
-    num.replace(QChar(','), QLatin1String("."), Qt::CaseInsensitive);
-    num.replace(QChar(','), QLatin1String("."), Qt::CaseInsensitive);
+  bool check_str = 0;
 
-    bool check_str = 0;
+  double res = num.toDouble(&check_str);
 
-    double res = num.toDouble(&check_str);
+  if (!check_str) throw std::logic_error("conversion's numbers error");
 
-    if (!check_str) throw std::logic_error("conversion's numbers error");
+  if (res <= 0) throw std::logic_error("conversion's numbers error");
 
-    if (res <= 0)
-      throw std::logic_error("conversion's numbers error");
-
-    return res;
+  return res;
 }
 
-std::vector<double> CalculatorModel::DepositCalculation::changeToDouble(const std::vector<QString> num) {
+std::vector<double> CalculatorModel::DepositCalculation::changeToDouble(
+    const std::vector<QString> num) {
+  std::vector<double> res;
 
-    std::vector<double> res;
-
-    for(auto it = num.begin(); it != num.end(); it++) {
-        try {
-            QString tmp = this->validateNullorEmpty(*it);
-            res.push_back(changeToDouble(tmp));
-        } catch (std::exception &e) {
-            res.clear();
-            throw e;
-        }
+  for (auto it = num.begin(); it != num.end(); it++) {
+    try {
+      QString tmp = this->validateNullorEmpty(*it);
+      res.push_back(changeToDouble(tmp));
+    } catch (std::exception &e) {
+      res.clear();
+      throw e;
     }
+  }
 
-    return res;
+  return res;
 };
 
 // End Class DepositCalculation
