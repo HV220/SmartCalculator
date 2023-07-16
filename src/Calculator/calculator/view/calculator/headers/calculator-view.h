@@ -3,6 +3,16 @@
 
 #include "../Calculator/calculator/controller/headers/calculator-controller.h"
 #include <QMainWindow>
+#include <QByteArray>
+#include <QDialog>
+#include <QMessageBox>
+#include <list>
+#include <QMainWindow>
+#include <QString>
+#include <QVector>
+#include <QWidget>
+#include <cctype>
+#include <cmath>
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -13,6 +23,7 @@ class DepositCalculationView;
 QT_END_NAMESPACE
 
 namespace s21 {
+#define OK 0
 
 class CalculationView : public QMainWindow {
   Q_OBJECT
@@ -22,14 +33,21 @@ public:
 
 private:
   Ui::CalculationView *ui_calculation;
+  Ui::CreditCalculationView *ui_credit;
+  Ui::DepositCalculationView *ui_deposit;
+  CalculatorController *common_controller;
+
+  QVector<double> x;
+  QVector<double> y;
+  double xBegin, xEnd, yBegin, yEnd, h;
 
 private slots:
+  void bttn_pressed();
   void function_pressed();
   void constant_pressed();
+  void operators_pressed();
   void on_pushButton_AC_clicked();
   void on_pushButton_eq_clicked();
-  void on_pushButton_dot_clicked();
-  void on_pushButton_dot_coma_clicked();
   void on_pushButton_back_clicked();
   void on_pushButton_close_clicked();
   void on_pushButton_credit_clicked();
@@ -40,7 +58,7 @@ private slots:
 
 class CreditCalculationView {
 public:
-  CreditCalculationView(QWidget *parent = nullptr);
+  CreditCalculationView(QWidget *parent = nullptr, CalculatorController *controller = nullptr);
   ~CreditCalculationView();
 
 private:
@@ -49,7 +67,7 @@ private:
 
 class DepositCalculationView {
 public:
-  DepositCalculationView(QWidget *parent = nullptr);
+  DepositCalculationView(QWidget *parent = nullptr, CalculatorController *controller = nullptr);
   ~DepositCalculationView();
 
 private:

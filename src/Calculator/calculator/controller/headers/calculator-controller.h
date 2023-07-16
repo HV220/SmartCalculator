@@ -6,10 +6,10 @@
 namespace s21 {
 class CalculatorController {
  private:
-  CalculatorModel model;
+  CalculatorModel *model;
 
  public:
-  void calculatorAction();
+  double calculatorAction(const QString *str_action);
   void creditCalculatorAction();
   void depositCalculatorAction();
   void graficCalculatorAction();

@@ -201,40 +201,6 @@ QPushButton:pressed {
      <string>6</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_unar">
-    <property name="geometry">
-     <rect>
-      <x>350</x>
-      <y>100</y>
-      <width>71</width>
-      <height>71</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>.AppleSystemUIFont</family>
-      <pointsize>20</pointsize>
-      <weight>50</weight>
-      <italic>false</italic>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton {
-	font:20pt &quot;.AppleSystemUIFont&quot;;
-	color: rgb(255, 255, 255);
-     border: 1px solid white;
-	background-color: rgba(93, 92, 94, 209);
-}
-QPushButton:pressed {
-  background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                             stop: 0 #dadbde, stop: 1 #f6f7fa);
-}</string>
-    </property>
-    <property name="text">
-     <string>+/-</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="pushButton_mult">
     <property name="geometry">
      <rect>
@@ -922,7 +888,7 @@ QPushButton:pressed {
      <rect>
       <x>140</x>
       <y>100</y>
-      <width>71</width>
+      <width>141</width>
       <height>71</height>
      </rect>
     </property>
@@ -956,7 +922,7 @@ QPushButton:pressed {
      <rect>
       <x>280</x>
       <y>100</y>
-      <width>71</width>
+      <width>141</width>
       <height>71</height>
      </rect>
     </property>
@@ -1056,9 +1022,9 @@ QPushButton:pressed {
    <widget class="QLabel" name="result_show">
     <property name="geometry">
      <rect>
-      <x>70</x>
+      <x>0</x>
       <y>50</y>
-      <width>421</width>
+      <width>491</width>
       <height>51</height>
      </rect>
     </property>
@@ -1248,31 +1214,6 @@ QPushButton:pressed {
      <string>Deposit</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_valueX">
-    <property name="geometry">
-     <rect>
-      <x>140</x>
-      <y>450</y>
-      <width>71</width>
-      <height>61</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton {
-	font:20pt &quot;.AppleSystemUIFont&quot;;
-	color: rgb(255, 255, 255);
-     border: 1px solid white;
-	background-color: rgb(82, 82, 83);
-}
-QPushButton:pressed {
-  background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                             stop: 0 #dadbde, stop: 1 #f6f7fa);
-}</string>
-    </property>
-    <property name="text">
-     <string>x =</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="pushButton_xStep">
     <property name="geometry">
      <rect>
@@ -1351,9 +1292,9 @@ QPushButton:pressed {
    <widget class="QLineEdit" name="lineEdit_xValue">
     <property name="geometry">
      <rect>
-      <x>210</x>
+      <x>140</x>
       <y>450</y>
-      <width>141</width>
+      <width>211</width>
       <height>61</height>
      </rect>
     </property>
@@ -1416,7 +1357,7 @@ QPushButton:pressed {
      <rect>
       <x>0</x>
       <y>300</y>
-      <width>71</width>
+      <width>141</width>
       <height>51</height>
      </rect>
     </property>
@@ -1528,65 +1469,6 @@ QPushButton:pressed {
 }</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_factorial">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>50</y>
-      <width>71</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton {
-	font:20pt &quot;.AppleSystemUIFont&quot;;
-	color: rgb(255, 255, 255);
-     border: 1px solid white;
-	background-color: rgba(93, 92, 94, 209);
-}
-QPushButton:pressed {
-  background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                             stop: 0 #dadbde, stop: 1 #f6f7fa);
-}</string>
-    </property>
-    <property name="text">
-     <string>fact</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_average3">
-    <property name="geometry">
-     <rect>
-      <x>70</x>
-      <y>300</y>
-      <width>71</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="mouseTracking">
-     <bool>false</bool>
-    </property>
-    <property name="toolTip">
-     <string/>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton {
-	font:20pt &quot;.AppleSystemUIFont&quot;;
-	color: rgb(255, 255, 255);
-     border: 1px solid white;
-	background-color: rgba(93, 92, 94, 209);
-}
-QPushButton:pressed {
-  background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                             stop: 0 #dadbde, stop: 1 #f6f7fa);
-}</string>
-    </property>
-    <property name="inputMethodHints">
-     <set>Qt::ImhNone</set>
-    </property>
-    <property name="text">
-     <string>avrg</string>
-    </property>
-   </widget>
    <widget class="QLineEdit" name="lineEdit_xStep">
     <property name="geometry">
      <rect>
@@ -1609,40 +1491,6 @@ QPushButton:pressed {
     </property>
     <property name="text">
      <string>500</string>
-    </property>
-   </widget>
-   <widget class="QPushButton" name="pushButton_dot_coma">
-    <property name="geometry">
-     <rect>
-      <x>210</x>
-      <y>100</y>
-      <width>71</width>
-      <height>71</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>.AppleSystemUIFont</family>
-      <pointsize>20</pointsize>
-      <weight>50</weight>
-      <italic>false</italic>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton {
-	font:20pt &quot;.AppleSystemUIFont&quot;;
-	color: rgb(255, 255, 255);
-     border: 1px solid white;
-	background-color: rgba(93, 92, 94, 209);
-}
-QPushButton:pressed {
-  background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                             stop: 0 #dadbde, stop: 1 #f6f7fa);
-}</string>
-    </property>
-    <property name="text">
-     <string>;</string>
     </property>
    </widget>
    <widget class="QPushButton" name="pushButton_EXP">
@@ -1695,13 +1543,22 @@ QPushButton:pressed {
      <string>PI</string>
     </property>
    </widget>
+   <widget class="QCustomPlot" name="widget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>489</x>
+      <y>49</y>
+      <width>421</width>
+      <height>361</height>
+     </rect>
+    </property>
+   </widget>
    <zorder>pushButton_sqrt</zorder>
    <zorder>pushButton_07</zorder>
    <zorder>pushButton_01</zorder>
    <zorder>pushButton_plus</zorder>
    <zorder>pushButton_0</zorder>
    <zorder>pushButton_06</zorder>
-   <zorder>pushButton_unar</zorder>
    <zorder>pushButton_mult</zorder>
    <zorder>pushButton_03</zorder>
    <zorder>pushButton_dot</zorder>
@@ -1734,7 +1591,6 @@ QPushButton:pressed {
    <zorder>pushButton_graf</zorder>
    <zorder>pushButton_credit</zorder>
    <zorder>pushButton_deposit</zorder>
-   <zorder>pushButton_valueX</zorder>
    <zorder>pushButton_xStep</zorder>
    <zorder>pushButton_valueXMin</zorder>
    <zorder>pushButton_valueXMax</zorder>
@@ -1746,14 +1602,20 @@ QPushButton:pressed {
    <zorder>pushButton_valueYMin</zorder>
    <zorder>lineEdit_yMinValue</zorder>
    <zorder>lineEdit_yMaxValue</zorder>
-   <zorder>pushButton_factorial</zorder>
-   <zorder>pushButton_average3</zorder>
    <zorder>lineEdit_xStep</zorder>
-   <zorder>pushButton_dot_coma</zorder>
    <zorder>pushButton_EXP</zorder>
    <zorder>pushButton_PI</zorder>
+   <zorder>widget</zorder>
   </widget>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QCustomPlot</class>
+   <extends>QWidget</extends>
+   <header>qcustomplot.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

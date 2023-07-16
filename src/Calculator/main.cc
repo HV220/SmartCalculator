@@ -12,6 +12,38 @@ int main(int argc, char *argv[]) {
   w.show();
   return a.exec();
 
+//  QString str = "10+15/";
+//  QString *p = &str;
+//  try {
+//      CalculatorModel::Calculation *test = new CalculatorModel::Calculation();
+
+//      double res = test->calculate(&str);
+//  } catch (std::logic_error &e) {
+//      str = e.what();
+//  }
+
+
+//  QString q = "fsdf";
+}
+
+
+//QString str = "10+15";
+//QString *p = &str;
+//CalculatorModel::Calculation *test = new CalculatorModel::Calculation();
+
+//double res = test->calculate(&str);
+
+//QString q = "fsdf";
+
+//    сумма вклада
+//    срок размещения
+//    процентная ставка
+//    налоговая ставка 13 процентов, если больше 12.5 процентов
+//    периодичность выплат: 1 раз в год
+//    капитализация процентов: 1 раз в год
+//    список пополнений: 1 раз в год
+//    список частичных снятий: 1 раз в год
+
 //struct CalculatorModel::DepositCalculation::InputData Data;
 
 //QString deposit_amount;
@@ -28,15 +60,3 @@ int main(int argc, char *argv[]) {
 //Data.setTaxRate("1");
 //Data.setPaymentFrequency("1");
 //Data.setStatusCapitalisation(0);
-
-//    QString res;
-}
-
-//    сумма вклада
-//    срок размещения
-//    процентная ставка
-//    налоговая ставка 13 процентов, если больше 12.5 процентов
-//    периодичность выплат: 1 раз в год
-//    капитализация процентов: 1 раз в год
-//    список пополнений: 1 раз в год
-//    список частичных снятий: 1 раз в год

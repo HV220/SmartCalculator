@@ -4,6 +4,72 @@ namespace s21 {
 
 // Begin Class Calculator
 
+const struct CalculatorModel::Calculation::graficData &
+CalculatorModel::Calculation::calculateGrafic(
+    const struct CalculatorModel::Calculation::graficData &grafic_data,
+    const QString *expression) {
+  double X = 0.0, Y = 0.0;
+
+  return grafic_data;
+}
+// TODO Описать график
+
+//      h = ((xEnd - xBegin) / Count_points);
+
+//      int Old_status = status;
+// X = xBegin; X < (xEnd + h); X += h
+//      if ((xEnd > xBegin) && (yEnd > yBegin)) {
+//        for (int i = 0; i < Count_points; i++) {
+//          X = xBegin + h * i;
+//          QString y_text;
+//          if (ui->result_tmp->text() == "" && ui->result_show->text() == "") {
+//            QMessageBox::information(
+//                this, /*"Attention!", */ "Please, input the data.", "");
+//            return 1;
+//          } else if (ui->result_show->text() != "") {
+//            y_text = ui->result_show->text();
+//          } else if (ui->result_tmp->text() != "") {
+//            y_text = ui->result_tmp->text();
+//          }
+//          if (y_text != "" /*&& status == 0*/) {
+//            if (y_text.contains("x"))
+//              y_text.replace(QString("x"),
+//                             QString("(" + QString::number(X, 'f', 7) + ")"));
+//            char *prestr = y_text.toLocal8Bit().data();
+//            status = s21_smartcalc(&Y, prestr, 0);
+//          } else {
+//            status = 1;
+//          }
+//          if (status == OK) {
+//            x.push_back(X);
+//            y.push_back(Y);
+//            PointsTotalCnt++;
+//            Points_InGraph += (!((yBegin > Y) || (Y > yEnd)));
+//            /*} else { QMessageBox::information(this, "Attention!",
+//             "Please, сheck the data. Data entered incorrectly"); break; */
+//          }
+//          if ((status != OK && Old_status == OK) ||
+//              ((yBegin * 3 > Y) || (Y > yEnd * 3))) {
+//            ui->widget_graf->addGraph();
+//            ui->widget_graf->graph(iGraph++)->addData(x, y);
+//            x.clear();
+//            y.clear();
+//          }
+//          Old_status = status;
+//        }
+//        ui->widget_graf->addGraph();
+//        ui->widget_graf->graph(iGraph++)->addData(x, y);
+//        ui->widget_graf->replot();
+//        while (iGraph) ui->widget_graf->graph(--iGraph)->data()->clear();
+//      }
+
+//      if (PointsTotalCnt == 0 || (xEnd < xBegin))
+//        QMessageBox::information(this,  //"Attention!",
+//                                 "Function not defined in this XRange", "");
+//      if ((PointsTotalCnt > 0 && Points_InGraph == 0) || (yEnd < yBegin))
+//        QMessageBox::information(this,  //"Attention!",
+//                                 "Function points are out of YRange", "");
+
 const std::string CalculatorModel::Calculation::checkFunction(size_t &i) {
   std::string function{};
   while (std::isalpha(expression_[i])) {
@@ -39,11 +105,20 @@ bool CalculatorModel::Calculation::unaryOperator(size_t i) noexcept {
   return (i == 0 || expression_[i - 1] == '(');
 }
 
-double CalculatorModel::Calculation::calculate(QString expression) {
-  this->setExpression(expression);
-  this->devideOnLexems();
-  this->polishConverter();
-  this->polishCalculate();
+double CalculatorModel::Calculation::calculate(const QString *expression) {
+  try {
+    this->setExpression(expression);
+
+    this->devideOnLexems();
+
+    this->polishConverter();
+
+    this->polishCalculate();
+
+  } catch (std::exception &e) {
+    throw e;
+  }
+
   return this->data;
 }
 
@@ -53,28 +128,33 @@ std::string CalculatorModel::Calculation::getExpression() noexcept {
 
 double CalculatorModel::Calculation::getData() noexcept { return this->data; };
 
-void CalculatorModel::Calculation::setExpression(QString expression) {
-  if (expression.isEmpty() || expression.isNull())
+void CalculatorModel::Calculation::setExpression(const QString *expression) {
+  QString str_check = *expression;
+  if (str_check.isEmpty() || str_check.isNull())
     throw std::logic_error("incorrect expression");
 
-  int count = std::count(expression.begin(), expression.end(), ')') +
-              std::count(expression.begin(), expression.end(), '(');
+  int count = std::count(str_check.begin(), str_check.end(), ')') +
+              std::count(str_check.begin(), str_check.end(), '(');
 
   if ((count % 2)) throw std::logic_error("incorrect expression");
 
   this->expression_ =
-      expression.toLower().simplified().replace(" ", "").toStdString();
+      str_check.toLower().simplified().replace(" ", "").toStdString();
 };
 
 void CalculatorModel::Calculation::devideOnLexems() {
-  for (size_t i{}; i < expression_.size();) {
-    if (std::isdigit(expression_[i])) {
-      this->lexems_.push_back(numberValidation(i));
-    } else if (std::isalpha(expression_[i])) {
-      this->lexems_.push_back(checkFunction(i));
-    } else {
-      this->lexems_.push_back(checkOperator(i));
+  try {
+    for (size_t i{}; i < expression_.size();) {
+      if (std::isdigit(expression_[i])) {
+        this->lexems_.push_back(numberValidation(i));
+      } else if (std::isalpha(expression_[i])) {
+        this->lexems_.push_back(checkFunction(i));
+      } else {
+        this->lexems_.push_back(checkOperator(i));
+      }
     }
+  } catch (std::exception &e) {
+    throw e;
   }
 };
 
@@ -161,38 +241,42 @@ void CalculatorModel::Calculation::polishCalculate() {
 
 void CalculatorModel::Calculation::polishConverter() {
   std::vector<std::string> operator_stack{};
-  for (const auto &str : this->lexems_) {
-    if (std::isdigit(str[0])) {
-      polish_notation_.push_back(str);
-    } else if (str == "(") {
-      operator_stack.push_back(str);
-    } else if (str == ")") {
-      while (operator_stack.back() != "(") {
-        polish_notation_.push_back(operator_stack.back());
-        operator_stack.pop_back();
-      }
-      operator_stack.pop_back();
-    } else {
-      if (!operator_stack.empty()) {
-        int priority_in_expression = this->operators_.find(str)->second;
-        int priority_in_stack =
-            this->operators_.find(operator_stack.back())->second;
-        while (priority_in_stack >= priority_in_expression) {
+  try {
+    for (const auto &str : this->lexems_) {
+      if (std::isdigit(str[0])) {
+        polish_notation_.push_back(str);
+      } else if (str == "(") {
+        operator_stack.push_back(str);
+      } else if (str == ")") {
+        while (operator_stack.back() != "(") {
           polish_notation_.push_back(operator_stack.back());
           operator_stack.pop_back();
-          if (operator_stack.empty()) {
-            break;
-          }
-          priority_in_stack =
-              this->operators_.find(operator_stack.back())->second;
         }
+        operator_stack.pop_back();
+      } else {
+        if (!operator_stack.empty()) {
+          int priority_in_expression = this->operators_.find(str)->second;
+          int priority_in_stack =
+              this->operators_.find(operator_stack.back())->second;
+          while (priority_in_stack >= priority_in_expression) {
+            polish_notation_.push_back(operator_stack.back());
+            operator_stack.pop_back();
+            if (operator_stack.empty()) {
+              break;
+            }
+            priority_in_stack =
+                this->operators_.find(operator_stack.back())->second;
+          }
+        }
+        operator_stack.push_back(str);
       }
-      operator_stack.push_back(str);
     }
-  }
-  while (!operator_stack.empty()) {
-    polish_notation_.push_back(operator_stack.back());
-    operator_stack.pop_back();
+    while (!operator_stack.empty()) {
+      polish_notation_.push_back(operator_stack.back());
+      operator_stack.pop_back();
+    }
+  } catch (std::exception &e) {
+    throw e;
   }
 }
 

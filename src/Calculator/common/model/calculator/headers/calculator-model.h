@@ -25,7 +25,34 @@ class CalculatorModel {
         {"unary_plus", 5}, {"(", 0},    {")", 0}};
 
    public:
-    double calculate(QString expression);
+    struct graficData {
+     private:
+      std::vector<double> x{};
+      std::vector<double> y{};
+      double xBegin, xEnd, yBegin, yEnd, h;
+
+     public:
+      const std::vector<double>& getX() const { return x; }
+      const std::vector<double>& getY() const { return y; }
+      double getXBegin() const { return xBegin; }
+      double getXEnd() const { return xEnd; }
+      double getYBegin() const { return yBegin; }
+      double getYEnd() const { return yEnd; }
+      double getH() const { return h; }
+
+      void setX(const std::vector<double>& newX) { x = newX; }
+      void setY(const std::vector<double>& newY) { y = newY; }
+      void setXBegin(double newXBegin) { xBegin = newXBegin; }
+      void setXEnd(double newXEnd) { xEnd = newXEnd; }
+      void setYBegin(double newYBegin) { yBegin = newYBegin; }
+      void setYEnd(double newYEnd) { yEnd = newYEnd; }
+      void setH(double newH) { h = newH; }
+    };
+
+   public:
+    const struct graficData& calculateGrafic(
+        const struct graficData& grafic_data, const QString* expression);
+    double calculate(const QString* expression);
     double getData() noexcept;
     void clear() noexcept;
 
@@ -34,7 +61,7 @@ class CalculatorModel {
     const std::string checkFunction(size_t& i);
     const std::string checkOperator(size_t& i);
     bool unaryOperator(size_t i) noexcept;
-    void setExpression(QString expression);
+    void setExpression(const QString* expression);
     void devideOnLexems();
     void polishCalculate();
     void polishConverter();
