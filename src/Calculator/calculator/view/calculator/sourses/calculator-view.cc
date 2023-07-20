@@ -1,5 +1,6 @@
 #include "../headers/calculator-view.h"
 #include "ui_main.h"
+#include "ui_credit.h"
 #include <cmath>
 
 namespace s21 {
@@ -46,6 +47,8 @@ CalculationView::CalculationView(QWidget *parent)
     connect(ui_calculation->pushButton_PI, SIGNAL(clicked()), this, SLOT(constant_pressed()));
 
     connect(ui_calculation->pushButton_graf, SIGNAL(clicked()), this, SLOT(on_pushButton_eq_clicked()));
+
+    connect(ui_calculation->pushButton_credit, SIGNAL(clicked()), this, SLOT(on_pushButton_credit_clicked()));
 
     ui_calculation->pushButton_dot->setCheckable(true);
 }
@@ -102,8 +105,8 @@ void s21::CalculationView::on_pushButton_AC_clicked() {
       ui_calculation->lineEdit_xMaxValue->clear();
       ui_calculation->lineEdit_yMinValue->clear();
       ui_calculation->lineEdit_yMaxValue->clear();
-//      ui_calculation->widget->clearGraphs();
-//      ui_calculation->widget->replot();
+      ui_calculation->widget->clearGraphs();
+      ui_calculation->widget->replot();
 }
 
 void s21::CalculationView::on_pushButton_eq_clicked() {
@@ -151,23 +154,23 @@ void s21::CalculationView::on_pushButton_back_clicked() {
 void s21::CalculationView::on_pushButton_close_clicked() {QWidget::close();}
 
 void s21::CalculationView::on_pushButton_credit_clicked() {
-//    Dialog credit;
 
-//    credit.setWindowTitle("Credit Calculator");
-//    credit.setModal(true);
-//    credit.exec();
+    CreditView ui_credit;
+    ui_credit.setWindowTitle("Credit Calculator");
+    ui_credit.setModal(true);
+    ui_credit.exec();
 }
 
 int s21::CalculationView::on_pushButton_graf_clicked() {
 
       int status = OK, Count_points = 500;
-      ui_calculation->widget->clearGraphs();  // очистка графа
-      x.clear();                       // очистка
+      ui_calculation->widget->clearGraphs();
+      x.clear();
       y.clear();
       int Points_InGraph = 0;
       int PointsTotalCnt = 0;
       int iGraph = 0;
-      // draw_axis();  // рисуем оси
+
       QString xMin_text = ui_calculation->lineEdit_xMinValue->text();
       (xMin_text == "") ? xBegin = -10 : xBegin = xMin_text.toDouble();
       QString xMax_text = ui_calculation->lineEdit_xMaxValue->text();
@@ -178,11 +181,12 @@ int s21::CalculationView::on_pushButton_graf_clicked() {
       (yMax_text == "") ? yEnd = 10 : yEnd = yMax_text.toDouble();
       ui_calculation->widget->xAxis->setRange(xBegin, xEnd);
       ui_calculation->widget->yAxis->setRange(yBegin, yEnd);
-      // отрисовка осей завершена
+
 
       double X = 0.0, Y = 0.0;
 
       Count_points = (int)ui_calculation->lineEdit_xStep->text().toDouble();
+
       if (Count_points < 10) {
         QMessageBox::information(this, "Not enough points. Fixed to default", "");
         Count_points = 500;
@@ -199,7 +203,7 @@ int s21::CalculationView::on_pushButton_graf_clicked() {
       h = ((xEnd - xBegin) / Count_points);
 
       int Old_status = status;
-      // X = xBegin; X < (xEnd + h); X += h
+
       if ((xEnd > xBegin) && (yEnd > yBegin)) {
         for (int i = 0; i < Count_points; i++) {
           X = xBegin + h * i;
@@ -213,7 +217,7 @@ int s21::CalculationView::on_pushButton_graf_clicked() {
           } else if (ui_calculation->result_tmp->text() != "") {
             y_text = ui_calculation->result_tmp->text();
           }
-          if (y_text != "" /*&& status == 0*/) {
+          if (y_text != "") {
             if (y_text.contains("x"))
               y_text.replace(QString("x"),
                              QString("(" + QString::number(X, 'f', 7) + ")"));
@@ -227,8 +231,6 @@ int s21::CalculationView::on_pushButton_graf_clicked() {
             y.push_back(Y);
             PointsTotalCnt++;
             Points_InGraph += (!((yBegin > Y) || (Y > yEnd)));
-            /*} else { QMessageBox::information(this, "Attention!",
-             "Please, сheck the data. Data entered incorrectly"); break; */
           }
           if ((status != OK && Old_status == OK) ||
               ((yBegin * 3 > Y) || (Y > yEnd * 3))) {
@@ -239,6 +241,7 @@ int s21::CalculationView::on_pushButton_graf_clicked() {
           }
           Old_status = status;
         }
+
         ui_calculation->widget->addGraph();
         ui_calculation->widget->graph(iGraph++)->addData(x, y);
         ui_calculation->widget->replot();
@@ -264,5 +267,12 @@ void s21::CalculationView::on_pushButton_deposit_clicked() {
 //      deposit.setModal(true);
 //      deposit.exec();
 }
+
+CreditView::CreditView(QWidget *parent,CalculatorController *controller)
+    : QDialog(parent), ui_credit(new Ui::CreditView) {
+      ui_credit->setupUi(this);
+}
+
+CreditView::~CreditView() { delete ui_credit; }
 
 }; // namespace s21

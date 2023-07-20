@@ -4,72 +4,6 @@ namespace s21 {
 
 // Begin Class Calculator
 
-const struct CalculatorModel::Calculation::graficData &
-CalculatorModel::Calculation::calculateGrafic(
-    const struct CalculatorModel::Calculation::graficData &grafic_data,
-    const QString *expression) {
-  double X = 0.0, Y = 0.0;
-
-  return grafic_data;
-}
-// TODO Описать график
-
-//      h = ((xEnd - xBegin) / Count_points);
-
-//      int Old_status = status;
-// X = xBegin; X < (xEnd + h); X += h
-//      if ((xEnd > xBegin) && (yEnd > yBegin)) {
-//        for (int i = 0; i < Count_points; i++) {
-//          X = xBegin + h * i;
-//          QString y_text;
-//          if (ui->result_tmp->text() == "" && ui->result_show->text() == "") {
-//            QMessageBox::information(
-//                this, /*"Attention!", */ "Please, input the data.", "");
-//            return 1;
-//          } else if (ui->result_show->text() != "") {
-//            y_text = ui->result_show->text();
-//          } else if (ui->result_tmp->text() != "") {
-//            y_text = ui->result_tmp->text();
-//          }
-//          if (y_text != "" /*&& status == 0*/) {
-//            if (y_text.contains("x"))
-//              y_text.replace(QString("x"),
-//                             QString("(" + QString::number(X, 'f', 7) + ")"));
-//            char *prestr = y_text.toLocal8Bit().data();
-//            status = s21_smartcalc(&Y, prestr, 0);
-//          } else {
-//            status = 1;
-//          }
-//          if (status == OK) {
-//            x.push_back(X);
-//            y.push_back(Y);
-//            PointsTotalCnt++;
-//            Points_InGraph += (!((yBegin > Y) || (Y > yEnd)));
-//            /*} else { QMessageBox::information(this, "Attention!",
-//             "Please, сheck the data. Data entered incorrectly"); break; */
-//          }
-//          if ((status != OK && Old_status == OK) ||
-//              ((yBegin * 3 > Y) || (Y > yEnd * 3))) {
-//            ui->widget_graf->addGraph();
-//            ui->widget_graf->graph(iGraph++)->addData(x, y);
-//            x.clear();
-//            y.clear();
-//          }
-//          Old_status = status;
-//        }
-//        ui->widget_graf->addGraph();
-//        ui->widget_graf->graph(iGraph++)->addData(x, y);
-//        ui->widget_graf->replot();
-//        while (iGraph) ui->widget_graf->graph(--iGraph)->data()->clear();
-//      }
-
-//      if (PointsTotalCnt == 0 || (xEnd < xBegin))
-//        QMessageBox::information(this,  //"Attention!",
-//                                 "Function not defined in this XRange", "");
-//      if ((PointsTotalCnt > 0 && Points_InGraph == 0) || (yEnd < yBegin))
-//        QMessageBox::information(this,  //"Attention!",
-//                                 "Function points are out of YRange", "");
-
 const std::string CalculatorModel::Calculation::checkFunction(size_t &i) {
   std::string function{};
   while (std::isalpha(expression_[i])) {
@@ -601,19 +535,6 @@ void CalculatorModel::DepositCalculation::calculateDeposit(
   if (Data.getStatusCapitalisation()) {
     this->simplePercent(variables, lists, Data);
   }
-
-  //    сумма вклада
-  //    срок размещения
-  //    процентная ставка
-  //    налоговая ставка 13 процентов, если больше 12.5 процентов
-  //    периодичность выплат: 1 раз в год
-  //    капитализация процентов: 1 раз в год
-  //    список пополнений: 1 раз в год
-  //    список частичных снятий: 1 раз в год
-
-  //начисленные проценты
-  //сумма налога
-  //сумма на вкладе к концу срока
 };
 
 void CalculatorModel::DepositCalculation::simplePercent(

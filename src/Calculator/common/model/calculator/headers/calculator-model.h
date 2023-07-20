@@ -25,31 +25,6 @@ class CalculatorModel {
         {"unary_plus", 5}, {"(", 0},    {")", 0}};
 
    public:
-    struct graficData {
-     private:
-      std::vector<double> x{};
-      std::vector<double> y{};
-      double xBegin, xEnd, yBegin, yEnd, h;
-
-     public:
-      const std::vector<double>& getX() const { return x; }
-      const std::vector<double>& getY() const { return y; }
-      double getXBegin() const { return xBegin; }
-      double getXEnd() const { return xEnd; }
-      double getYBegin() const { return yBegin; }
-      double getYEnd() const { return yEnd; }
-      double getH() const { return h; }
-
-      void setX(const std::vector<double>& newX) { x = newX; }
-      void setY(const std::vector<double>& newY) { y = newY; }
-      void setXBegin(double newXBegin) { xBegin = newXBegin; }
-      void setXEnd(double newXEnd) { xEnd = newXEnd; }
-      void setYBegin(double newYBegin) { yBegin = newYBegin; }
-      void setYEnd(double newYEnd) { yEnd = newYEnd; }
-      void setH(double newH) { h = newH; }
-    };
-
-   public:
     const struct graficData& calculateGrafic(
         const struct graficData& grafic_data, const QString* expression);
     double calculate(const QString* expression);
@@ -227,23 +202,7 @@ class CalculatorModel {
                        const std::map<QString, std::vector<double>> lists,
                        const struct InputData& Data);
   };
-  //  Расчет по простой формуле
 
-  //  Начисления процентов по вкладам без капитализации по простой формуле:
-
-  //  S=(P*I*t:K):100.
-
-  //  Обозначения:
-
-  //      S – начисленный профит.
-  //      P – сумма вклада.
-  //      I – годовая ставка по депозиту.
-  //      t – срок депозита (к-во дней).
-  //      K – число дней в году (при расчете процентов всегда берется 365 дней,
-  //      даже в високосный год).
-
-  //  Если клиент вложил 50 000 руб. сроком на год под 4,7%, его доход составит
-  //  2350 рублей: (50 000*4,7*365):100=2350.
  public:
   QVector<Calculation> getCalculations() noexcept;
   Calculation getLastCalculation();

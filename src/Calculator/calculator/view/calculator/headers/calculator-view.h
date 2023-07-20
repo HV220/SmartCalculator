@@ -17,13 +17,32 @@
 QT_BEGIN_NAMESPACE
 namespace Ui {
 class CalculationView;
-class CreditCalculationView;
+class CreditView;
 class DepositCalculationView;
 } // namespace Ui
 QT_END_NAMESPACE
 
 namespace s21 {
 #define OK 0
+
+class CreditView : public QDialog {
+    Q_OBJECT
+public:
+  CreditView(QWidget *parent = nullptr, CalculatorController *controller = nullptr);
+  ~CreditView();
+
+private:
+  Ui::CreditView *ui_credit;
+};
+
+class DepositCalculationView {
+public:
+  DepositCalculationView(QWidget *parent = nullptr, CalculatorController *controller = nullptr);
+  ~DepositCalculationView();
+
+private:
+  Ui::DepositCalculationView *ui_deposit;
+};
 
 class CalculationView : public QMainWindow {
   Q_OBJECT
@@ -33,8 +52,6 @@ public:
 
 private:
   Ui::CalculationView *ui_calculation;
-  Ui::CreditCalculationView *ui_credit;
-  Ui::DepositCalculationView *ui_deposit;
   CalculatorController *common_controller;
 
   QVector<double> x;
@@ -56,23 +73,6 @@ private slots:
   void on_pushButton_deposit_clicked();
 };
 
-class CreditCalculationView {
-public:
-  CreditCalculationView(QWidget *parent = nullptr, CalculatorController *controller = nullptr);
-  ~CreditCalculationView();
-
-private:
-  Ui::CreditCalculationView *ui_credit;
-};
-
-class DepositCalculationView {
-public:
-  DepositCalculationView(QWidget *parent = nullptr, CalculatorController *controller = nullptr);
-  ~DepositCalculationView();
-
-private:
-  Ui::DepositCalculationView *ui_deposit;
-};
 
 } // namespace s21
 

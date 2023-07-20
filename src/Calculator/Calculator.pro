@@ -29,6 +29,7 @@ HEADERS += \
     common/model/calculator/headers/calculator-model.h
 
 FORMS += \
+    calculator/view/calculator/credit.ui \
     calculator/view/calculator/main.ui
 
 # Default rules for deployment.
