@@ -17,7 +17,7 @@ class CalculatorModel {
     std::vector<std::string> lexems_{};
     std::vector<std::string> polish_notation_{};
     double data;
-    std::map<std::string, int> operators_ = {  // TODO change on const
+    const std::map<std::string, int> operators_ = {
         {"+", 1},          {"-", 1},    {"*", 2},    {"/", 2},
         {"^", 3},          {"mod", 2},  {"cos", 4},  {"sin", 4},
         {"tan", 4},        {"acos", 4}, {"asin", 4}, {"atan", 4},
@@ -25,200 +25,215 @@ class CalculatorModel {
         {"unary_plus", 5}, {"(", 0},    {")", 0}};
 
    public:
-    const struct graficData& calculateGrafic(
-        const struct graficData& grafic_data, const QString* expression);
-    double calculate(const QString* expression);
-    double getData() noexcept;
-    void clear() noexcept;
+    double calculate(const std::string &expression);
+    double getData() noexcept { return this->data; };
+    std::string getExpression() noexcept { return this->expression_; };
 
    private:
-    std::string getExpression() noexcept;
-    const std::string checkFunction(size_t& i);
-    const std::string checkOperator(size_t& i);
+    const std::string checkFunction(size_t &i);
+    const std::string checkOperator(size_t &i);
     bool unaryOperator(size_t i) noexcept;
-    void setExpression(const QString* expression);
+    void setExpression(const std::string &expression);
     void devideOnLexems();
     void polishCalculate();
     void polishConverter();
-    const std::string numberValidation(size_t& i);
+    const std::string numberValidation(size_t &i);
   };
 
   class CreditCalculation {
    private:
     class CommonType {
      private:
-      double monthly_payment_;
-      double credit_overpayment_;
-      double total_payment_;
+      std::map<std::string, std::vector<double>> result_;
 
      public:
-      double getMonthlyPayment() noexcept;
-      void setMonthlyPayment(double monthly_payment);
+      const std::map<std::string, std::vector<double>> &getResult()
+          const noexcept {
+        return this->result_;
+      };
 
-      double getCreditOverpayment() noexcept;
-      void setCreditOverpayment(double credit_overpayment);
-
-      double getTotalPayment() noexcept;
-      void setTotalPayment(double total_payment);
+      void setResult(const std::map<std::string, std::vector<double>> &result) {
+        this->result_ = result;
+      };
 
      protected:
-      std::vector<double> validateExpressions(QString total_loan_amount,
-                                              QString period,
-                                              QString interest_rate);
+      std::vector<double> validateExpressions(
+          const std::string &total_loan_amount, const std::string &period,
+          const std::string &interest_rate);
     };
 
    public:
     class Annuity : public CommonType {
      public:
-      void calculate(QString total_loan_amount, QString period,
-                     QString interest_rate);
+      std::map<std::string, std::vector<double>> calculate(
+          const std::string &total_loan_amount, const std::string &period,
+          const std::string &interest_rate);
 
      private:
-      void calculateCredit(std::vector<double> variables);
+      void calculateCredit(const std::vector<double> &variables);
     };
 
     class Differential : public CommonType {
-     private:
-      std::vector<double> month_payments_;
-
      public:
-      std::vector<double> getMonthPayments();
-      void setMonthPayments(std::vector<double> month_payments);
-      void calculate(QString total_loan_amount, QString period,
-                     QString interest_rate);
+      std::map<std::string, std::vector<double>> calculate(
+          const std::string &total_loan_amount, const std::string &period,
+          const std::string &interest_rate);
 
      private:
-      void calculateCredit(std::vector<double> variables);
+      void calculateCredit(const std::vector<double> &variables);
     };
 
    public:
-    void setAnnuityCalc(Annuity calculation);
-    void setDiffCalc(Differential calculation);
-    std::vector<Annuity> getAnnuityCalc() noexcept;
-    std::vector<Differential> getDiffCalc() noexcept;
+    void setAnnuityCalc(const Annuity &calculation) {
+      this->annuity_calculation_.push_back(calculation);
+    };
 
-    std::vector<Annuity> Annuity_calculation{};
-    std::vector<Differential> Differential_calculation{};
+    void setDiffCalc(const Differential &calculation) {
+      this->differential_calculation_.push_back(calculation);
+    };
+
+    std::vector<Annuity> getAnnuityCalc() noexcept {
+      return this->annuity_calculation_;
+    };
+    std::vector<Differential> getDiffCalc() noexcept {
+      return this->differential_calculation_;
+    };
+
+    std::vector<Annuity> annuity_calculation_{};
+    std::vector<Differential> differential_calculation_{};
   };
 
-  class DepositCalculation {
-   private:
-    double accrued_interest_;
-    double amount_taxation_;
-    double end_sum_deposit_;
+  //  class DepositCalculation {
+  //  private:
+  //    double accrued_interest_;
+  //    double amount_taxation_;
+  //    double end_sum_deposit_;
 
-   public:
-    struct InputData {
-     private:
-      QString deposit_amount;
-      QString placement_term;
-      QString interest_rate;
-      QString tax_rate;
-      QString payment_frequency;
-      QString interest_capitalization;
-      int status_capitalisation;
+  //  public:
+  //    struct InputData {
+  //    private:
+  //      std::string deposit_amount;
+  //      std::string placement_term;
+  //      std::string interest_rate;
+  //      std::string tax_rate;
+  //      std::string payment_frequency;
+  //      std::string interest_capitalization;
+  //      int status_capitalisation;
 
-      std::vector<QString> replenishment_list;
-      std::vector<QString> partial_withdrawals_list;
+  //      std::vector<std::string> replenishment_list;
+  //      std::vector<std::string> partial_withdrawals_list;
 
-     public:
-      const QString& getDepositAmount() const { return deposit_amount; }
-      void setDepositAmount(const QString& amount) { deposit_amount = amount; }
+  //    public:
+  //      const std::string &getDepositAmount() const { return deposit_amount; }
+  //      void setDepositAmount(const std::string &amount) { deposit_amount =
+  //      amount; }
 
-      const QString& getPlacementTerm() const { return placement_term; }
-      void setPlacementTerm(const QString& term) { placement_term = term; }
+  //      const std::string &getPlacementTerm() const { return placement_term; }
+  //      void setPlacementTerm(const std::string &term) { placement_term =
+  //      term; }
 
-      const QString& getInterestRate() const { return interest_rate; }
-      void setInterestRate(const QString& rate) { interest_rate = rate; }
+  //      const std::string &getInterestRate() const { return interest_rate; }
+  //      void setInterestRate(const std::string &rate) { interest_rate = rate;
+  //      }
 
-      const QString& getTaxRate() const { return tax_rate; }
-      void setTaxRate(const QString& rate) { tax_rate = rate; }
+  //      const std::string &getTaxRate() const { return tax_rate; }
+  //      void setTaxRate(const std::string &rate) { tax_rate = rate; }
 
-      const QString& getPaymentFrequency() const { return payment_frequency; }
-      void setPaymentFrequency(const QString& frequency) {
-        payment_frequency = frequency;
-      }
+  //      const std::string &getPaymentFrequency() const { return
+  //      payment_frequency; } void setPaymentFrequency(const std::string
+  //      &frequency) {
+  //        payment_frequency = frequency;
+  //      }
 
-      const QString& getInterestCapitalization() const {
-        return interest_capitalization;
-      }
-      void setInterestCapitalization(const QString& capitalization) {
-        interest_capitalization = capitalization;
-      }
+  //      const std::string &getInterestCapitalization() const {
+  //        return interest_capitalization;
+  //      }
 
-      const int& getStatusCapitalisation() const {
-        return status_capitalisation;
-      }
-      void setStatusCapitalisation(const int& status) {
-        status_capitalisation = status;
-      }
+  //      void setInterestCapitalization(const std::string &capitalization) {
+  //        interest_capitalization = capitalization;
+  //      }
 
-      const std::vector<QString>& getReplenishmentList() const {
-        return replenishment_list;
-      }
-      void setReplenishmentList(const std::vector<QString>& list) {
-        replenishment_list = list;
-      }
+  //      const int &getStatusCapitalisation() const {
+  //        return status_capitalisation;
+  //      }
+  //      void setStatusCapitalisation(const int &status) {
+  //        status_capitalisation = status;
+  //      }
 
-      const std::vector<QString>& getPartialWithdrawalsList() const {
-        return partial_withdrawals_list;
-      }
-      void setPartialWithdrawalsList(const std::vector<QString>& list) {
-        partial_withdrawals_list = list;
-      }
-    } InputData;
+  //      const std::vector<std::string> &getReplenishmentList() const {
+  //        return replenishment_list;
+  //      }
 
-   public:
-    const double& getAccruedInterest() const {
-      return this->accrued_interest_;
-    };
-    void setAccruedInterest(const double& interest) {
-      this->accrued_interest_ = interest;
-    };
+  //      void setReplenishmentList(const std::vector<std::string> &list) {
+  //        replenishment_list = list;
+  //      }
 
-    const double& getAmountTaxation() const { return this->amount_taxation_; };
-    void setAmountTaxation(const double& taxation) {
-      this->amount_taxation_ = taxation;
-    };
+  //      const std::vector<std::string> &getPartialWithdrawalsList() const {
+  //        return partial_withdrawals_list;
+  //      }
+  //      void setPartialWithdrawalsList(const std::vector<std::string> &list) {
+  //        partial_withdrawals_list = list;
+  //      }
+  //    } InputData;
 
-    const double& getEndSumDeposit() const { return this->end_sum_deposit_; };
-    void setEndSumDeposit(const double& sum_deposit) {
-      this->end_sum_deposit_ = sum_deposit;
-    };
+  //  public:
+  //    const double &getAccruedInterest() const {
+  //      return this->accrued_interest_;
+  //    };
+  //    void setAccruedInterest(const double &interest) {
+  //      this->accrued_interest_ = interest;
+  //    };
 
-    void calculate(const struct InputData Data);
+  //    const double &getAmountTaxation() const { return this->amount_taxation_;
+  //    }; void setAmountTaxation(const double &taxation) {
+  //      this->amount_taxation_ = taxation;
+  //    };
 
-   private:
-    std::map<QString, double> validateExpressions(const struct InputData Data);
-    std::map<QString, std::vector<double>> validateList(
-        const struct InputData Data);
-    void calculateDeposit(const std::map<QString, double> variables,
-                          const std::map<QString, std::vector<double>> lists,
-                          const struct InputData& Data);
-    QString validateNullorEmpty(QString str);
-    double changeToDouble(QString num);
-    std::vector<double> changeToDouble(const std::vector<QString> num);
-    void simplePercent(const std::map<QString, double> variables,
-                       const std::map<QString, std::vector<double>> lists,
-                       const struct InputData& Data);
-  };
+  //    const double &getEndSumDeposit() const { return this->end_sum_deposit_;
+  //    }; void setEndSumDeposit(const double &sum_deposit) {
+  //      this->end_sum_deposit_ = sum_deposit;
+  //    };
+
+  //    void calculate(const struct InputData& Data);
+
+  //  private:
+  //    std::map<std::string, double> validateExpressions(const struct InputData
+  //    Data); std::map<std::string, std::vector<double>> validateList(const
+  //    struct InputData Data); void calculateDeposit(const
+  //    std::map<std::string, double> variables,
+  //                          const std::map<std::string, std::vector<double>>
+  //                          lists, const struct InputData &Data);
+  //    std::string validateNullorEmpty(std::string str);
+  //    double changeToDouble(std::string num);
+  //    std::vector<double> changeToDouble(const std::vector<std::string> num);
+  //    void simplePercent(const std::map<std::string, double> variables,
+  //                       const std::map<std::string, std::vector<double>>
+  //                       lists, const struct InputData &Data);
+  //  };
 
  public:
-  QVector<Calculation> getCalculations() noexcept;
-  Calculation getLastCalculation();
-  void setCalculations(QVector<Calculation> calculations) noexcept;
-  void setLastCalculation(Calculation calculation) noexcept;
+  const std::vector<Calculation> &getCalculations() noexcept {
+    return this->calculations_;
+  };
+  const Calculation &getLastCalculation() {
+    return this->calculations_.back();
+  };
 
-  QVector<CreditCalculation> getCreditCalculation() noexcept;
-  CreditCalculation getLastCreditCalculation();
-  void setCreditCalculations(
-      QVector<CreditCalculation> credit_calculations) noexcept;
-  void setLastCreditCalculation(CreditCalculation credit_calculation) noexcept;
+  const std::vector<CreditCalculation> &getCreditCalculation() noexcept {
+    return this->credit_calculations_;
+  };
+  const CreditCalculation &getLastCreditCalculation() {
+    return this->credit_calculations_.back();
+  };
+
   void reset();
 
+  void save(const Calculation *calc = nullptr,
+            const CreditCalculation *credit_calc = nullptr);
+
  private:
-  QVector<Calculation> calculations{};
-  QVector<CreditCalculation> credit_calculations{};
+  std::vector<Calculation> calculations_{};
+  std::vector<CreditCalculation> credit_calculations_{};
 };
 
 };      // namespace s21

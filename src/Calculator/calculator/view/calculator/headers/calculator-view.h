@@ -33,6 +33,10 @@ public:
 
 private:
   Ui::CreditView *ui_credit;
+
+private slots:
+  void calculationCredit(CalculatorController *controller);
+  void on_pushButton_closecredit_clicked();
 };
 
 class DepositCalculationView {
@@ -69,7 +73,6 @@ private slots:
   void on_pushButton_close_clicked();
   void on_pushButton_credit_clicked();
   int on_pushButton_graf_clicked();
-  void draw_axis();
   void on_pushButton_deposit_clicked();
 };
 

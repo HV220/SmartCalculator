@@ -39,7 +39,7 @@ bool CalculatorModel::Calculation::unaryOperator(size_t i) noexcept {
   return (i == 0 || expression_[i - 1] == '(');
 }
 
-double CalculatorModel::Calculation::calculate(const QString *expression) {
+double CalculatorModel::Calculation::calculate(const std::string &expression) {
   try {
     this->setExpression(expression);
 
@@ -56,24 +56,15 @@ double CalculatorModel::Calculation::calculate(const QString *expression) {
   return this->data;
 }
 
-std::string CalculatorModel::Calculation::getExpression() noexcept {
-  return this->expression_;
-};
-
-double CalculatorModel::Calculation::getData() noexcept { return this->data; };
-
-void CalculatorModel::Calculation::setExpression(const QString *expression) {
-  QString str_check = *expression;
-  if (str_check.isEmpty() || str_check.isNull())
-    throw std::logic_error("incorrect expression");
+void CalculatorModel::Calculation::setExpression(
+    const std::string &expression) {
+  std::string str_check = expression;
+  if (str_check == "") throw std::logic_error("incorrect expression");
 
   int count = std::count(str_check.begin(), str_check.end(), ')') +
               std::count(str_check.begin(), str_check.end(), '(');
 
   if ((count % 2)) throw std::logic_error("incorrect expression");
-
-  this->expression_ =
-      str_check.toLower().simplified().replace(" ", "").toStdString();
 };
 
 void CalculatorModel::Calculation::devideOnLexems() {
@@ -214,122 +205,55 @@ void CalculatorModel::Calculation::polishConverter() {
   }
 }
 
-void CalculatorModel::Calculation::clear() noexcept {
-  this->lexems_.clear();
-  this->polish_notation_.clear();
-  this->expression_ = "";
-  this->data = 0;
-}
-
 // End Class Calculator
 
 // Begin Class CalculatorModel
 
-QVector<CalculatorModel::Calculation>
-CalculatorModel::getCalculations() noexcept {
-  return this->calculations;
-};
-
-CalculatorModel::Calculation CalculatorModel::getLastCalculation() {
-  return this->calculations.back();
-};
-
-void CalculatorModel::setCalculations(
-    QVector<CalculatorModel::Calculation> calculations) noexcept {
-  this->calculations = calculations;
-};
-
-void CalculatorModel::setLastCalculation(Calculation calculation) noexcept {
-  this->calculations.push_back(calculation);
-};
-
-QVector<CalculatorModel::CreditCalculation>
-CalculatorModel::getCreditCalculation() noexcept {
-  return this->credit_calculations;
-};
-
-CalculatorModel::CreditCalculation CalculatorModel::getLastCreditCalculation() {
-  return this->credit_calculations.back();
-};
-
-void CalculatorModel::setCreditCalculations(
-    QVector<CalculatorModel::CreditCalculation> credit_calculations) noexcept {
-  this->credit_calculations = credit_calculations;
-};
-void CalculatorModel::setLastCreditCalculation(
-    CalculatorModel::CreditCalculation credit_calculations) noexcept {
-  this->credit_calculations.push_back(credit_calculations);
-};
-
 void CalculatorModel::reset() {
-  this->calculations.clear();
-  this->credit_calculations.clear();
+  this->calculations_.clear();
+  this->credit_calculations_.clear();
+};
+
+void CalculatorModel::save(
+    const CalculatorModel::Calculation *calc,
+    const CalculatorModel::CreditCalculation *credit_calc) {
+  if (calc != nullptr) this->calculations_.push_back(*calc);
+
+  if (credit_calc != nullptr)
+    this->credit_calculations_.push_back(*credit_calc);
 };
 
 // End Class CalculatorModel
 
 // Begin Class CommonType
-
-void setMonthlyPayment(double monthly_payment);
-void setCreditOverpayment(double credit_overpayment);
-void setTotalPayment(double total_payment);
-
-double getMonthlyPayment() noexcept;
-double getCreditOverpayment() noexcept;
-double getTotalPayment() noexcept;
-
-void calculate(double total_loan_amount, double period, double interest_rate);
-
-void CalculatorModel::CreditCalculation::CommonType::setMonthlyPayment(
-    double monthly_payment) {
-  this->monthly_payment_ = monthly_payment;
-}
-
-void CalculatorModel::CreditCalculation::CommonType::setCreditOverpayment(
-    double credit_overpayment) {
-  this->credit_overpayment_ = credit_overpayment;
-}
-
-void CalculatorModel::CreditCalculation::CommonType::setTotalPayment(
-    double total_payment) {
-  this->total_payment_ = total_payment;
-}
-
-double
-CalculatorModel::CreditCalculation::CommonType::getMonthlyPayment() noexcept {
-  return this->monthly_payment_;
-}
-
-double CalculatorModel::CreditCalculation::CommonType::
-    getCreditOverpayment() noexcept {
-  return this->credit_overpayment_;
-}
-
-double
-CalculatorModel::CreditCalculation::CommonType::getTotalPayment() noexcept {
-  return this->total_payment_;
-}
-
 std::vector<double>
 CalculatorModel::CreditCalculation::CommonType::validateExpressions(
-    QString total_loan_amount, QString period, QString interest_rate) {
-  if (total_loan_amount.isEmpty() || period.isEmpty() ||
-      interest_rate.isEmpty())
+    const std::string &total_loan_amount, const std::string &period,
+    const std::string &interest_rate) {
+  if (total_loan_amount == "" || period == "" || interest_rate == "")
     throw std::logic_error("conversion's numbers error");
 
-  bool check_str = 0;
+  std::string total_loan_amount_tmp = total_loan_amount;
+  std::string period_tmp = period;
+  std::string interest_rate_tmp = interest_rate;
 
-  total_loan_amount.replace(QChar(','), QLatin1String("."),
-                            Qt::CaseInsensitive);
-  period.replace(QChar(','), QLatin1String("."), Qt::CaseInsensitive);
-  interest_rate.replace(QChar(','), QLatin1String("."), Qt::CaseInsensitive);
+  total_loan_amount_tmp.replace(total_loan_amount_tmp.begin(),
+                                total_loan_amount_tmp.end(), ',', '.');
+  period_tmp.replace(period_tmp.begin(), period_tmp.end(), ',', '.');
+  interest_rate_tmp.replace(interest_rate_tmp.begin(), interest_rate_tmp.end(),
+                            ',', '.');
 
-  double total_loan_res = total_loan_amount.toDouble(&check_str);
-  if (!check_str) throw std::logic_error("conversion's numbers error");
-  double period_res = period.toDouble(&check_str);
-  if (!check_str) throw std::logic_error("conversion's numbers error");
-  double interest_rate_res = interest_rate.toDouble(&check_str);
-  if (!check_str) throw std::logic_error("conversion's numbers error");
+  double total_loan_res;
+  double period_res;
+  double interest_rate_res;
+
+  try {
+    total_loan_res = std::stod(total_loan_amount_tmp, nullptr);
+    period_res = std::stod(period_tmp, nullptr);
+    interest_rate_res = std::stod(interest_rate_tmp, nullptr);
+  } catch (std::exception &e) {
+    throw e;
+  }
 
   if (total_loan_res <= 0 || period_res <= 0 || interest_rate_res <= 0)
     throw std::logic_error("conversion's numbers error");
@@ -346,19 +270,24 @@ CalculatorModel::CreditCalculation::CommonType::validateExpressions(
 
 // Begin Class Annuity
 
-void CalculatorModel::CreditCalculation::Annuity::calculate(
-    QString total_loan_amount, QString period, QString interest_rate) {
+std::map<std::string, std::vector<double>>
+CalculatorModel::CreditCalculation::Annuity::calculate(
+    const std::string &total_loan_amount, const std::string &period,
+    const std::string &interest_rate) {
   try {
     std::vector<double> variables =
         this->validateExpressions(total_loan_amount, period, interest_rate);
     this->calculateCredit(variables);
-  } catch (...) {
-    throw std::logic_error("credit calculation error");
+
+    return this->getResult();
+
+  } catch (std::exception &e) {
+    throw e;
   }
 }
 
 void CalculatorModel::CreditCalculation::Annuity::calculateCredit(
-    std::vector<double> variables) {
+    const std::vector<double> &variables) {
   if (variables.empty() && variables.size() < 3)
     throw std::logic_error("empty error");
 
@@ -373,28 +302,43 @@ void CalculatorModel::CreditCalculation::Annuity::calculateCredit(
   double res_common_pay = res_overpay + S;
   res_common_pay = round(res_common_pay * 100) / 100;
 
-  this->setMonthlyPayment(res_mounth);
-  this->setTotalPayment(res_common_pay);
-  this->setCreditOverpayment(res_overpay);
+  std::vector<double> res_mounths;
+
+  for (int i = 0; i < (int)N; i++) res_mounths.push_back(res_mounth);
+
+  std::map<std::string, std::vector<double>> res = {
+      {"TotalPayment", {res_common_pay}},
+      {"CreditOverpayment", {res_overpay}},
+      {"MounthPayments", res_mounths}};
+
+  this->setResult(res);
 }
 
 // End Class Annuity
 
 // Begin Class Differential
 
-void CalculatorModel::CreditCalculation::Differential::calculate(
-    QString total_loan_amount, QString period, QString interest_rate) {
+std::map<std::string, double> calculateCredit(
+    const std::vector<double> &variables);
+
+std::map<std::string, std::vector<double>>
+CalculatorModel::CreditCalculation::Differential::calculate(
+    const std::string &total_loan_amount, const std::string &period,
+    const std::string &interest_rate) {
   try {
     std::vector<double> variables =
         this->validateExpressions(total_loan_amount, period, interest_rate);
     this->calculateCredit(variables);
-  } catch (...) {
-    throw std::logic_error("credit calculation error");
+
+    return this->getResult();
+
+  } catch (std::exception &e) {
+    throw e;
   }
 }
 
 void CalculatorModel::CreditCalculation::Differential::calculateCredit(
-    std::vector<double> variables) {
+    const std::vector<double> &variables) {
   if (variables.empty() && variables.size() < 3)
     throw std::logic_error("empty error");
 
@@ -404,11 +348,13 @@ void CalculatorModel::CreditCalculation::Differential::calculateCredit(
   double D = S / N;
   double res_overpay = 0;
 
+  std::vector<double> res_mounths;
+
   for (int i = 1; i <= N; i++) {
     double q = S / N;
     double tmp = D + (S - D * (i - 1)) * R;
     tmp = round(tmp * 100) / 100;
-    this->month_payments_.push_back(tmp);
+    res_mounths.push_back(tmp);
 
     res_overpay += tmp - q;
   }
@@ -416,183 +362,182 @@ void CalculatorModel::CreditCalculation::Differential::calculateCredit(
   double res_common_pay = res_overpay + S;
   res_common_pay = round(res_common_pay * 100) / 100;
 
-  this->setTotalPayment(res_common_pay);
-  this->setCreditOverpayment(res_overpay);
+  std::map<std::string, std::vector<double>> res = {
+      {"TotalPayment", {res_common_pay}},
+      {"CreditOverpayment", {res_overpay}},
+      {"MounthPayments", res_mounths}};
+
+  this->setResult(res);
 }
-
-std::vector<double>
-CalculatorModel::CreditCalculation::Differential::getMonthPayments() {
-  return this->month_payments_;
-};
-
-void CalculatorModel::CreditCalculation::Differential::setMonthPayments(
-    std::vector<double> month_payments) {
-  this->month_payments_ = month_payments;
-};
 
 // End Class Differential
 
 // Begin Class DepositCalculation
 
-void CalculatorModel::DepositCalculation::calculate(
-    const struct InputData Data) {
-  std::map<QString, double> variables;
-  std::map<QString, std::vector<double>> lists;
-  try {
-    variables = this->validateExpressions(Data);
-    lists = this->validateList(Data);
-    this->calculateDeposit(variables, lists, Data);
-  } catch (std::exception &e) {
-    variables.clear();
-    lists.clear();
-    throw std::logic_error(e.what());
-  }
-  variables.clear();
-  lists.clear();
-};
+// void CalculatorModel::DepositCalculation::calculate(
+//     const struct InputData Data) {
+//   std::map<QString, double> variables;
+//   std::map<QString, std::vector<double>> lists;
+//   try {
+//     variables = this->validateExpressions(Data);
+//     lists = this->validateList(Data);
+//     this->calculateDeposit(variables, lists, Data);
+//   } catch (std::exception &e) {
+//     variables.clear();
+//     lists.clear();
+//     throw std::logic_error(e.what());
+//   }
+//   variables.clear();
+//   lists.clear();
+// };
 
-std::map<QString, double>
-CalculatorModel::DepositCalculation::validateExpressions(
-    const struct InputData Data) {
-  std::map<QString, double> res;
+// std::map<QString, double>
+// CalculatorModel::DepositCalculation::validateExpressions(
+//     const struct InputData Data) {
+//   std::map<QString, double> res;
 
-  try {
-    QString deposit_amount = this->validateNullorEmpty(Data.getDepositAmount());
-    res.insert(std::pair<QString, double>(
-        "deposit_amount", this->changeToDouble(deposit_amount)));
+//  try {
+//    QString deposit_amount =
+//    this->validateNullorEmpty(Data.getDepositAmount());
+//    res.insert(std::pair<QString, double>(
+//        "deposit_amount", this->changeToDouble(deposit_amount)));
 
-    QString placement_term = this->validateNullorEmpty(Data.getPlacementTerm());
-    res.insert(std::pair<QString, double>(
-        "placement_term", this->changeToDouble(placement_term)));
+//    QString placement_term =
+//    this->validateNullorEmpty(Data.getPlacementTerm());
+//    res.insert(std::pair<QString, double>(
+//        "placement_term", this->changeToDouble(placement_term)));
 
-    QString interest_rate = this->validateNullorEmpty(Data.getInterestRate());
-    res.insert(std::pair<QString, double>("interest_rate",
-                                          this->changeToDouble(interest_rate)));
+//    QString interest_rate = this->validateNullorEmpty(Data.getInterestRate());
+//    res.insert(std::pair<QString, double>("interest_rate",
+//                                          this->changeToDouble(interest_rate)));
 
-    QString tax_rate = this->validateNullorEmpty(Data.getTaxRate());
-    res.insert(
-        std::pair<QString, double>("tax_rate", this->changeToDouble(tax_rate)));
+//    QString tax_rate = this->validateNullorEmpty(Data.getTaxRate());
+//    res.insert(
+//        std::pair<QString, double>("tax_rate",
+//        this->changeToDouble(tax_rate)));
 
-    QString payment_frequency =
-        this->validateNullorEmpty(Data.getPaymentFrequency());
-    res.insert(std::pair<QString, double>(
-        "payment_frequency", this->changeToDouble(payment_frequency)));
+//    QString payment_frequency =
+//        this->validateNullorEmpty(Data.getPaymentFrequency());
+//    res.insert(std::pair<QString, double>(
+//        "payment_frequency", this->changeToDouble(payment_frequency)));
 
-    QString interest_capitalization =
-        this->validateNullorEmpty(Data.getInterestCapitalization());
-    res.insert(std::pair<QString, double>(
-        "interest_capitalization",
-        this->changeToDouble(interest_capitalization)));
-  } catch (std::exception &e) {
-    res.clear();
-    throw e;
-  }
+//    QString interest_capitalization =
+//        this->validateNullorEmpty(Data.getInterestCapitalization());
+//    res.insert(std::pair<QString, double>(
+//        "interest_capitalization",
+//        this->changeToDouble(interest_capitalization)));
+//  } catch (std::exception &e) {
+//    res.clear();
+//    throw e;
+//  }
 
-  return res;
-};
+//  return res;
+//};
 
-std::map<QString, std::vector<double>>
-CalculatorModel::DepositCalculation::validateList(const struct InputData Data) {
-  std::vector<QString> replenishment_list = Data.getReplenishmentList();
-  std::vector<QString> partial_withdrawals_list =
-      Data.getPartialWithdrawalsList();
+// std::map<QString, std::vector<double>>
+// CalculatorModel::DepositCalculation::validateList(const struct InputData
+// Data) {
+//   std::vector<QString> replenishment_list = Data.getReplenishmentList();
+//   std::vector<QString> partial_withdrawals_list =
+//       Data.getPartialWithdrawalsList();
 
-  if (replenishment_list.empty() || partial_withdrawals_list.empty()) {
-    throw std::invalid_argument("error: incorrect expression");
-  }
+//  if (replenishment_list.empty() || partial_withdrawals_list.empty()) {
+//    throw std::invalid_argument("error: incorrect expression");
+//  }
 
-  std::map<QString, std::vector<double>> res;
+//  std::map<QString, std::vector<double>> res;
 
-  try {
-    res.insert(std::pair<QString, std::vector<double>>(
-        "replenishment_list", this->changeToDouble(replenishment_list)));
-    res.insert(std::pair<QString, std::vector<double>>(
-        "partial_withdrawals_list",
-        this->changeToDouble(partial_withdrawals_list)));
-  } catch (std::exception &e) {
-    res.clear();
-    throw e;
-  }
+//  try {
+//    res.insert(std::pair<QString, std::vector<double>>(
+//        "replenishment_list", this->changeToDouble(replenishment_list)));
+//    res.insert(std::pair<QString, std::vector<double>>(
+//        "partial_withdrawals_list",
+//        this->changeToDouble(partial_withdrawals_list)));
+//  } catch (std::exception &e) {
+//    res.clear();
+//    throw e;
+//  }
 
-  return res;
-}
+//  return res;
+//}
 
-QString CalculatorModel::DepositCalculation::validateNullorEmpty(QString str) {
-  if (str.isEmpty() || str.isNull()) {
-    throw std::invalid_argument("error: incorrect expression");
-  }
+// QString CalculatorModel::DepositCalculation::validateNullorEmpty(QString str)
+// {
+//   if (str.isEmpty() || str.isNull()) {
+//     throw std::invalid_argument("error: incorrect expression");
+//   }
 
-  return str;
-};
+//  return str;
+//};
 
-void CalculatorModel::DepositCalculation::calculateDeposit(
-    const std::map<QString, double> variables,
-    const std::map<QString, std::vector<double>> lists,
-    const struct InputData &Data) {
-  if (variables.size() || lists.size())
-    throw std::logic_error("maps are empty");
+// void CalculatorModel::DepositCalculation::calculateDeposit(
+//     const std::map<QString, double> variables,
+//     const std::map<QString, std::vector<double>> lists,
+//     const struct InputData &Data) {
+//   if (variables.size() || lists.size())
+//     throw std::logic_error("maps are empty");
 
-  if (Data.getStatusCapitalisation()) {
-    this->simplePercent(variables, lists, Data);
-  }
-};
+//  if (Data.getStatusCapitalisation()) {
+//    this->simplePercent(variables, lists, Data);
+//  }
+//};
 
-void CalculatorModel::DepositCalculation::simplePercent(
-    const std::map<QString, double> variables,
-    const std::map<QString, std::vector<double>> lists,
-    const struct InputData &Data) {
-  double P = variables.find("deposit_amount")->second;
-  double t = variables.find("placement_term")->second;
-  double I = variables.find("interest_rate")->second;
-  double N = variables.find("tax_rate")->second;
-  double payment_frequency = variables.find("payment_frequency")->second;
-  double interest_capitalization =
-      variables.find("interest_capitalization")->second;
-  std::vector<double> replenishment_list =
-      lists.find("replenishment_list")->second;
-  std::vector<double> partial_withdrawals_list =
-      lists.find("partial_withdrawals_list")->second;
+// void CalculatorModel::DepositCalculation::simplePercent(
+//     const std::map<QString, double> variables,
+//     const std::map<QString, std::vector<double>> lists,
+//     const struct InputData &Data) {
+//   double P = variables.find("deposit_amount")->second;
+//   double t = variables.find("placement_term")->second;
+//   double I = variables.find("interest_rate")->second;
+//   double N = variables.find("tax_rate")->second;
+//   double payment_frequency = variables.find("payment_frequency")->second;
+//   double interest_capitalization =
+//       variables.find("interest_capitalization")->second;
+//   std::vector<double> replenishment_list =
+//       lists.find("replenishment_list")->second;
+//   std::vector<double> partial_withdrawals_list =
+//       lists.find("partial_withdrawals_list")->second;
 
-  double S = (P * I * t / 365) / 100;
-  S = round(S * 100) / 100;
+//  double S = (P * I * t / 365) / 100;
+//  S = round(S * 100) / 100;
 
-  this->setEndSumDeposit(S);
-  this->setAmountTaxation(0);
-  this->setAccruedInterest(P + S);
-}
+//  this->setEndSumDeposit(S);
+//  this->setAmountTaxation(0);
+//  this->setAccruedInterest(P + S);
+//}
 
-double CalculatorModel::DepositCalculation::changeToDouble(QString num) {
-  num.replace(QChar(','), QLatin1String("."), Qt::CaseInsensitive);
-  num.replace(QChar(','), QLatin1String("."), Qt::CaseInsensitive);
-  num.replace(QChar(','), QLatin1String("."), Qt::CaseInsensitive);
+// double CalculatorModel::DepositCalculation::changeToDouble(QString num) {
+//   num.replace(QChar(','), QLatin1String("."), Qt::CaseInsensitive);
+//   num.replace(QChar(','), QLatin1String("."), Qt::CaseInsensitive);
+//   num.replace(QChar(','), QLatin1String("."), Qt::CaseInsensitive);
 
-  bool check_str = 0;
+//  bool check_str = 0;
 
-  double res = num.toDouble(&check_str);
+//  double res = num.toDouble(&check_str);
 
-  if (!check_str) throw std::logic_error("conversion's numbers error");
+//  if (!check_str) throw std::logic_error("conversion's numbers error");
 
-  if (res <= 0) throw std::logic_error("conversion's numbers error");
+//  if (res <= 0) throw std::logic_error("conversion's numbers error");
 
-  return res;
-}
+//  return res;
+//}
 
-std::vector<double> CalculatorModel::DepositCalculation::changeToDouble(
-    const std::vector<QString> num) {
-  std::vector<double> res;
+// std::vector<double> CalculatorModel::DepositCalculation::changeToDouble(
+//     const std::vector<QString> num) {
+//   std::vector<double> res;
 
-  for (auto it = num.begin(); it != num.end(); it++) {
-    try {
-      QString tmp = this->validateNullorEmpty(*it);
-      res.push_back(changeToDouble(tmp));
-    } catch (std::exception &e) {
-      res.clear();
-      throw e;
-    }
-  }
+//  for (auto it = num.begin(); it != num.end(); it++) {
+//    try {
+//      QString tmp = this->validateNullorEmpty(*it);
+//      res.push_back(changeToDouble(tmp));
+//    } catch (std::exception &e) {
+//      res.clear();
+//      throw e;
+//    }
+//  }
 
-  return res;
-};
+//  return res;
+//};
 
 // End Class DepositCalculation
 

@@ -5,6 +5,8 @@
 
 namespace s21 {
 
+// Begin View CalculationView
+
 CalculationView::CalculationView(QWidget *parent)
     : QMainWindow(parent), ui_calculation(new Ui::CalculationView) {
   ui_calculation->setupUi(this);
@@ -258,21 +260,46 @@ int s21::CalculationView::on_pushButton_graf_clicked() {
       return 0;
 }
 
-void s21::CalculationView::draw_axis() {}
+// End View CalculationView
 
-void s21::CalculationView::on_pushButton_deposit_clicked() {
-//         Deposit deposit;
 
-//      deposit.setWindowTitle("Deposit Calculator");
-//      deposit.setModal(true);
-//      deposit.exec();
-}
+//void s21::CalculationView::on_pushButton_deposit_clicked() {
+////         Deposit deposit;
+
+////      deposit.setWindowTitle("Deposit Calculator");
+////      deposit.setModal(true);
+////      deposit.exec();
+//}
+
+// Begin View CreditView
 
 CreditView::CreditView(QWidget *parent,CalculatorController *controller)
     : QDialog(parent), ui_credit(new Ui::CreditView) {
       ui_credit->setupUi(this);
+
+      connect(ui_credit->pushButton_calcCredit, SIGNAL(clicked()), this,
+               SLOT(calculationCredit()));
+
+       ui_credit->pushButton_calcCredit->setCheckable(true);
 }
 
 CreditView::~CreditView() { delete ui_credit; }
+
+void CreditView::calculationCredit(CalculatorController *controller) {
+    if (ui_credit->radioButton_annuit->isChecked()) {
+
+    } else if (ui_credit->radioButton_diff->isChecked()) {
+      //
+    } else {
+      QMessageBox::information(this, "Attention!", "Select calculation type");
+    }
+};
+
+void CreditView::on_pushButton_closecredit_clicked() {
+    QWidget::close();
+};
+
+// End View CreditView
+
 
 }; // namespace s21
