@@ -1189,31 +1189,6 @@ QPushButton:pressed {
      <string>Credit</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_deposit">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>400</y>
-      <width>141</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QPushButton {
-	font:20pt &quot;.AppleSystemUIFont&quot;;
-	color: rgb(255, 255, 255);
-     border: 1px solid white;
-	background-color: rgb(82, 82, 83);
-}
-QPushButton:pressed {
-  background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1,
-                             stop: 0 #dadbde, stop: 1 #f6f7fa);
-}</string>
-    </property>
-    <property name="text">
-     <string>Deposit</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="pushButton_xStep">
     <property name="geometry">
      <rect>
@@ -1590,7 +1565,6 @@ QPushButton:pressed {
    <zorder>pushButton_close</zorder>
    <zorder>pushButton_graf</zorder>
    <zorder>pushButton_credit</zorder>
-   <zorder>pushButton_deposit</zorder>
    <zorder>pushButton_xStep</zorder>
    <zorder>pushButton_valueXMin</zorder>
    <zorder>pushButton_valueXMax</zorder>

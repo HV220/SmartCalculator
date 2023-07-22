@@ -33,10 +33,12 @@ public:
 
 private:
   Ui::CreditView *ui_credit;
+  CalculatorController *common_controller;
 
 private slots:
-  void calculationCredit(CalculatorController *controller);
+  void calculationCredit();
   void on_pushButton_closecredit_clicked();
+  void on_pushButton_12_clicked();
 };
 
 class DepositCalculationView {
@@ -46,6 +48,7 @@ public:
 
 private:
   Ui::DepositCalculationView *ui_deposit;
+  CalculatorController *common_controller;
 };
 
 class CalculationView : public QMainWindow {
@@ -73,7 +76,6 @@ private slots:
   void on_pushButton_close_clicked();
   void on_pushButton_credit_clicked();
   int on_pushButton_graf_clicked();
-  void on_pushButton_deposit_clicked();
 };
 
 

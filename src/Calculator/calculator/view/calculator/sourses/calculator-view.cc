@@ -9,10 +9,9 @@ namespace s21 {
 
 CalculationView::CalculationView(QWidget *parent)
     : QMainWindow(parent), ui_calculation(new Ui::CalculationView) {
-  ui_calculation->setupUi(this);
+    ui_calculation->setupUi(this);
 
     setWindowTitle("Calculator");
-
     connect(ui_calculation->pushButton_X, SIGNAL(clicked()), this, SLOT(bttn_pressed()));
     connect(ui_calculation->pushButton_0, SIGNAL(clicked()), this, SLOT(bttn_pressed()));
     connect(ui_calculation->pushButton_01, SIGNAL(clicked()), this, SLOT(bttn_pressed()));
@@ -119,7 +118,7 @@ void s21::CalculationView::on_pushButton_eq_clicked() {
      QString new_label = ui_calculation->result_tmp->text();
 
         try {
-            res = this->common_controller->calculatorAction(&new_label);
+            res = this->common_controller->calculatorAction(new_label);
         } catch (std::exception &e) {
            ui_calculation->result_show->setText("Error");
            return;
@@ -157,10 +156,18 @@ void s21::CalculationView::on_pushButton_close_clicked() {QWidget::close();}
 
 void s21::CalculationView::on_pushButton_credit_clicked() {
 
+    if(ui_calculation->pushButton_credit->isCheckable()){
     CreditView ui_credit;
+
     ui_credit.setWindowTitle("Credit Calculator");
     ui_credit.setModal(true);
     ui_credit.exec();
+
+    ui_calculation->pushButton_credit->setCheckable(false);
+    }
+    else {
+    ui_calculation->pushButton_credit->setCheckable(true);
+    }
 }
 
 int s21::CalculationView::on_pushButton_graf_clicked() {
@@ -224,7 +231,7 @@ int s21::CalculationView::on_pushButton_graf_clicked() {
               y_text.replace(QString("x"),
                              QString("(" + QString::number(X, 'f', 7) + ")"));
 
-            Y = common_controller->calculatorAction(&y_text);
+            Y = common_controller->calculatorAction(y_text);
           } else {
             status = 1;
           }
@@ -263,43 +270,96 @@ int s21::CalculationView::on_pushButton_graf_clicked() {
 // End View CalculationView
 
 
-//void s21::CalculationView::on_pushButton_deposit_clicked() {
-////         Deposit deposit;
-
-////      deposit.setWindowTitle("Deposit Calculator");
-////      deposit.setModal(true);
-////      deposit.exec();
-//}
-
 // Begin View CreditView
 
 CreditView::CreditView(QWidget *parent,CalculatorController *controller)
     : QDialog(parent), ui_credit(new Ui::CreditView) {
+
       ui_credit->setupUi(this);
 
-      connect(ui_credit->pushButton_calcCredit, SIGNAL(clicked()), this,
-               SLOT(calculationCredit()));
+      QWidget* headerWidget = new QWidget();
+      QHBoxLayout* headerLayout = new QHBoxLayout(headerWidget);
 
-       ui_credit->pushButton_calcCredit->setCheckable(true);
+      QLabel* headerLabel1 = new QLabel("Столбец 1");
+      QLabel* headerLabel2 = new QLabel("Столбец 2");
+
+      headerLayout->addWidget(headerLabel1);
+      headerLayout->addWidget(headerLabel2);
+
+      ui_credit->MounthPayments->setItemWidget(new QListWidgetItem(), headerWidget);
+
+      QListWidgetItem* item1 = new QListWidgetItem("Элемент 1");
+      QListWidgetItem* item2 = new QListWidgetItem("Элемент 2");
+
+      QWidget* widget1 = new QWidget();
+      QWidget* widget2 = new QWidget();
+
+      QHBoxLayout* layout1 = new QHBoxLayout(widget1);
+      QHBoxLayout* layout2 = new QHBoxLayout(widget2);
+
+      QLabel* label1 = new QLabel("Значение 1");
+      QLabel* label2 = new QLabel("Значение 2");
+
+      ui_credit->MounthPayments->setItemWidget(item1, widget1);
+      ui_credit->MounthPayments->setItemWidget(item2, widget2);
+
+      layout1->addWidget(label1);
+      layout2->addWidget(label2);
+
+      ui_credit->MounthPayments->addItem(item1);
+      ui_credit->MounthPayments->addItem(item2);
+
+      this->common_controller = controller;
+
+      connect(ui_credit->pushButton_12, SIGNAL(clicked()), this,
+               SLOT(on_pushButton_calccredit_clicked()));
+
+      connect(ui_credit->pushButton_closecredit, SIGNAL(clicked()), this,
+               SLOT(on_pushButton_closecredit_clicked()));
+
+
 }
 
 CreditView::~CreditView() { delete ui_credit; }
-
-void CreditView::calculationCredit(CalculatorController *controller) {
-    if (ui_credit->radioButton_annuit->isChecked()) {
-
-    } else if (ui_credit->radioButton_diff->isChecked()) {
-      //
-    } else {
-      QMessageBox::information(this, "Attention!", "Select calculation type");
-    }
-};
 
 void CreditView::on_pushButton_closecredit_clicked() {
     QWidget::close();
 };
 
+void CreditView::calculationCredit() {
+    if (ui_credit->radioButton_annuit->isChecked()) {
+        try {
+            std::map<std::string, std::vector<double>> res = this->common_controller->creditCalculatorAction(ui_credit->total_loan_amount->text(), ui_credit->period->text(), ui_credit->interest_ratebool->text());
+            QStringList result;
+
+            auto tmp = (res.find("MounthPayments"))->second;
+
+            for (auto it = tmp.begin(); it != tmp.end();it++) {
+                result.push_back(QString::number(*it, 'f', 7));
+            }
+
+            ui_credit->CreditOverpayment->setText(QString::number((res.find("CreditOverpayment")->second)[0], 'f', 7));
+
+            ui_credit->MounthPayments->addItems(result);
+
+            ui_credit->TotalPayment->setText(QString::number((res.find("TotalPayment")->second)[0], 'f', 7));
+        } catch (std::exception &e) {
+           QMessageBox::information(this, "Error!", "Something wrong, try it again");
+        }
+    } else if (ui_credit->radioButton_diff->isChecked()) {
+
+    } else {
+      QMessageBox::information(this, "Attention!", "Select calculation type");
+    }
+};
+
+void s21::CreditView::on_pushButton_12_clicked()
+{
+    this->calculationCredit();
+}
+
 // End View CreditView
 
-
 }; // namespace s21
+
+

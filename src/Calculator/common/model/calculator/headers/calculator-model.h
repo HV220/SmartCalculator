@@ -60,6 +60,7 @@ class CalculatorModel {
       std::vector<double> validateExpressions(
           const std::string &total_loan_amount, const std::string &period,
           const std::string &interest_rate);
+      bool isNumber(const std::string &str);
     };
 
    public:

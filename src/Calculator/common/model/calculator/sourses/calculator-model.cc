@@ -65,6 +65,8 @@ void CalculatorModel::Calculation::setExpression(
               std::count(str_check.begin(), str_check.end(), '(');
 
   if ((count % 2)) throw std::logic_error("incorrect expression");
+
+  this->expression_ = expression;
 };
 
 void CalculatorModel::Calculation::devideOnLexems() {
@@ -230,18 +232,14 @@ std::vector<double>
 CalculatorModel::CreditCalculation::CommonType::validateExpressions(
     const std::string &total_loan_amount, const std::string &period,
     const std::string &interest_rate) {
-  if (total_loan_amount == "" || period == "" || interest_rate == "")
+  if (total_loan_amount == "" || period == "" || interest_rate == "" ||
+      !this->isNumber(total_loan_amount) || !this->isNumber(period) ||
+      !this->isNumber(interest_rate))
     throw std::logic_error("conversion's numbers error");
 
   std::string total_loan_amount_tmp = total_loan_amount;
   std::string period_tmp = period;
   std::string interest_rate_tmp = interest_rate;
-
-  total_loan_amount_tmp.replace(total_loan_amount_tmp.begin(),
-                                total_loan_amount_tmp.end(), ',', '.');
-  period_tmp.replace(period_tmp.begin(), period_tmp.end(), ',', '.');
-  interest_rate_tmp.replace(interest_rate_tmp.begin(), interest_rate_tmp.end(),
-                            ',', '.');
 
   double total_loan_res;
   double period_res;
@@ -266,6 +264,15 @@ CalculatorModel::CreditCalculation::CommonType::validateExpressions(
   return res;
 }
 
+bool CalculatorModel::CreditCalculation::CommonType::isNumber(
+    const std::string &str) {
+  int count = std::count(str.begin(), str.end(), ',') +
+              std::count(str.begin(), str.end(), '.');
+
+  if (count > 1 || str.back() == ',' || str.back() == '.') return 0;
+
+  return 1;
+}
 // End Class CommonType
 
 // Begin Class Annuity
@@ -301,6 +308,10 @@ void CalculatorModel::CreditCalculation::Annuity::calculateCredit(
   res_overpay = round(res_overpay * 100.0) / 100.0;
   double res_common_pay = res_overpay + S;
   res_common_pay = round(res_common_pay * 100) / 100;
+
+  if (!std::isnormal(res_mounth) || !std::isnormal(res_common_pay) ||
+      !std::isnormal(res_overpay))
+    throw std::logic_error("error");
 
   std::vector<double> res_mounths;
 
@@ -361,6 +372,10 @@ void CalculatorModel::CreditCalculation::Differential::calculateCredit(
 
   double res_common_pay = res_overpay + S;
   res_common_pay = round(res_common_pay * 100) / 100;
+
+  if (!std::isnormal(res_mounths[0]) || !std::isnormal(res_overpay) ||
+      !std::isnormal(res_common_pay))
+    throw std::logic_error("error");
 
   std::map<std::string, std::vector<double>> res = {
       {"TotalPayment", {res_common_pay}},
