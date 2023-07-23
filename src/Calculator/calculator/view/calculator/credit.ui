@@ -10,6 +10,12 @@
     <height>610</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Ignored" vsizetype="Ignored">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="minimumSize">
    <size>
     <width>523</width>
@@ -1087,99 +1093,61 @@ QPushButton:disabled {
     <rect>
      <x>40</x>
      <y>230</y>
-     <width>441</width>
+     <width>440</width>
      <height>211</height>
     </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimumSize">
+    <size>
+     <width>440</width>
+     <height>211</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>440</width>
+     <height>0</height>
+    </size>
+   </property>
+   <property name="sizeIncrement">
+    <size>
+     <width>440</width>
+     <height>211</height>
+    </size>
+   </property>
+   <property name="baseSize">
+    <size>
+     <width>440</width>
+     <height>211</height>
+    </size>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>-1</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
+   <property name="layoutDirection">
+    <enum>Qt::LeftToRight</enum>
    </property>
    <property name="styleSheet">
     <string notr="true">QTableWidget {
     font: 14px Arial;
     color: #333333;
-    background-color: #ffffff;
-}
-
-QTableWidget::item {
-    padding: 5px;
-    border-bottom: 1px solid #cccccc;
-}
-
-QTableWidget::item:selected {
-    background-color: #336699;
-    color: #ffffff;
-}
-
-QTableWidget::item:hover {
-    background-color: #dddddd;
-}
-
-QHeaderView {
-    font-weight: bold;
-    background-color: #f2f2f2;
-    border-bottom: 1px solid #cccccc;
-    padding: 5px;
-}
-
-QHeaderView::section {
-    background-color: #f2f2f2;
-    border-right: 1px solid #cccccc;
-    border-bottom: 1px solid #cccccc;
-}
-
-QScrollBar:vertical {
-    border: none;
-    background: #ffffff;
-    width: 14px;
-    margin: 0px 0px 0px 0px;
-}
-
-QScrollBar::handle:vertical {
-    background-color: #cccccc;
-    min-height: 20px;
-}
-
-QScrollBar::add-line:vertical {
-    border: none;
-    background-color: transparent;
-    height: 0px;
-    subcontrol-position: bottom;
-    subcontrol-origin: margin;
-}
-
-QScrollBar::sub-line:vertical {
-    border: none;
-    background-color: transparent;
-    height: 0px;
-    subcontrol-position: top;
-    subcontrol-origin: margin;
-}
-
-QScrollBar:horizontal {
-    border: none;
-    background: #ffffff;
-    height: 14px;
-    margin: 0px 0px 0px 0px;
-}
-
-QScrollBar::handle:horizontal {
-    background-color: #cccccc;
-    min-width: 20px;
-}
-
-QScrollBar::add-line:horizontal {
-    border: none;
-    background-color: transparent;
-    width: 0px;
-    subcontrol-position: right;
-    subcontrol-origin: margin;
-}
-
-QScrollBar::sub-line:horizontal {
-    border: none;
-    background-color: transparent;
-    width: 0px;
-    subcontrol-position: left;
-    subcontrol-origin: margin;
+    background-color: #F4FFD1;
 }</string>
+   </property>
+   <property name="sortingEnabled">
+    <bool>false</bool>
    </property>
   </widget>
   <zorder>interest_ratebool</zorder>

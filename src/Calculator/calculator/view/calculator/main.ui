@@ -375,60 +375,6 @@ QPushButton:disabled {
      <string>.</string>
     </property>
    </widget>
-   <widget class="QLabel" name="result_tmp">
-    <property name="enabled">
-     <bool>true</bool>
-    </property>
-    <property name="geometry">
-     <rect>
-      <x>50</x>
-      <y>10</y>
-      <width>441</width>
-      <height>41</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <family>Arial</family>
-      <pointsize>-1</pointsize>
-      <weight>50</weight>
-      <italic>false</italic>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QLabel {
-    font-family: Arial;
-    font-size: 20px;
-    color: #000000;
-    background-color:rgba(162, 171, 184, 0);
-    padding: 5px;
-    border: 5 px solid #D4D4D4;
-}
-
-QLabel#styledLabel {
-    font-weight: bold;
-    border: 5 px solid #D4D4D4;
-}
-
-QLabel#highlightedLabel {
-    background-color: #FFFF59;
-    border: 5 px solid #D4D4D4;
-}
-
-QLabel#styledHighlightedLabel {
-    font-weight: bold;
-    background-color: #FFFF59;
-    border: 5 px solid #D4D4D4;
-}</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="alignment">
-     <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-    </property>
-   </widget>
    <widget class="QPushButton" name="pushButton_AC">
     <property name="geometry">
      <rect>
@@ -1846,7 +1792,7 @@ QLineEdit:disabled {
       <x>0</x>
       <y>350</y>
       <width>71</width>
-      <height>51</height>
+      <height>101</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -1880,7 +1826,7 @@ QPushButton:disabled {
       <x>70</x>
       <y>350</y>
       <width>71</width>
-      <height>51</height>
+      <height>101</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -1943,6 +1889,40 @@ QPushButton:pressed {
      <string>yMax</string>
     </property>
    </widget>
+   <widget class="QLineEdit" name="result_tmp">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>0</y>
+      <width>441</width>
+      <height>51</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLineEdit {
+    font-family: Arial;
+    font-size: 14px;
+    color: #333333;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    padding: 5px;
+}
+
+QLineEdit:hover {
+    background-color: #f2f2f2;
+    border-color: #336699;
+}
+
+QLineEdit:focus {
+    border-color: #336699;
+}
+
+QLineEdit:disabled {
+    background-color: #f2f2f2;
+    color: #999999;
+}</string>
+    </property>
+   </widget>
    <zorder>pushButton_sqrt</zorder>
    <zorder>pushButton_07</zorder>
    <zorder>pushButton_01</zorder>
@@ -1952,7 +1932,6 @@ QPushButton:pressed {
    <zorder>pushButton_mult</zorder>
    <zorder>pushButton_03</zorder>
    <zorder>pushButton_dot</zorder>
-   <zorder>result_tmp</zorder>
    <zorder>pushButton_AC</zorder>
    <zorder>pushButton_mod</zorder>
    <zorder>pushButton_minus</zorder>
@@ -1994,6 +1973,7 @@ QPushButton:pressed {
    <zorder>pushButton_PI</zorder>
    <zorder>widget</zorder>
    <zorder>pushButton_valueYMax</zorder>
+   <zorder>result_tmp</zorder>
   </widget>
  </widget>
  <customwidgets>

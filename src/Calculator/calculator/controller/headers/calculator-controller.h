@@ -10,12 +10,10 @@ class CalculatorController {
 
  public:
   double calculatorAction(const QString &str_action);
+
   std::map<std::string, std::vector<double>> creditCalculatorAction(
       const QString &total_loan_amount, const QString &period,
       const QString &interest_ratebool, bool isAnnuityType = true);
-
-  void depositCalculatorAction();
-  void graficCalculatorAction();
 };
 }  // namespace s21
 
