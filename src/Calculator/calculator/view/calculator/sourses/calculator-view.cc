@@ -100,7 +100,6 @@ void s21::CalculationView::on_pushButton_AC_clicked() {
       ui_calculation->pushButton_graf->setCheckable(false);
       ui_calculation->result_tmp->clear();
       ui_calculation->result_show->clear();
-      ui_calculation->lineEdit_xValue->clear();
 
       ui_calculation->lineEdit_xMinValue->clear();
       ui_calculation->lineEdit_xMaxValue->clear();
@@ -277,37 +276,23 @@ CreditView::CreditView(QWidget *parent,CalculatorController *controller)
 
       ui_credit->setupUi(this);
 
-      QWidget* headerWidget = new QWidget();
-      QHBoxLayout* headerLayout = new QHBoxLayout(headerWidget);
+//      ui_credit->MounthPayments->setColumnCount(3);
 
-      QLabel* headerLabel1 = new QLabel("Столбец 1");
-      QLabel* headerLabel2 = new QLabel("Столбец 2");
+//      // Добавление элементов в таблицу
+//      tableWidget.insertRow(0);
+//      tableWidget.setItem(0, 0, new QTableWidgetItem("Значение 1.1"));
+//      tableWidget.setItem(0, 1, new QTableWidgetItem("Значение 1.2"));
+//      tableWidget.setItem(0, 2, new QTableWidgetItem("Значение 1.3"));
 
-      headerLayout->addWidget(headerLabel1);
-      headerLayout->addWidget(headerLabel2);
+//      tableWidget.insertRow(1);
+//      tableWidget.setItem(1, 0, new QTableWidgetItem("Значение 2.1"));
+//      tableWidget.setItem(1, 1, new QTableWidgetItem("Значение 2.2"));
+//      tableWidget.setItem(1, 2, new QTableWidgetItem("Значение 2.3"));
 
-      ui_credit->MounthPayments->setItemWidget(new QListWidgetItem(), headerWidget);
-
-      QListWidgetItem* item1 = new QListWidgetItem("Элемент 1");
-      QListWidgetItem* item2 = new QListWidgetItem("Элемент 2");
-
-      QWidget* widget1 = new QWidget();
-      QWidget* widget2 = new QWidget();
-
-      QHBoxLayout* layout1 = new QHBoxLayout(widget1);
-      QHBoxLayout* layout2 = new QHBoxLayout(widget2);
-
-      QLabel* label1 = new QLabel("Значение 1");
-      QLabel* label2 = new QLabel("Значение 2");
-
-      ui_credit->MounthPayments->setItemWidget(item1, widget1);
-      ui_credit->MounthPayments->setItemWidget(item2, widget2);
-
-      layout1->addWidget(label1);
-      layout2->addWidget(label2);
-
-      ui_credit->MounthPayments->addItem(item1);
-      ui_credit->MounthPayments->addItem(item2);
+//      // Установка ширины колонок
+//      tableWidget.setColumnWidth(0, 100);
+//      tableWidget.setColumnWidth(1, 100);
+//      tableWidget.setColumnWidth(2, 100);
 
       this->common_controller = controller;
 
@@ -340,7 +325,7 @@ void CreditView::calculationCredit() {
 
             ui_credit->CreditOverpayment->setText(QString::number((res.find("CreditOverpayment")->second)[0], 'f', 7));
 
-            ui_credit->MounthPayments->addItems(result);
+//            ui_credit->MounthPayments->addItems(result);
 
             ui_credit->TotalPayment->setText(QString::number((res.find("TotalPayment")->second)[0], 'f', 7));
         } catch (std::exception &e) {

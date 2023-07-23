@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>700</width>
-    <height>335</height>
+    <width>523</width>
+    <height>610</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -18,8 +18,8 @@
   </property>
   <property name="maximumSize">
    <size>
-    <width>700</width>
-    <height>335</height>
+    <width>523</width>
+    <height>610</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -33,18 +33,54 @@
   <widget class="QRadioButton" name="radioButton_diff">
    <property name="geometry">
     <rect>
-     <x>330</x>
-     <y>70</y>
-     <width>181</width>
+     <x>260</x>
+     <y>190</y>
+     <width>221</width>
      <height>31</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>-1</pointsize>
+     <weight>50</weight>
+     <italic>false</italic>
+     <bold>false</bold>
+    </font>
+   </property>
    <property name="styleSheet">
-    <string notr="true">QRadioButton{
-font:8pt &quot;.AppleSystemUIFont&quot;;
-	color: rgb(255, 255, 255);
-     border: 1px solid grey;
-	background-color: rgba(93, 92, 94, 209);
+    <string notr="true">QRadioButton {
+    font-family: Arial;
+    font-size: 16px;
+    color: #333333;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    padding: 5px;
+}
+
+QRadioButton::indicator {
+    width: 20px;
+    height: 20px;
+}
+
+QRadioButton::indicator:checked {
+    background-color: #336699;
+    border: 1px solid #336699;
+}
+
+QRadioButton::indicator:unchecked {
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+}
+
+QRadioButton::indicator:hover {
+    background-color: #dddddd;
+    border: 1px solid #999999;
+}
+
+QRadioButton::indicator:checked:hover {
+    background-color: #336699;
+    border: 1px solid #336699;
 }</string>
    </property>
    <property name="text">
@@ -54,53 +90,156 @@ font:8pt &quot;.AppleSystemUIFont&quot;;
   <widget class="QLineEdit" name="period">
    <property name="geometry">
     <rect>
-     <x>200</x>
-     <y>40</y>
-     <width>311</width>
+     <x>230</x>
+     <y>70</y>
+     <width>251</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLineEdit {
+    font-family: Arial;
+    font-size: 14px;
+    color: #333333;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    padding: 5px;
+}
+
+QLineEdit:hover {
+    background-color: #f2f2f2;
+    border-color: #336699;
+}
+
+QLineEdit:focus {
+    border-color: #336699;
+}
+
+QLineEdit:disabled {
+    background-color: #f2f2f2;
+    color: #999999;
+}</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="interest_ratebool">
    <property name="geometry">
     <rect>
-     <x>200</x>
-     <y>100</y>
-     <width>311</width>
+     <x>230</x>
+     <y>110</y>
+     <width>251</width>
      <height>31</height>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">QLineEdit{
-   border: 1px solid grey;
+    <string notr="true">QLineEdit {
+    font-family: Arial;
+    font-size: 14px;
+    color: #333333;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    padding: 5px;
+}
+
+QLineEdit:hover {
+    background-color: #f2f2f2;
+    border-color: #336699;
+}
+
+QLineEdit:focus {
+    border-color: #336699;
+}
+
+QLineEdit:disabled {
+    background-color: #f2f2f2;
+    color: #999999;
 }</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="total_loan_amount">
    <property name="geometry">
     <rect>
-     <x>200</x>
-     <y>10</y>
-     <width>311</width>
+     <x>230</x>
+     <y>30</y>
+     <width>251</width>
      <height>31</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLineEdit {
+    font-family: Arial;
+    font-size: 14px;
+    color: #333333;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    padding: 5px;
+}
+
+QLineEdit:hover {
+    background-color: #f2f2f2;
+    border-color: #336699;
+}
+
+QLineEdit:focus {
+    border-color: #336699;
+}
+
+QLineEdit:disabled {
+    background-color: #f2f2f2;
+    color: #999999;
+}</string>
    </property>
   </widget>
   <widget class="QRadioButton" name="radioButton_annuit">
    <property name="geometry">
     <rect>
-     <x>200</x>
-     <y>70</y>
-     <width>131</width>
+     <x>40</x>
+     <y>190</y>
+     <width>211</width>
      <height>31</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>-1</pointsize>
+     <weight>75</weight>
+     <italic>false</italic>
+     <bold>true</bold>
+    </font>
+   </property>
    <property name="styleSheet">
-    <string notr="true">QRadioButton{
-font:8pt &quot;.AppleSystemUIFont&quot;;
-	color: rgb(255, 255, 255);
-     border: 1px solid grey;
-	background-color: rgba(93, 92, 94, 209);
+    <string notr="true">QRadioButton {
+    font-family: Arial;
+    font-size: 16px;
+    color: #333333;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    padding: 5px;
+}
+
+QRadioButton::indicator {
+    width: 20px;
+    height: 20px;
+}
+
+QRadioButton::indicator:checked {
+    background-color: #336699;
+    border: 1px solid #336699;
+}
+
+QRadioButton::indicator:unchecked {
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+}
+
+QRadioButton::indicator:hover {
+    background-color: #dddddd;
+    border: 1px solid #999999;
+}
+
+QRadioButton::indicator:checked:hover {
+    background-color: #336699;
+    border: 1px solid #336699;
 }</string>
    </property>
    <property name="text">
@@ -110,27 +249,42 @@ font:8pt &quot;.AppleSystemUIFont&quot;;
   <widget class="QLabel" name="label_period">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>40</y>
-     <width>191</width>
+     <x>40</x>
+     <y>70</y>
+     <width>181</width>
      <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>.AppleSystemUIFont</family>
-     <pointsize>10</pointsize>
+     <family>Arial</family>
+     <pointsize>-1</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">QLabel{
-font:10pt &quot;.AppleSystemUIFont&quot;;
-	color: rgb(255, 255, 255);
-     border: 1px solid grey;
-	background-color: rgba(93, 92, 94, 209);
+    <string notr="true">QLabel {
+    font-family: Arial;
+    font-size: 14px;
+    color: #000000;
+    background-color: #FFFF59;
+    padding: 5px;
+    border: 1px solid #cccccc;
+}
+
+QLabel#styledLabel {
+    font-weight: bold;
+}
+
+QLabel#highlightedLabel {
+    background-color: #FFFF59;
+}
+
+QLabel#styledHighlightedLabel {
+    font-weight: bold;
+    background-color: #FFFF59;
 }</string>
    </property>
    <property name="text">
@@ -140,27 +294,42 @@ font:10pt &quot;.AppleSystemUIFont&quot;;
   <widget class="QLabel" name="label_bet">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>100</y>
-     <width>191</width>
+     <x>40</x>
+     <y>110</y>
+     <width>181</width>
      <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>.AppleSystemUIFont</family>
-     <pointsize>10</pointsize>
+     <family>Arial</family>
+     <pointsize>-1</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">QLabel{
-font:10pt &quot;.AppleSystemUIFont&quot;;
-	color: rgb(255, 255, 255);
-     border: 1px solid grey;
-	background-color: rgba(93, 92, 94, 209);
+    <string notr="true">QLabel {
+    font-family: Arial;
+    font-size: 14px;
+    color: #000000;
+    background-color: #FFFF59;
+    padding: 5px;
+    border: 1px solid #cccccc;
+}
+
+QLabel#styledLabel {
+    font-weight: bold;
+}
+
+QLabel#highlightedLabel {
+    background-color: #FFFF59;
+}
+
+QLabel#styledHighlightedLabel {
+    font-weight: bold;
+    background-color: #FFFF59;
 }</string>
    </property>
    <property name="text">
@@ -170,57 +339,90 @@ font:10pt &quot;.AppleSystemUIFont&quot;;
   <widget class="QLabel" name="label_type">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>70</y>
-     <width>191</width>
+     <x>40</x>
+     <y>150</y>
+     <width>441</width>
      <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>.AppleSystemUIFont</family>
-     <pointsize>10</pointsize>
-     <weight>50</weight>
+     <family>Arial</family>
+     <pointsize>-1</pointsize>
+     <weight>75</weight>
      <italic>false</italic>
-     <bold>false</bold>
+     <bold>true</bold>
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">QLabel{
-font:10pt &quot;.AppleSystemUIFont&quot;;
-	color: rgb(255, 255, 255);
-     border: 1px solid grey;
-	background-color: rgba(93, 92, 94, 209);
+    <string notr="true">QLabel {
+    font-family: Arial;
+    font-size: 14px;
+    color: #000000;
+    background-color: #FFFF59;
+    padding: 5px;
+    border: 1px solid #cccccc;
+}
+
+QLabel#styledLabel {
+    font-weight: bold;
+}
+
+QLabel#highlightedLabel {
+    background-color: #FFFF59;
+}
+
+QLabel#styledHighlightedLabel {
+    font-weight: bold;
+    background-color: #FFFF59;
 }</string>
    </property>
    <property name="text">
     <string>Вид кредита</string>
    </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
   </widget>
   <widget class="QLabel" name="label_summ">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>10</y>
-     <width>191</width>
+     <x>40</x>
+     <y>30</y>
+     <width>181</width>
      <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>.AppleSystemUIFont</family>
-     <pointsize>10</pointsize>
+     <family>Arial</family>
+     <pointsize>-1</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">QLabel{
-font:10pt &quot;.AppleSystemUIFont&quot;;
-	color: rgb(255, 255, 255);
-     border: 1px solid grey;
-	background-color: rgba(93, 92, 94, 209);
+    <string notr="true">QLabel {
+    font-family: Arial;
+    font-size: 14px;
+    color: #000000;
+    background-color: #FFFF59;
+    padding: 5px;
+    border: 1px solid #cccccc;
+}
+
+QLabel#styledLabel {
+    font-weight: bold;
+}
+
+QLabel#highlightedLabel {
+    background-color: #FFFF59;
+}
+
+QLabel#styledHighlightedLabel {
+    font-weight: bold;
+    background-color: #FFFF59;
 }</string>
    </property>
    <property name="text">
@@ -230,97 +432,205 @@ font:10pt &quot;.AppleSystemUIFont&quot;;
   <widget class="QLabel" name="CreditOverpayment">
    <property name="geometry">
     <rect>
-     <x>200</x>
-     <y>200</y>
-     <width>311</width>
+     <x>240</x>
+     <y>450</y>
+     <width>241</width>
      <height>31</height>
     </rect>
    </property>
    <property name="palette">
     <palette>
      <active>
+      <colorrole role="WindowText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>51</red>
+         <green>51</green>
+         <blue>51</blue>
+        </color>
+       </brush>
+      </colorrole>
       <colorrole role="Button">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>155</red>
-         <green>155</green>
-         <blue>155</blue>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Text">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>51</red>
+         <green>51</green>
+         <blue>51</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="ButtonText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>51</red>
+         <green>51</green>
+         <blue>51</blue>
         </color>
        </brush>
       </colorrole>
       <colorrole role="Base">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>155</red>
-         <green>155</green>
-         <blue>155</blue>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
         </color>
        </brush>
       </colorrole>
       <colorrole role="Window">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>155</red>
-         <green>155</green>
-         <blue>155</blue>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="PlaceholderText">
+       <brush brushstyle="NoBrush">
+        <color alpha="128">
+         <red>51</red>
+         <green>51</green>
+         <blue>51</blue>
         </color>
        </brush>
       </colorrole>
      </active>
      <inactive>
+      <colorrole role="WindowText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>51</red>
+         <green>51</green>
+         <blue>51</blue>
+        </color>
+       </brush>
+      </colorrole>
       <colorrole role="Button">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>155</red>
-         <green>155</green>
-         <blue>155</blue>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Text">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>51</red>
+         <green>51</green>
+         <blue>51</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="ButtonText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>51</red>
+         <green>51</green>
+         <blue>51</blue>
         </color>
        </brush>
       </colorrole>
       <colorrole role="Base">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>155</red>
-         <green>155</green>
-         <blue>155</blue>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
         </color>
        </brush>
       </colorrole>
       <colorrole role="Window">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>155</red>
-         <green>155</green>
-         <blue>155</blue>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="PlaceholderText">
+       <brush brushstyle="NoBrush">
+        <color alpha="128">
+         <red>51</red>
+         <green>51</green>
+         <blue>51</blue>
         </color>
        </brush>
       </colorrole>
      </inactive>
      <disabled>
+      <colorrole role="WindowText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>51</red>
+         <green>51</green>
+         <blue>51</blue>
+        </color>
+       </brush>
+      </colorrole>
       <colorrole role="Button">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>155</red>
-         <green>155</green>
-         <blue>155</blue>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Text">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>51</red>
+         <green>51</green>
+         <blue>51</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="ButtonText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>51</red>
+         <green>51</green>
+         <blue>51</blue>
         </color>
        </brush>
       </colorrole>
       <colorrole role="Base">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>155</red>
-         <green>155</green>
-         <blue>155</blue>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
         </color>
        </brush>
       </colorrole>
       <colorrole role="Window">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>155</red>
-         <green>155</green>
-         <blue>155</blue>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="PlaceholderText">
+       <brush brushstyle="NoBrush">
+        <color alpha="128">
+         <red>51</red>
+         <green>51</green>
+         <blue>51</blue>
         </color>
        </brush>
       </colorrole>
@@ -328,12 +638,27 @@ font:10pt &quot;.AppleSystemUIFont&quot;;
     </palette>
    </property>
    <property name="styleSheet">
-    <string notr="true">QLabel{
-    border: 1px solid grey;
-	background-color: rgb(155, 155, 155);
-	font: 10pt &quot;Arial&quot;;
+    <string notr="true">QLabel {
+    font-family: Arial;
+    font-size: 14px;
+    color: #333333;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    padding: 5px;
 }
-</string>
+
+QLabel#styledLabel {
+    font-weight: bold;
+}
+
+QLabel#highlightedLabel {
+    background-color: #FFFF59;
+}
+
+QLabel#styledHighlightedLabel {
+    font-weight: bold;
+    background-color: #FFFF59;
+}</string>
    </property>
    <property name="text">
     <string/>
@@ -348,27 +673,42 @@ font:10pt &quot;.AppleSystemUIFont&quot;;
   <widget class="QLabel" name="label_total">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>230</y>
+     <x>40</x>
+     <y>490</y>
      <width>191</width>
      <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>.AppleSystemUIFont</family>
-     <pointsize>10</pointsize>
+     <family>Arial</family>
+     <pointsize>-1</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">QLabel{
-font:10pt &quot;.AppleSystemUIFont&quot;;
-	color: rgb(255, 255, 255);
-     border: 1px solid grey;
-	background-color: rgba(93, 92, 94, 209);
+    <string notr="true">QLabel {
+    font-family: Arial;
+    font-size: 14px;
+    color: #000000;
+    background-color: #FFFF59;
+    padding: 5px;
+    border: 1px solid #cccccc;
+}
+
+QLabel#styledLabel {
+    font-weight: bold;
+}
+
+QLabel#highlightedLabel {
+    background-color: #FFFF59;
+}
+
+QLabel#styledHighlightedLabel {
+    font-weight: bold;
+    background-color: #FFFF59;
 }</string>
    </property>
    <property name="text">
@@ -378,97 +718,205 @@ font:10pt &quot;.AppleSystemUIFont&quot;;
   <widget class="QLabel" name="TotalPayment">
    <property name="geometry">
     <rect>
-     <x>200</x>
-     <y>230</y>
-     <width>311</width>
+     <x>240</x>
+     <y>490</y>
+     <width>241</width>
      <height>31</height>
     </rect>
    </property>
    <property name="palette">
     <palette>
      <active>
+      <colorrole role="WindowText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>51</red>
+         <green>51</green>
+         <blue>51</blue>
+        </color>
+       </brush>
+      </colorrole>
       <colorrole role="Button">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>155</red>
-         <green>155</green>
-         <blue>155</blue>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Text">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>51</red>
+         <green>51</green>
+         <blue>51</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="ButtonText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>51</red>
+         <green>51</green>
+         <blue>51</blue>
         </color>
        </brush>
       </colorrole>
       <colorrole role="Base">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>155</red>
-         <green>155</green>
-         <blue>155</blue>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
         </color>
        </brush>
       </colorrole>
       <colorrole role="Window">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>155</red>
-         <green>155</green>
-         <blue>155</blue>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="PlaceholderText">
+       <brush brushstyle="NoBrush">
+        <color alpha="128">
+         <red>51</red>
+         <green>51</green>
+         <blue>51</blue>
         </color>
        </brush>
       </colorrole>
      </active>
      <inactive>
+      <colorrole role="WindowText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>51</red>
+         <green>51</green>
+         <blue>51</blue>
+        </color>
+       </brush>
+      </colorrole>
       <colorrole role="Button">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>155</red>
-         <green>155</green>
-         <blue>155</blue>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Text">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>51</red>
+         <green>51</green>
+         <blue>51</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="ButtonText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>51</red>
+         <green>51</green>
+         <blue>51</blue>
         </color>
        </brush>
       </colorrole>
       <colorrole role="Base">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>155</red>
-         <green>155</green>
-         <blue>155</blue>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
         </color>
        </brush>
       </colorrole>
       <colorrole role="Window">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>155</red>
-         <green>155</green>
-         <blue>155</blue>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="PlaceholderText">
+       <brush brushstyle="NoBrush">
+        <color alpha="128">
+         <red>51</red>
+         <green>51</green>
+         <blue>51</blue>
         </color>
        </brush>
       </colorrole>
      </inactive>
      <disabled>
+      <colorrole role="WindowText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>51</red>
+         <green>51</green>
+         <blue>51</blue>
+        </color>
+       </brush>
+      </colorrole>
       <colorrole role="Button">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>155</red>
-         <green>155</green>
-         <blue>155</blue>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="Text">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>51</red>
+         <green>51</green>
+         <blue>51</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="ButtonText">
+       <brush brushstyle="SolidPattern">
+        <color alpha="255">
+         <red>51</red>
+         <green>51</green>
+         <blue>51</blue>
         </color>
        </brush>
       </colorrole>
       <colorrole role="Base">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>155</red>
-         <green>155</green>
-         <blue>155</blue>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
         </color>
        </brush>
       </colorrole>
       <colorrole role="Window">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>155</red>
-         <green>155</green>
-         <blue>155</blue>
+         <red>255</red>
+         <green>255</green>
+         <blue>255</blue>
+        </color>
+       </brush>
+      </colorrole>
+      <colorrole role="PlaceholderText">
+       <brush brushstyle="NoBrush">
+        <color alpha="128">
+         <red>51</red>
+         <green>51</green>
+         <blue>51</blue>
         </color>
        </brush>
       </colorrole>
@@ -476,12 +924,27 @@ font:10pt &quot;.AppleSystemUIFont&quot;;
     </palette>
    </property>
    <property name="styleSheet">
-    <string notr="true">QLabel{
-    border: 1px solid grey;
-	background-color: rgb(155,155,155);
-	font: 10pt &quot;Arial&quot;;
+    <string notr="true">QLabel {
+    font-family: Arial;
+    font-size: 14px;
+    color: #333333;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    padding: 5px;
 }
-</string>
+
+QLabel#styledLabel {
+    font-weight: bold;
+}
+
+QLabel#highlightedLabel {
+    background-color: #FFFF59;
+}
+
+QLabel#styledHighlightedLabel {
+    font-weight: bold;
+    background-color: #FFFF59;
+}</string>
    </property>
    <property name="text">
     <string/>
@@ -496,71 +959,79 @@ font:10pt &quot;.AppleSystemUIFont&quot;;
   <widget class="QLabel" name="label_over">
    <property name="geometry">
     <rect>
-     <x>10</x>
-     <y>200</y>
+     <x>40</x>
+     <y>450</y>
      <width>191</width>
      <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <family>.AppleSystemUIFont</family>
-     <pointsize>10</pointsize>
+     <family>Arial</family>
+     <pointsize>-1</pointsize>
      <weight>50</weight>
      <italic>false</italic>
      <bold>false</bold>
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">QLabel{
-font:10pt &quot;.AppleSystemUIFont&quot;;
-	color: rgb(255, 255, 255);
-     border: 1px solid grey;
-	background-color: rgba(93, 92, 94, 209);
+    <string notr="true">QLabel {
+    font-family: Arial;
+    font-size: 14px;
+    color: #000000;
+    background-color: #FFFF59;
+    padding: 5px;
+    border: 1px solid #cccccc;
+}
+
+QLabel#styledLabel {
+    font-weight: bold;
+}
+
+QLabel#highlightedLabel {
+    background-color: #FFFF59;
+}
+
+QLabel#styledHighlightedLabel {
+    font-weight: bold;
+    background-color: #FFFF59;
 }</string>
    </property>
    <property name="text">
     <string>Переплата по кредиту</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label_monthly">
-   <property name="geometry">
-    <rect>
-     <x>520</x>
-     <y>10</y>
-     <width>171</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <family>.AppleSystemUIFont</family>
-     <pointsize>10</pointsize>
-     <weight>50</weight>
-     <italic>false</italic>
-     <bold>false</bold>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">QLabel{
-font:10pt &quot;.AppleSystemUIFont&quot;;
-	color: rgb(255, 255, 255);
-     border: 1px solid grey;
-	background-color: rgba(93, 92, 94, 209);
-}</string>
-   </property>
-   <property name="text">
-    <string>Ежемесячный платеж</string>
-   </property>
-  </widget>
   <widget class="QPushButton" name="pushButton_closecredit">
    <property name="geometry">
     <rect>
-     <x>590</x>
-     <y>280</y>
+     <x>380</x>
+     <y>550</y>
      <width>101</width>
      <height>41</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    font-family: Arial;
+    font-size: 14px;
+    color: #ffffff;
+    background-color: #336699;
+    border: none;
+    padding: 8px 16px;
+}
+
+QPushButton:hover {
+    background-color: #428BCA;
+}
+
+QPushButton:pressed {
+    background-color: #2A6496;
+}
+
+QPushButton:disabled {
+    background-color: #cccccc;
+    color: #666666;
+}</string>
    </property>
    <property name="text">
     <string>Закрыть</string>
@@ -569,24 +1040,146 @@ font:10pt &quot;.AppleSystemUIFont&quot;;
   <widget class="QPushButton" name="pushButton_12">
    <property name="geometry">
     <rect>
-     <x>200</x>
-     <y>140</y>
-     <width>311</width>
+     <x>40</x>
+     <y>540</y>
+     <width>251</width>
      <height>51</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Arial</family>
+     <pointsize>-1</pointsize>
+     <weight>75</weight>
+     <italic>false</italic>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    font-family: Arial;
+    font-size: 14px;
+    color: #ffffff;
+    background-color: #336699;
+    border: none;
+    padding: 8px 16px;
+}
+
+QPushButton:hover {
+    background-color: #428BCA;
+}
+
+QPushButton:pressed {
+    background-color: #2A6496;
+}
+
+QPushButton:disabled {
+    background-color: #cccccc;
+    color: #666666;
+}</string>
    </property>
    <property name="text">
     <string>Рассчитать</string>
    </property>
   </widget>
-  <widget class="QListWidget" name="MounthPayments">
+  <widget class="QTableWidget" name="MounthPayments">
    <property name="geometry">
     <rect>
-     <x>520</x>
-     <y>50</y>
-     <width>171</width>
+     <x>40</x>
+     <y>230</y>
+     <width>441</width>
      <height>211</height>
     </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QTableWidget {
+    font: 14px Arial;
+    color: #333333;
+    background-color: #ffffff;
+}
+
+QTableWidget::item {
+    padding: 5px;
+    border-bottom: 1px solid #cccccc;
+}
+
+QTableWidget::item:selected {
+    background-color: #336699;
+    color: #ffffff;
+}
+
+QTableWidget::item:hover {
+    background-color: #dddddd;
+}
+
+QHeaderView {
+    font-weight: bold;
+    background-color: #f2f2f2;
+    border-bottom: 1px solid #cccccc;
+    padding: 5px;
+}
+
+QHeaderView::section {
+    background-color: #f2f2f2;
+    border-right: 1px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
+}
+
+QScrollBar:vertical {
+    border: none;
+    background: #ffffff;
+    width: 14px;
+    margin: 0px 0px 0px 0px;
+}
+
+QScrollBar::handle:vertical {
+    background-color: #cccccc;
+    min-height: 20px;
+}
+
+QScrollBar::add-line:vertical {
+    border: none;
+    background-color: transparent;
+    height: 0px;
+    subcontrol-position: bottom;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:vertical {
+    border: none;
+    background-color: transparent;
+    height: 0px;
+    subcontrol-position: top;
+    subcontrol-origin: margin;
+}
+
+QScrollBar:horizontal {
+    border: none;
+    background: #ffffff;
+    height: 14px;
+    margin: 0px 0px 0px 0px;
+}
+
+QScrollBar::handle:horizontal {
+    background-color: #cccccc;
+    min-width: 20px;
+}
+
+QScrollBar::add-line:horizontal {
+    border: none;
+    background-color: transparent;
+    width: 0px;
+    subcontrol-position: right;
+    subcontrol-origin: margin;
+}
+
+QScrollBar::sub-line:horizontal {
+    border: none;
+    background-color: transparent;
+    width: 0px;
+    subcontrol-position: left;
+    subcontrol-origin: margin;
+}</string>
    </property>
   </widget>
   <zorder>interest_ratebool</zorder>
@@ -600,7 +1193,6 @@ font:10pt &quot;.AppleSystemUIFont&quot;;
   <zorder>label_total</zorder>
   <zorder>TotalPayment</zorder>
   <zorder>label_over</zorder>
-  <zorder>label_monthly</zorder>
   <zorder>period</zorder>
   <zorder>radioButton_diff</zorder>
   <zorder>pushButton_closecredit</zorder>
