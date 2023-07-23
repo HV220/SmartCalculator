@@ -315,7 +315,7 @@ CreditView::CreditView(QWidget *parent, CalculatorController *controller)
     : QDialog(parent), ui_credit(new Ui::CreditView) {
   ui_credit->setupUi(this);
 
-  ui_credit->MounthPayments->setMinimumSize(QSize(300, 200));
+  ui_credit->MounthPayments->setMinimumSize(QSize(300, 300));
 
   ui_credit->MounthPayments->setColumnCount(1);
 
@@ -340,69 +340,51 @@ CreditView::~CreditView() { delete ui_credit; }
 
 void CreditView::on_pushButton_closecredit_clicked() { QWidget::close(); };
 
-void CreditView::calculationCredit() {
-  if (ui_credit->radioButton_annuit->isChecked()) {
-    try {
-      std::map<std::string, std::vector<double>> res =
-          this->common_controller->creditCalculatorAction(
-              ui_credit->total_loan_amount->text(), ui_credit->period->text(),
-              ui_credit->interest_ratebool->text());
+void CreditView::calculationCredit(bool Annuity) {
+  ui_credit->MounthPayments->clearContents();
+  try {
+    std::map<std::string, std::vector<double>> res;
 
-      auto tmp = (res.find("MounthPayments"))->second;
-
-      ui_credit->CreditOverpayment->setText(
-          QString::number((res.find("CreditOverpayment")->second)[0], 'f', 7));
-
-      ui_credit->MounthPayments->setRowCount(tmp.size());
-
-      int i = 0;
-
-      for (auto it = tmp.begin(); it != tmp.end(); it++) {
-        QTableWidgetItem *tmp =
-            new QTableWidgetItem(QString::number(*it, 'f', 7));
-        ui_credit->MounthPayments->setItem(i, 0, tmp);
-        i++;
-      }
-
-      ui_credit->TotalPayment->setText(
-          QString::number((res.find("TotalPayment")->second)[0], 'f', 7));
-    } catch (std::exception &e) {
-      QMessageBox::information(this, "Error!", "Something wrong, try it again");
+    if (Annuity) {
+      res = this->common_controller->creditCalculatorAction(
+          ui_credit->total_loan_amount->text(), ui_credit->period->text(),
+          ui_credit->interest_ratebool->text());
+    } else {
+      res = this->common_controller->creditCalculatorAction(
+          ui_credit->total_loan_amount->text(), ui_credit->period->text(),
+          ui_credit->interest_ratebool->text(), false);
     }
-  } else if (ui_credit->radioButton_diff->isChecked()) {
-    try {
-      std::map<std::string, std::vector<double>> res =
-          this->common_controller->creditCalculatorAction(
-              ui_credit->total_loan_amount->text(), ui_credit->period->text(),
-              ui_credit->interest_ratebool->text(), false);
 
-      auto tmp = (res.find("MounthPayments"))->second;
+    auto tmp = (res.find("MounthPayments"))->second;
 
-      ui_credit->CreditOverpayment->setText(
-          QString::number((res.find("CreditOverpayment")->second)[0], 'f', 7));
+    ui_credit->CreditOverpayment->setText(
+        QString::number((res.find("CreditOverpayment")->second)[0], 'f', 7));
 
-      ui_credit->MounthPayments->setRowCount(tmp.size());
+    ui_credit->MounthPayments->setRowCount(tmp.size());
 
-      int i = 0;
+    int i = 0;
 
-      for (auto it = tmp.begin(); it != tmp.end(); it++) {
-        QTableWidgetItem *tmp =
-            new QTableWidgetItem(QString::number(*it, 'f', 7));
-        ui_credit->MounthPayments->setItem(i, 0, tmp);
-        i++;
-      }
-
-      ui_credit->TotalPayment->setText(
-          QString::number((res.find("TotalPayment")->second)[0], 'f', 7));
-    } catch (std::exception &e) {
-      QMessageBox::information(this, "Error!", "Something wrong, try it again");
+    for (auto it = tmp.begin(); it != tmp.end(); it++) {
+      QTableWidgetItem *tmp =
+          new QTableWidgetItem(QString::number(*it, 'f', 7));
+      ui_credit->MounthPayments->setItem(i, 0, tmp);
+      i++;
     }
-  } else {
-    QMessageBox::information(this, "Attention!", "Select calculation type");
+
+    ui_credit->TotalPayment->setText(
+        QString::number((res.find("TotalPayment")->second)[0], 'f', 7));
+  } catch (std::exception &e) {
+    QMessageBox::information(this, "Error!", "Something wrong, try it again");
   }
 };
 
-void s21::CreditView::on_pushButton_12_clicked() { this->calculationCredit(); }
+void s21::CreditView::on_pushButton_12_clicked() {
+  if (ui_credit->radioButton_annuit->isChecked()) {
+    this->calculationCredit();
+  } else if (ui_credit->radioButton_diff->isChecked()) {
+    this->calculationCredit(false);
+  }
+}
 
 // End View CreditView
 

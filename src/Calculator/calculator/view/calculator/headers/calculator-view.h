@@ -18,7 +18,6 @@ QT_BEGIN_NAMESPACE
 namespace Ui {
 class CalculationView;
 class CreditView;
-class DepositCalculationView;
 }  // namespace Ui
 QT_END_NAMESPACE
 
@@ -37,7 +36,7 @@ class CreditView : public QDialog {
   CalculatorController *common_controller;
 
  private slots:
-  void calculationCredit();
+  void calculationCredit(bool Annuity = true);
   void on_pushButton_closecredit_clicked();
   void on_pushButton_12_clicked();
 };

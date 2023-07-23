@@ -33,7 +33,7 @@
   </property>
   <property name="styleSheet">
    <string notr="true">QDialog{
-        background-color: rgba(93, 92, 94, 209);
+        background-color: rgb(246, 245, 244);
 }</string>
   </property>
   <widget class="QRadioButton" name="radioButton_diff">
