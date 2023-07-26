@@ -315,7 +315,7 @@ CreditView::CreditView(QWidget *parent, CalculatorController *controller)
     : QDialog(parent), ui_credit(new Ui::CreditView) {
   ui_credit->setupUi(this);
 
-  ui_credit->MounthPayments->setMinimumSize(QSize(300, 300));
+  ui_credit->MounthPayments->setMinimumSize(QSize(300, 100));
 
   ui_credit->MounthPayments->setColumnCount(1);
 
@@ -357,9 +357,6 @@ void CreditView::calculationCredit(bool Annuity) {
 
     auto tmp = (res.find("MounthPayments"))->second;
 
-    ui_credit->CreditOverpayment->setText(
-        QString::number((res.find("CreditOverpayment")->second)[0], 'f', 7));
-
     ui_credit->MounthPayments->setRowCount(tmp.size());
 
     int i = 0;
@@ -370,6 +367,9 @@ void CreditView::calculationCredit(bool Annuity) {
       ui_credit->MounthPayments->setItem(i, 0, tmp);
       i++;
     }
+
+    ui_credit->CreditOverpayment->setText(
+        QString::number((res.find("CreditOverpayment")->second)[0], 'f', 7));
 
     ui_credit->TotalPayment->setText(
         QString::number((res.find("TotalPayment")->second)[0], 'f', 7));

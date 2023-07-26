@@ -2,8 +2,6 @@
 
 #include <stdio.h>
 
-#include <QDebug>
-
 namespace s21 {
 
 double CalculatorController::calculatorAction(const QString &str_action) {

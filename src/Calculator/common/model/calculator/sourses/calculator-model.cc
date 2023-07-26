@@ -19,6 +19,12 @@ const std::string CalculatorModel::Calculation::checkFunction(size_t &i) {
   return function;
 }
 
+void CalculatorModel::Calculation::clear() {
+this->lexems_.clear();
+this->polish_notation_.clear();
+this->expression_.clear();
+}
+
 const std::string CalculatorModel::Calculation::checkOperator(size_t &i) {
   std::string oper{};
   if (expression_[i] == '-' && unaryOperator(i)) {
@@ -40,7 +46,7 @@ bool CalculatorModel::Calculation::unaryOperator(size_t i) noexcept {
 }
 
 double CalculatorModel::Calculation::calculate(const std::string &expression) {
-  try {
+
     this->setExpression(expression);
 
     this->devideOnLexems();
@@ -48,10 +54,6 @@ double CalculatorModel::Calculation::calculate(const std::string &expression) {
     this->polishConverter();
 
     this->polishCalculate();
-
-  } catch (std::exception &e) {
-    throw e;
-  }
 
   return this->data;
 }
@@ -70,7 +72,6 @@ void CalculatorModel::Calculation::setExpression(
 };
 
 void CalculatorModel::Calculation::devideOnLexems() {
-  try {
     for (size_t i{}; i < expression_.size();) {
       if (std::isdigit(expression_[i])) {
         this->lexems_.push_back(numberValidation(i));
@@ -80,9 +81,6 @@ void CalculatorModel::Calculation::devideOnLexems() {
         this->lexems_.push_back(checkOperator(i));
       }
     }
-  } catch (std::exception &e) {
-    throw e;
-  }
 };
 
 const std::string CalculatorModel::Calculation::numberValidation(size_t &i) {
@@ -106,6 +104,7 @@ void CalculatorModel::Calculation::polishCalculate() {
   double number_two{};
   std::vector<double> tmp_result{};
   size_t i{};
+ 
   while (i < polish_notation_.size()) {
     if (std::isdigit(polish_notation_[i][0])) {
       tmp_result.push_back(std::stod(polish_notation_[i]));
@@ -154,6 +153,7 @@ void CalculatorModel::Calculation::polishCalculate() {
           }
           tmp_result.pop_back();
         } else {
+          tmp_result.clear();
           throw std::invalid_argument("error: incorrect expression");
         }
       }
@@ -161,14 +161,16 @@ void CalculatorModel::Calculation::polishCalculate() {
     ++i;
   }
   if (tmp_result.size() != 1) {
+    tmp_result.clear();
     throw std::invalid_argument("error: incorrect expression");
   }
   this->data = tmp_result[0];
+  tmp_result.clear();
 }
 
 void CalculatorModel::Calculation::polishConverter() {
   std::vector<std::string> operator_stack{};
-  try {
+
     for (const auto &str : this->lexems_) {
       if (std::isdigit(str[0])) {
         polish_notation_.push_back(str);
@@ -202,9 +204,6 @@ void CalculatorModel::Calculation::polishConverter() {
       polish_notation_.push_back(operator_stack.back());
       operator_stack.pop_back();
     }
-  } catch (std::exception &e) {
-    throw e;
-  }
 }
 
 // End Class Calculator
@@ -246,13 +245,9 @@ CalculatorModel::CreditCalculation::CommonType::validateExpressions(
   double period_res;
   double interest_rate_res;
 
-  try {
     total_loan_res = std::stod(total_loan_amount_tmp, nullptr);
     period_res = std::stod(period_tmp, nullptr);
     interest_rate_res = std::stod(interest_rate_tmp, nullptr);
-  } catch (std::exception &e) {
-    throw e;
-  }
 
   if (total_loan_res <= 0 || period_res <= 0 || interest_rate_res <= 0 ||
       !std::isnormal(total_loan_res) || !std::isnormal(period_res) ||
@@ -387,7 +382,6 @@ void CalculatorModel::CreditCalculation::Differential::calculateCredit(
 
   this->setResult(res);
 }
-
 // End Class Differential
 
 };  //  namespace s21

@@ -7,8 +7,13 @@
 using namespace s21;
 
 int main(int argc, char *argv[]) {
-  QApplication a(argc, argv);
-  CalculationView w;
-  w.show();
-  return a.exec();
+
+    s21::CalculatorModel::Calculation q = s21::CalculatorModel::Calculation();
+    std::string str = "1+51//";
+
+    q.calculate(str);
+//  QApplication a(argc, argv);
+//  CalculationView w;
+//  w.show();
+//  return a.exec();
 }
