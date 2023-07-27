@@ -3,20 +3,20 @@
 
 #include <algorithm>
 #include <cmath>
-#include <vector>
-#include <string>
 #include <map>
 #include <stdexcept>
+#include <string>
+#include <vector>
 
 namespace s21 {
 
 class CalculatorModel {
  public:
- CalculatorModel() = default;
- ~CalculatorModel() {
-  this->calculations_.clear();
-  this->credit_calculations_.clear();
- }
+  CalculatorModel() = default;
+  ~CalculatorModel() {
+    this->calculations_.clear();
+    this->credit_calculations_.clear();
+  }
 
   class Calculation {
    private:
@@ -32,12 +32,12 @@ class CalculatorModel {
         {"unary_plus", 5}, {"(", 0},    {")", 0}};
 
    public:
-   Calculation() = default;
-   ~Calculation() {
-    this->lexems_.clear();
-    this->polish_notation_.clear();
-    this->expression_.clear();
-   };
+    Calculation() = default;
+    ~Calculation() {
+      this->lexems_.clear();
+      this->polish_notation_.clear();
+      this->expression_.clear();
+    };
 
     double calculate(const std::string &expression);
     double getData() noexcept { return this->data; };
@@ -60,6 +60,7 @@ class CalculatorModel {
     class CommonType {
      private:
       std::map<std::string, std::vector<double>> result_;
+
      public:
       const std::map<std::string, std::vector<double>> &getResult()
           const noexcept {

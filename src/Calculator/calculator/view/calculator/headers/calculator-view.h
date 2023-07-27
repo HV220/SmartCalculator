@@ -13,6 +13,7 @@
 #include <list>
 
 #include "../Calculator/calculator/controller/headers/calculator-controller.h"
+#include "common/helpers/qcustomplot.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {

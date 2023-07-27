@@ -1961,7 +1961,7 @@ QLineEdit:disabled {
   <customwidget>
    <class>QCustomPlot</class>
    <extends>QWidget</extends>
-   <header>qcustomplot.h</header>
+   <header location="global">common/helpers/qcustomplot.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

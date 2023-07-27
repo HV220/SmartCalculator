@@ -1,8 +1,8 @@
 #ifndef CALCULATORCONTROLLER_H
 #define CALCULATORCONTROLLER_H
 
-#include <vector>
 #include <QString>
+#include <vector>
 
 #include "../Calculator/common/model/calculator/headers/calculator-model.h"
 

@@ -82,7 +82,7 @@ CalculationView::CalculationView(QWidget *parent)
           SLOT(constant_pressed()));
 
   connect(ui_calculation->pushButton_graf, SIGNAL(clicked()), this,
-          SLOT(on_pushButton_eq_clicked()));
+          SLOT(on_pushButton_graf_clicked()));
 
   connect(ui_calculation->pushButton_credit, SIGNAL(clicked()), this,
           SLOT(on_pushButton_credit_clicked()));
@@ -207,6 +207,8 @@ void s21::CalculationView::on_pushButton_credit_clicked() {
 }
 
 void s21::CalculationView::on_pushButton_graf_clicked() {
+  if (!ui_calculation->result_tmp->text().contains('x')) return;
+
   int status = OK, Count_points = 500;
   ui_calculation->widget->clearGraphs();
   x.clear();
