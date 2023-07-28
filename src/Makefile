@@ -25,7 +25,7 @@ tests: clean
 	./test
 
 clean:
-	rm -rf *.o *.a  *.out test *.dSYM  report coverage.info *.gcda *.gcno *.txt
+	rm -rf *.o *.a  *.out test *.dSYM  report coverage.info *.gcda *.gcno *.txt *.tgz
 
 
 dvi:
@@ -37,7 +37,6 @@ dist:
 	mkdir Archive_SmartCalc_v2.0/src
 	cp -rf Makefile Calculator Archive_SmartCalc_v2.0/src/
 	tar cvzf Archive_SmartCalc_v2.0.tgz Archive_SmartCalc_v2.0/
-	mv Archive_SmartCalc_v2.0.tgz $(HOME)/Desktop/
 	rm -rf Archive_SmartCalc_v2.0/
 
 s21_calculator.a: clean
