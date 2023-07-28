@@ -8,9 +8,6 @@
 
 namespace s21 {
 class CalculatorController {
- private:
-  CalculatorModel *model;
-
  public:
   double calculatorAction(const QString &str_action);
 

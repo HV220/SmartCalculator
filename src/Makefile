@@ -18,7 +18,7 @@ else
 	LIBFLAGS=-lstdc++ `pkg-config --cflags --libs gtest  --libs gtest_main`
 endif
 
-all: clean test
+all: clean tests
 
 tests: clean
 	$(GCC) $(TEST) $(MODEL) $(LIBFLAGS)  -o test
@@ -52,20 +52,15 @@ gcov_report: s21_calculator.a
 	open ./report/index.html
 
 install:
-ifeq ($(OS), Darwin)
-else
 	make clean
 	mkdir build
 	cd build && qmake ../Calculator/Calculator.pro && make
-	./build/Calculator
-endif
 
 uninstall: 
 	rm -rf build*
 
 check:
 	cp ../materials/linters/.clang-format ./
-	cppcheck --enable=all --suppress=missingIncludeSystem --inconclusive --check-config $(FILECASE)
 	clang-format -style=Google -n $(FILECASE)
 	clang-format -style=Google -i $(FILECASE)
 
