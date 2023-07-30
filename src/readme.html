@@ -1,26 +1,215 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Smart Calculator</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #F0F8FF;
+            /* голубой */
+            color: #333;
+            /* темно-серый */
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        p {
+            color: #333;
+        }
+
+        .calculator {
+            margin: 0 auto;
+            width: 400px;
+            padding: 20px;
+            background-color: #FFF;
+            /* белый */
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .functions {
+            margin-bottom: 10px;
+        }
+
+        .function-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5px;
+        }
+
+        .function-item span {
+            margin-left: 10px;
+        }
+
+        .credit-calculator {
+            margin-top: 20px;
+        }
+
+        .credit-calculator h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .credit-calculator p {
+            margin-bottom: 5px;
+        }
+
+        .install {
+            margin-top: 20px;
+        }
+
+        .install h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .install p {
+            margin-bottom: 5px;
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Smart_Calculator</h1>
-    <h2>About programm</h2>
-    <p>The program is implemented on the QT graphics library. The calculator has the ability to calculate the result of
-        the entered expression. If there is x, the program will display the graph of the entered expression</p>
-    <p>The user has the ability to construct the entered expression. The graph will first be built with default values,
-        and in a new window with a graph, you will be prompted to set the range x D(F) and the range y E(F).</p>
-    <h2>How to start</h2>
-    <p>To start using the calculator, you need to install it using the make install command. This command will install
-        the program on the desktop in the SmartCalc folder.</p>
-    <h2>Unistall</h2>
-    <p>To remove the user program. You can use the make uninstall command</p>
-</body>
+    <div class="calculator">
+        <h1>Основные функции калькулятора</h1>
+        <div class="functions">
+            <div class="function-item">
+                <span>•</span>
+                <span>Сложение</span>
+            </div>
+            <div class="function-item">
+                <span>•</span>
+                <span>Вычитание</span>
+            </div>
+            <div class="function-item">
+                <span>•</span>
+                <span>Умножение</span>
+            </div>
+            <div class="function-item">
+                <span>•</span>
+                <span>Деление</span>
+            </div>
+            <div class="function-item">
+                <span>•</span>
+                <span>Возведение в степень</span>
+            </div>
+            <div class="function-item">
+                <span>•</span>
+                <span>Остаток от деления</span>
+            </div>
+            <div class="function-item">
+                <span>•</span>
+                <span>Унарный плюс</span>
+            </div>
+            <div class="function-item">
+                <span>•</span>
+                <span>Унарный минус</span>
+            </div>
+            <div class="function-item">
+                <span>•</span>
+                <span>Вычисляет косинус</span>
+            </div>
+            <div class="function-item">
+                <span>•</span>
+                <span>Вычисляет синус</span>
+            </div>
+            <div class="function-item">
+                <span>•</span>
+                <span>Вычисляет тангенс</span>
+            </div>
+            <div class="function-item">
+                <span>•</span>
+                <span>Вычисляет арккосинус</span>
+            </div>
+            <div class="function-item">
+                <span>•</span>
+                <span>Вычисляет арксинус</span>
+            </div>
+            <div class="function-item">
+                <span>•</span>
+                <span>Вычисляет арктангенс</span>
+            </div>
+            <div class="function-item">
+                <span>•</span>
+                <span>Вычисляет квадратный корень</span>
+            </div>
+            <div class="function-item">
+                <span>•</span>
+                <span>Вычисляет натуральный логарифм</span>
+            </div>
+            <div class="function-item">
+                <span>•</span>
+                <span>Вычисляет десятичный логарифм</span>
+            </div>
+        </div>
 
-</html>
+        <div class="credit-calculator">
+            <h2>Кредитный калькулятор</h2>
+            <p>Аннуитетный, дифференцированный платежи</p>
+        </div>
+
+        <div class="credit-calculator">
+            <h2>Кредитный калькулятор</h2>
+            <p>Аннуитетный, дифференцированный платежи</p>
+        </div>
+
+        <div class="install">
+            <h2>Требования к установке</h2>
+            <p>LINUX</p>
+            <div class="function-item">
+                <span>•</span>
+                <span>sudo apt-get update</span>
+            </div>
+            <div class="function-item">
+                <span>•</span>
+                <span>sudo apt-get install qt5-qmake qtbase5-dev qtbase5-dev-tools libqt5svg5-dev
+                    libqt5webenginewidgets5 libqt5webchannel5-dev qtwebengine5-dev</span>
+            </div>
+            <p>MAC OS</p>
+            <div class="function-item">
+                <span>•</span>
+                <span>Установить QtCreator</span>
+            </div>
+        </div>
+        <div class="install">
+            <h2>Установка</h2>
+            <p>Запусить MakeFile в корне проекта</p>
+            <div class="function-item">
+                <span>•</span>
+                <span>make install</span>
+            </div>
+            <p>Для запуска тестов, введите следующую команду</p>
+            <div class="function-item">
+                <span>•</span>
+                <span>make tests</span>
+            </div>
+            <p>Для запуска проверки на стиль, введите следующую команду</p>
+            <div class="function-item">
+                <span>•</span>
+                <span>make check</span>
+            </div>
+            <p>Для формирования отчета по тестам, введите следующую команду</p>
+            <div class="function-item">
+                <span>•</span>
+                <span>make gcov_report</span>
+            </div>
+            <p>Для создания архива, введите следующую команду</p>
+            <div class="function-item">
+                <span>•</span>
+                <span>make dist</span>
+            </div>
+            <p>Для удаления программы, введите следующую команду</p>
+            <div class="function-item">
+                <span>•</span>
+                <span>make uninstall</span>
+            </div>
+            <p>Для очистки от лишних файлов, введите следующую команду</p>
+            <div class="function-item">
+                <span>•</span>
+                <span>make clean</span>
+            </div>
+        </div>
+    </div

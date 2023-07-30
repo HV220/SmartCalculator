@@ -8,7 +8,12 @@ using namespace s21;
 
 int main(int argc, char *argv[]) {
   QApplication a(argc, argv);
-  CalculationView w;
-  w.show();
+
+  s21::CalculatorModel model;
+  s21::CalculatorController controller(&model);
+  s21::CalculationView view;
+
+  view.start(&controller);
+
   return a.exec();
 }

@@ -63,6 +63,33 @@ double CalculatorModel::Calculation::calculate(const std::string &expression) {
   }
 }
 
+const std::string CalculatorModel::Calculation::expChecker(size_t &i) {
+  std::string number{};
+  if (i == 0 || !std::isdigit(expression_[i - 1])) {
+    throw std::invalid_argument(
+        "error: there is no number before the exponent");
+  }
+  lexems_.push_back("*");
+  lexems_.push_back("10");
+  lexems_.push_back("^");
+  lexems_.push_back("(");
+  ++i;
+  if (expression_[i] == '+') {
+    lexems_.push_back("unary_plus");
+  } else if (expression_[i] == '-') {
+    lexems_.push_back("unary_minus");
+  } else {
+    throw std::invalid_argument("error: incorrect exponent");
+  }
+  ++i;
+  if (std::isdigit(expression_[i])) {
+    number = numberValidation(i);
+  } else {
+    throw std::invalid_argument("error: incorrect exponent");
+  }
+  return number;
+}
+
 void CalculatorModel::Calculation::setExpression(
     const std::string &expression) {
   std::string str_check = expression;
@@ -78,7 +105,10 @@ void CalculatorModel::Calculation::setExpression(
 
 void CalculatorModel::Calculation::devideOnLexems() {
   for (size_t i{}; i < expression_.size();) {
-    if (std::isdigit(expression_[i])) {
+    if (expression_[i] == 'e') {
+      this->lexems_.push_back(expChecker(i));
+      this->lexems_.push_back(")");
+    } else if (std::isdigit(expression_[i])) {
       this->lexems_.push_back(numberValidation(i));
     } else if (std::isalpha(expression_[i])) {
       this->lexems_.push_back(checkFunction(i));
@@ -212,24 +242,6 @@ void CalculatorModel::Calculation::polishConverter() {
 }
 
 // End Class Calculator
-
-// Begin Class CalculatorModel
-
-void CalculatorModel::reset() {
-  this->calculations_.clear();
-  this->credit_calculations_.clear();
-};
-
-void CalculatorModel::save(
-    const CalculatorModel::Calculation *calc,
-    const CalculatorModel::CreditCalculation *credit_calc) {
-  if (calc != nullptr) this->calculations_.push_back(*calc);
-
-  if (credit_calc != nullptr)
-    this->credit_calculations_.push_back(*credit_calc);
-};
-
-// End Class CalculatorModel
 
 // Begin Class CommonType
 

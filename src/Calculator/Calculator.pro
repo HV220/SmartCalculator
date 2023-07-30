@@ -18,6 +18,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     calculator/controller/sourses/calculator-controller.cc \
     calculator/view/calculator/sourses/calculator-view.cc \
+    calculator/view/calculator/sourses/credit-view.cc \
+    calculator/view/calculator/sourses/main-view.cc \
     common/helpers/qcustomplot.cpp \
     common/model/calculator/sourses/calculator-model.cc \
     main.cc
@@ -25,6 +27,8 @@ SOURCES += \
 HEADERS += \
     calculator/controller/headers/calculator-controller.h \
     calculator/view/calculator/headers/calculator-view.h \
+    calculator/view/calculator/headers/credit-view.h \
+    calculator/view/calculator/headers/main-view.h \
     common/helpers/qcustomplot.h \
     common/model/calculator/headers/calculator-model.h
 

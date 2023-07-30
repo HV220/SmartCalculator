@@ -10,7 +10,8 @@ FILECASE= Calculator/common/model/calculator/headers/*.h \
 	Calculator/calculator/controller/headers/*.h \
 	Calculator/calculator/controller/sourses/*.cc \
 	Calculator/calculator/view/calculator/sourses/*.cc \
-	Calculator/calculator/view/calculator/headers/*.h
+	Calculator/calculator/view/calculator/headers/*.h \
+	Calculator/common/tests/calculator-test.cc
 
 ifeq ($(OS), Darwin)
 LIBFLAGS = -lm -lgtest -lstdc++ -lgtest_main

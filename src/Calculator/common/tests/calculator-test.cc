@@ -1,13 +1,14 @@
 #include <gtest/gtest.h>
 
-#include "../model/calculator/headers/calculator-model.h"
 #include <iostream>
 #include <iterator>
 #include <map>
 
+#include "../model/calculator/headers/calculator-model.h"
+
 using namespace s21;
 class CalcTest : public ::testing::Test {
-protected:
+ protected:
   void SetUp() override {}
   s21::CalculatorModel model = s21::CalculatorModel();
   s21::CalculatorModel::CreditCalculation credit =
@@ -23,10 +24,6 @@ protected:
   std::string period;
   std::string interest_rate;
 };
-
-TEST_F(CalcTest, ModelTest_1) { EXPECT_NO_THROW(model.save(&calc, &credit)); }
-
-TEST_F(CalcTest, ModelTest_2) { EXPECT_NO_THROW(model.reset()); }
 
 TEST_F(CalcTest, CalculationTest_1) {
   EXPECT_ANY_THROW(calc.calculate("12+1("));
@@ -61,6 +58,12 @@ TEST_F(CalcTest, CalculationTest_6) {
 TEST_F(CalcTest, CalculationTest_7) {
   EXPECT_ANY_THROW(calc.calculate("caas(1)"));
 }
+
+TEST_F(CalcTest, CalculationTest_8) { EXPECT_NO_THROW(calc.calculate("2e-2")); }
+
+TEST_F(CalcTest, CalculationTest_9) { EXPECT_NO_THROW(calc.calculate("2e+2")); }
+
+TEST_F(CalcTest, CalculationTest_10) { EXPECT_ANY_THROW(calc.calculate("2e")); }
 
 TEST_F(CalcTest, CreditAnnuityTest_1) {
   total_loan_amount = "1.22.3";
