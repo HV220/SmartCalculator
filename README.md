@@ -101,3 +101,5 @@ After installation, SmartCalc v2.0 can be launched from the command line or thro
 ## Contributing
 
 Contributions to SmartCalc v2.0 are welcome. Please fork the repository, make your changes, and submit a pull request for review.
+
+![](materials/video.mp4)
