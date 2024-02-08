@@ -1,5 +1,3 @@
-# SmartCalc v2.0 README
-
 ## Introduction
 
 SmartCalc v2.0 is a comprehensive calculator application that provides a wide range of mathematical computations, including basic arithmetic, advanced functions, and a dedicated credit calculator for annuity and differentiated payments. This document outlines the main features, installation requirements, and commands to build and maintain the application.
