@@ -102,4 +102,4 @@ After installation, SmartCalc v2.0 can be launched from the command line or thro
 
 Contributions to SmartCalc v2.0 are welcome. Please fork the repository, make your changes, and submit a pull request for review.
 
-  [![SmartCalculator](materials/preview.jpg)](https://youtu.be/FwQOwhTdwaQ "SmartCalculator")
+https://github.com/HV220/SmartCalculator/assets/96989018/93fe65a7-a68a-4c95-b4ab-efd8fd6899cc
