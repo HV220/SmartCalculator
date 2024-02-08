@@ -1,6 +1,6 @@
 ## Introduction
 
-SmartCalc v2.0 is a comprehensive calculator application that provides a wide range of mathematical computations, including basic arithmetic, advanced functions, and a dedicated credit calculator for annuity and differentiated payments. This document outlines the main features, installation requirements, and commands to build and maintain the application.
+SmartCalculator is a comprehensive calculator application that provides a wide range of mathematical computations, including basic arithmetic, advanced functions, and a dedicated credit calculator for annuity and differentiated payments. This document outlines the main features, installation requirements, and commands to build and maintain the application.
 
 ## Main Features
 
@@ -102,4 +102,4 @@ After installation, SmartCalc v2.0 can be launched from the command line or thro
 
 Contributions to SmartCalc v2.0 are welcome. Please fork the repository, make your changes, and submit a pull request for review.
 
-<video src='materials/video.mp4' width=180/>
+  [![SmartCalculator](materials/preview.jpg)](https://youtu.be/FwQOwhTdwaQ "SmartCalculator")
